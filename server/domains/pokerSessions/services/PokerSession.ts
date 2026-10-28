@@ -4,7 +4,6 @@ import {
 import { pokerSessionHelpers } from '@chpokify/helpers/pokerSession';
 import { transServer } from '@chpokify/i18n';
 import {
-  SPACE_PARTICIPANT_ROLE,
   TPokerCardDeck,
   TEntityID,
   TPokerCardDeckScores,
@@ -74,8 +73,12 @@ class PokerSessionService {
     this.pokerSession.markModified('storiesIds');
   }
 
-  private getStoryScores(teamsIds: TEntityID[], resultFromStory: TPokerSessionStoryResult): number {
+  private getStoryScores(teamsIds: TEntityID[], resultFromStory?: TPokerSessionStoryResult): number {
     let score: number = 0;
+
+    if (!resultFromStory?.teamsResult) {
+      return score;
+    }
 
     for (const teamId of teamsIds) {
       const resultFromTeam = resultFromStory.teamsResult[teamId as string] as Record<string, any>;
@@ -248,9 +251,30 @@ class PokerSessionService {
     ratingInPokerSession[hasUserRatingIdx].skip = rating.skip;
   }
 
+  /**
+   * Only reorders stories of the session: client list may be stale,
+   * unknown ids are ignored and missing ids are kept at the end.
+   */
   public setManyStories(storiesIds: TEntityID[]) {
+    const currStoriesIds = this.pokerSession.storiesIds;
+
+    const orderedStoriesIds = storiesIds.reduce((acc: TEntityID[], storyId) => {
+      const currStoryId = currStoriesIds.find((id) => isEqualsId(id, storyId));
+
+      if (currStoryId && !acc.some((id) => isEqualsId(id, currStoryId))) {
+        acc.push(currStoryId);
+      }
+
+      return acc;
+    }, []);
+
+    const missedStoriesIds = currStoriesIds.filter(
+      (id) => !orderedStoriesIds.some((orderedId) => isEqualsId(orderedId, id))
+    );
+
     this.pokerSession.storiesIds = [
-      ...new Set(storiesIds),
+      ...orderedStoriesIds,
+      ...missedStoriesIds,
     ];
   }
 
@@ -380,20 +404,32 @@ class PokerSessionService {
     this.pokerSession.markModified('active');
   }
 
-  public async reveal(storyId: TEntityID) {
-    this.validateStoryActive(storyId);
-    this.validateStoryVoting(storyId);
-
+  private async getCardSet(): Promise<TPokerCardDeck> {
     const { cardSetId } = this.pokerSession;
 
+    // deck can be deleted while session uses it
     const cardSet = await PokerCardDeckModel.findOne({
       _id: cardSetId,
       withDeleted: true,
     });
 
     if (!cardSet) {
-      return;
+      throw new BadRequestError(ERROR_CODES.NOT_FOUND, [
+        {
+          message: transServer.t('errors.pokerCardDeck.notFound'),
+          path: ['pokerSession', 'cardSetId'],
+        },
+      ]);
     }
+
+    return cardSet;
+  }
+
+  public async reveal(storyId: TEntityID) {
+    this.validateStoryActive(storyId);
+    this.validateStoryVoting(storyId);
+
+    const cardSet = await this.getCardSet();
 
     pokerSessionHelpers.incStoryResultVotingScores(
             this.pokerSession as TPokerSessionVoting,
@@ -411,8 +447,7 @@ class PokerSessionService {
       this.validateStoryActive(storyId);
       this.validateTeamVotingStory(storyId, teamId);
 
-      const { cardSetId } = this.pokerSession;
-      const cardSet = await PokerCardDeckModel.findById(cardSetId.toString()) as TPokerCardDeck;
+      const cardSet = await this.getCardSet();
 
       pokerSessionHelpers.incStoryResultTeamVotingScores(
             this.pokerSession as TPokerSessionVoting,
@@ -442,7 +477,12 @@ class PokerSessionService {
         const space = await SpaceModel.findById(this.pokerSession.spaceId);
 
         if (!space) {
-          throw new BadRequestError(transServer.t('errors.space.notFound'));
+          throw new BadRequestError(ERROR_CODES.INVALID_PARAM, [
+            {
+              message: transServer.t('errors.space.notFound'),
+              path: ['pokerSession', 'spaceId'],
+            },
+          ]);
         }
 
         const isAllTeamVoted = pokerSessionHelpers.getIsAllTeamStoryVoted(
@@ -458,6 +498,32 @@ class PokerSessionService {
       }
 
       this.pokerSession.markModified('active');
+    }
+
+    /**
+     * Someone left the session: remaining online team members may have already voted.
+     */
+    public async autoRevealVotedTeams(space: TSpaceDocument) {
+      const storyId = pokerSessionHelpers.getActiveStoryId(this.pokerSession);
+
+      if (
+        !this.pokerSession.isAutoReveal
+        || !storyId
+        || !pokerSessionHelpers.getIsStoryVoting(this.pokerSession, storyId)
+      ) {
+        return;
+      }
+
+      const { active } = this.pokerSession as TPokerSessionVoting;
+
+      // collect teams before reveal: revealTeam removes team from voting
+      const votedTeamsIds = Object.keys(active.voting).filter(
+        (teamId) => pokerSessionHelpers.getIsAllTeamStoryVoted(this.pokerSession, space, teamId, storyId)
+      );
+
+      await Promise.all(
+        votedTeamsIds.map((teamId) => this.revealTeam(storyId, teamId))
+      );
     }
 
     public clearVoting() {
@@ -515,49 +581,18 @@ class PokerSessionService {
       const activeStoryId = pokerSessionHelpers.getActiveStoryId(this.pokerSession);
 
       if (activeStoryId && pokerSessionHelpers.getIsStoryVoting(this.pokerSession, activeStoryId)) {
-        delete (this.pokerSession as TPokerSessionVoting).active.voting[teamId.toString()];
+        const { active } = this.pokerSession as TPokerSessionVoting;
+
+        delete active.voting[teamId.toString()];
+
+        if (!Object.keys(active.voting).length) {
+          (this.pokerSession as TPokerSessionActive).active.voting = null;
+        }
+
+        this.pokerSession.markModified('active');
       }
 
       this.pokerSession.markModified('results');
-    }
-
-    public setUserInSession(userId: TEntityID) {
-      const { usersIds } = this.pokerSession;
-
-      const isUserInSession = usersIds.some((id) => isEqualsId(id, userId));
-
-      if (isUserInSession) {
-        return false;
-      }
-
-      this.pokerSession.set({
-        usersIds: [
-          ...usersIds,
-          userId,
-        ],
-      });
-
-      return true;
-    }
-
-    public async removeUserFromSession(userId: TEntityID) {
-      const { usersIds } = this.pokerSession;
-
-      const isUserInSession = usersIds.some((id) => isEqualsId(id, userId));
-
-      if (!isUserInSession) {
-        return;
-      }
-
-      this.pokerSession.set({
-        usersIds: usersIds.filter((id) => !isEqualsId(id, userId)),
-      });
-
-      const userRole = await this.pokerSession.getUserRoleInSpace(userId);
-
-      if (userRole === SPACE_PARTICIPANT_ROLE.ADMIN) {
-        this.storyActiveStop();
-      }
     }
 
     public genInviteToken(space: TSpaceDocument, teamsIds: TEntityID[]) {

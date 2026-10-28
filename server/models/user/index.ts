@@ -116,6 +116,10 @@ const UserSchema = new mongoose.Schema<TUserDocument>({
   strict: true,
   strictQuery: true,
   minimize: false,
+  toJSON: {
+    // never send password hash to clients (http responses and socket events)
+    transform: (doc, ret) => omit(ret, ['password']),
+  },
 });
 
 /**
@@ -230,7 +234,7 @@ UserSchema.post<TUserDocument>('save', async function (this: TUserDocument) {
 
     io.to(roomId)
       .emit(eventName, {
-        user: this,
+        user: this.protect(),
       });
   });
 });

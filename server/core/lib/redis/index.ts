@@ -7,6 +7,15 @@ const redis = new Redis({
   port: Number.parseInt(process.env.REDIS_PORT as string, 10),
 });
 
-log.info({ methodName: 'redis.connect' }, 'redis connected');
+redis.on('connect', () => {
+  log.info({ methodName: 'redis.connect' }, 'redis connected');
+});
+
+redis.on('error', (err) => {
+  log.error({
+    err,
+    methodName: 'redis.connect',
+  }, 'redis error');
+});
 
 export { redis };

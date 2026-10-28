@@ -94,11 +94,6 @@ app.use(successMiddleware);
 app.use(notFoundMiddleware);
 app.use(errorMiddleware);
 
-// shut down
-process.on('SIGTERM', () => {
-  app.enable('closing');
-});
-
 export {
   app,
 };

@@ -18,8 +18,12 @@ const config = {
     redirectURI: 'https://chpokify.xyz',
   },
   poker: {
-    userRemoveOnlineInterval: 10 * 30 * 1000,
+    // no heartbeat (locked phone during discussion, lost network): user is still in the meeting,
+    // keep the user in session so auto reveal waits for the vote and moderator's story is not stopped
+    userRemoveOnlineInterval: 2 * 60 * 60 * 1000,
     userSetOnlineInterval: 5 * 1000,
+    // user closed the page: removed from session after this delay, unless heartbeat comes (page reload)
+    userLeaveInterval: 15 * 1000,
   },
   jira: {
     applicationName: 'Chpokify',

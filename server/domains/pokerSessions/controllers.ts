@@ -5,6 +5,7 @@ import { TInvitePokerSessionTokenPayload } from '@chpokify/models-types/pokerSes
 import { routing } from '@chpokify/routing';
 import { PokerSessionService } from '@pokerSessions/services/PokerSession';
 import { PokerSessionExporter } from '@pokerSessions/services/PokerSessionExporter';
+import { updatePokerSession } from '@pokerSessions/services/updatePokerSession';
 import { io } from '@socket';
 
 import { BadRequestError } from '@core/lib/errors';
@@ -85,16 +86,15 @@ const setRatingModal = createHandler(async (
     body,
     user,
   } = req;
-  const pokerSession = res.locals.get('pokerSession') as TPokerSessionDocument;
   const {
     rating,
   } = body;
 
-  const pokerSessionService = new PokerSessionService(pokerSession);
-
-  pokerSessionService.setRating(rating, user._id);
-
-  await pokerSession.save();
+  // many users rate at the same time
+  const pokerSession = await updatePokerSession(
+    res.locals.get('pokerSession') as TPokerSessionDocument,
+    (_, pokerSessionService) => pokerSessionService.setRating(rating, user._id)
+  );
 
   res.locals.result = {
     pokerSession,
@@ -109,6 +109,18 @@ const setInSession = createHandler(async (
   const pokerSession = res.locals.get('pokerSession') as TPokerSessionDocument;
 
   await usersInSessions.setInSession(pokerSession, user._id);
+
+  res.locals.result = SUCCESS_VOID_RESULT;
+});
+
+const leaveSession = createHandler(async (
+  req: TAppRequest,
+  res: TAppResponse<pokerSessionsSchemas.TSetInSessionResResp>
+) => {
+  const { user } = req;
+  const pokerSession = res.locals.get('pokerSession') as TPokerSessionDocument;
+
+  usersInSessions.leaveSession(pokerSession._id, user._id);
 
   res.locals.result = SUCCESS_VOID_RESULT;
 });
@@ -178,6 +190,7 @@ export const pokerSessionsControllers = {
   setRatingModal,
   getList,
   setInSession,
+  leaveSession,
   exportCSV,
   inviteGen,
   inviteValidate,

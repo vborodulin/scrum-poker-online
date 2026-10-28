@@ -78,12 +78,14 @@ moderateRouter.post(
 moderateRouter.post(
   '/stories/:storyId/vote',
   validateMiddleware(pokerSessionsSchemas.storyVoteSchema),
+  pokersSessionsMiddlewares.withTeam('body'),
   moderateControllers.vote
 );
 
 moderateRouter.post(
   '/stories/:storyId/vote/cancel',
   validateMiddleware(pokerSessionsSchemas.storyVoteCancelSchema),
+  pokersSessionsMiddlewares.withTeam('body'),
   moderateControllers.voteCancel
 );
 

@@ -77,6 +77,11 @@ pokerSessionsRouter.post(
 );
 
 pokerSessionsRouter.post(
+  '/:pokerSessionId/out-session',
+  pokerSessionsControllers.leaveSession
+);
+
+pokerSessionsRouter.post(
   '/:pokerSessionId/invite',
   spacesMiddlewares.checkHasRole(SPACE_PARTICIPANT_ROLE.ADMIN),
   validateMiddleware(pokerSessionsSchemas.inviteGenSchema),

@@ -16,6 +16,7 @@ const initialState: TState = {
     poker: {
       userSetOnlineInterval: 10000,
       userRemoveOnlineInterval: 50000,
+      userLeaveInterval: 15000,
     },
     jitsi: {
       host: '',

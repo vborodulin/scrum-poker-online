@@ -72,8 +72,12 @@ const calcStoryScores = (cardSet: TPokerCardDeck, userCardIds: TEntityID[]): TPo
   const sum = countableScores.reduce((acc, val) => acc + val, 0);
   const avg = sum / countableScores.length;
 
-  if (!avg) return null;
-  const card = cardSet.cards.find((c) => typeof c.value === 'number' && c.value >= avg);
+  // nearest card not less than average; deck cards may be in any order, 0 is a valid score
+  const card = cardSet.cards
+    .filter((c) => typeof c.value === 'number')
+    .sort((a, b) => Number(a.value) - Number(b.value))
+    .find((c) => Number(c.value) >= avg);
+
   return card ? card.value : null;
 };
 
@@ -303,19 +307,19 @@ const getIsAllTeamStoryVoted = (
     throw new Error(transServer.t('errors.pokerSession.teamNotVotingStory'));
   }
 
-  // const sessionUsers = pokerSession.usersIds;
+  const { userCards } = teamVoting;
   const teamUserIds = spaceHelpers.getTeamUsersIds(space, teamId);
+  const hasVote = (userId: TEntityID) => userId.toString() in userCards;
 
-  return teamUserIds.reduce((acc, teamUserId) => {
-    // const isInSession = sessionUsers.some((sessionUser) => isEqualsId(sessionUser, teamUserId));
-    // if (!isInSession) {
-    //   return acc;
-    // }
+  // nobody of the current team members voted yet
+  if (!teamUserIds.some(hasVote)) {
+    return false;
+  }
 
-    const hasVote = teamUserId.toString() in teamVoting.userCards;
-
-    return acc && hasVote;
-  }, true);
+  // wait only for team members who are online in session; vote of a member who left still counts
+  return teamUserIds
+    .filter((teamUserId) => pokerSession.usersIds.some((userId) => isEqualsId(userId, teamUserId)))
+    .every(hasVote);
 };
 
 const getExportFilename = (title?: string): string =>

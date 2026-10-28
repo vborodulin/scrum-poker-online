@@ -10,6 +10,7 @@ import {
   TSpaceStat,
   TTeam,
 } from '@chpokify/models-types';
+import { leaveSpaceRooms } from '@socket';
 import { ObjectID } from 'bson';
 
 import { jwtToken } from '@core/lib/jwtToken';
@@ -77,13 +78,20 @@ class SpaceService {
       await this.transferAdminRoleToRandom();
     }
 
+    const participant = this.space.participants.find((p) => isEqualsId(p._id, participantId));
+
     this.space.participants.pull(participantId);
 
     this.space.teams.forEach((team) => {
       team.participantsIds = team.participantsIds.filter((id) => !isEqualsId(id, participantId));
     });
 
+    // post save hook notifies removed user via space room, so leave rooms only after save
     await this.space.save();
+
+    if (participant) {
+      leaveSpaceRooms(participant.userId, this.space._id);
+    }
   }
 
   public constructor(private space: TSpaceDocument) {

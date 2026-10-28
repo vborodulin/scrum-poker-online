@@ -5,8 +5,9 @@ module.exports = {
     {
       name: 'server',
       script: path.resolve(__dirname, './build/index.js'),
-      exec_mode: 'cluster',
-      instances: 2,
+      // single instance only: socket rooms and poker session presence timers are kept in process memory
+      exec_mode: 'fork',
+      instances: 1,
       error_file: '/var/log/server-err.log',
       out_file: '/var/log/server-out.log',
       log_file: '/var/log/server-combined.log',

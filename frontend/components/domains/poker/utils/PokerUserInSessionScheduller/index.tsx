@@ -1,5 +1,8 @@
-import React, { useRef } from 'react';
+import { isServer } from '@chpokify/helpers';
+import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
+
+import { pokerSessionsApi } from '@api/pokerSessions';
 
 import { configSelectors } from '@Redux/domains/config/selectors';
 import { pokerSessionsAsyncActions } from '@Redux/domains/pokerSessions/asyncActions';
@@ -8,6 +11,7 @@ import { uiSelectors } from '@Redux/domains/ui/selectors';
 import { useAppDispatch } from '@Redux/hooks';
 
 import { useDidmount } from '@components/utils/hooks/useDidmount';
+import { useEventListener } from '@components/utils/hooks/useEventListener';
 import { useInterval } from '@components/utils/hooks/useInterval';
 
 const PokerUserInSessionProcessor = (): React.ReactElement | null => {
@@ -28,9 +32,11 @@ const PokerUserInSessionProcessor = (): React.ReactElement | null => {
 
     isPendingRef.current = true;
 
-    await dispatch(pokerSessionsAsyncActions.setInSession(pokerSessionId));
-
-    isPendingRef.current = false;
+    try {
+      await dispatch(pokerSessionsAsyncActions.setInSession(pokerSessionId));
+    } finally {
+      isPendingRef.current = false;
+    }
   };
 
   useDidmount(() => {
@@ -45,6 +51,24 @@ const PokerUserInSessionProcessor = (): React.ReactElement | null => {
     userSetOnlineInterval,
     true
   );
+
+  // tell server the user left (closed tab, navigated away), so voting does not wait for this user.
+  // phone lock is not a leave: page stays alive and user is removed only by heartbeat timeout
+  useEventListener(
+    isServer() ? null : window,
+    'pagehide',
+    () => {
+      if (pokerSessionId) {
+        pokerSessionsApi.leaveSession(pokerSessionId);
+      }
+    }
+  );
+
+  useEffect(() => () => {
+    if (pokerSessionId) {
+      pokerSessionsApi.leaveSession(pokerSessionId);
+    }
+  }, [pokerSessionId]);
 
   return null;
 };

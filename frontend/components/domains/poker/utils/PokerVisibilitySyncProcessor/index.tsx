@@ -17,6 +17,8 @@ const PokerVisibilitySyncProcessor = (): React.ReactElement | null => {
   const dispatch = useAppDispatch();
 
   const isPendingRef = useRef<boolean>(false);
+  // sync was requested while previous one was in progress (e.g. visibility change + reconnect)
+  const isSyncRequestedRef = useRef<boolean>(false);
 
   const pokerSessionId = useSelector(pokerSessionsSelectors.getCurrId);
   const spaceId = useSelector(pokerSessionsSelectors.getSpaceId)(
@@ -28,31 +30,39 @@ const PokerVisibilitySyncProcessor = (): React.ReactElement | null => {
   const socketStatus = useSelector(systemSelectors.getSocketStatus);
   const prevSocketStatus = usePrevious(socketStatus);
 
-  const syncData = async () => {
-    if (!pokerSessionId || !spaceId || isPendingRef.current) {
+  const syncData = async (): Promise<void> => {
+    if (!pokerSessionId || !spaceId) {
+      return;
+    }
+
+    if (isPendingRef.current) {
+      isSyncRequestedRef.current = true;
       return;
     }
 
     isPendingRef.current = true;
+    isSyncRequestedRef.current = false;
 
-    const { payload } = await dispatch(
-      await dispatch(pokerSessionsAsyncActions.get(pokerSessionId))
-    );
+    try {
+      const { payload } = await dispatch(pokerSessionsAsyncActions.get(pokerSessionId));
 
-    if (getIsRejectedActionPayload(payload)) {
-      return;
+      if (!getIsRejectedActionPayload(payload)) {
+        await dispatch(
+          storiesAsyncActions.getMany(
+            spaceId,
+            {
+              ids: payload.pokerSession.storiesIds,
+            }
+          )
+        );
+      }
+    } finally {
+      isPendingRef.current = false;
     }
 
-    await dispatch(
-      storiesAsyncActions.getMany(
-        spaceId,
-        {
-          ids: payload.pokerSession.storiesIds,
-        }
-      )
-    );
-
-    isPendingRef.current = false;
+    if (isSyncRequestedRef.current) {
+      await syncData();
+    }
   };
 
   useDidmount(() => {

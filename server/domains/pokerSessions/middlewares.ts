@@ -1,5 +1,5 @@
 import { coreSchemas } from '@chpokify/api-schemas';
-import { isEqualsId } from '@chpokify/helpers';
+import { isEqualsId, spaceHelpers } from '@chpokify/helpers';
 import { transServer } from '@chpokify/i18n';
 
 import {
@@ -11,8 +11,6 @@ import { TAppRequest } from '@core/types';
 import { PokerSessionModel, TPokerSessionDocument } from '@models/pokerSession';
 import { SpaceModel, TSpaceDocument } from '@models/space';
 import { StoryModel } from '@models/story';
-
-import { SpaceService } from '@spaces/services';
 
 const withSession = createHandler(async (
   req: TAppRequest<{pokerSessionId: string}>,
@@ -111,9 +109,8 @@ const withTeam = (from: 'params' | 'body', checkInTeam: boolean = false) => crea
     return;
   }
 
-  const spaceService = new SpaceService(space);
-
-  const isInTeam = spaceService.getIsUserInTeam(user._id);
+  const isInTeam = spaceHelpers.getTeamUsersIds(space, teamId)
+    .some((teamUserId) => isEqualsId(teamUserId, user._id));
 
   if (!isInTeam) {
     throw new ForbiddenError(ERROR_CODES.INVALID_PERMISSIONS, [

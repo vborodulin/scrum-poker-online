@@ -14,7 +14,6 @@ import { BadRequestError, ERROR_CODES } from '@core/lib/errors';
 import { SpaceModel } from '@models/space';
 
 const APP_SECRET = process.env.APP_SECRET as string;
-const CONFIRM_EMAIL_EXPIRATION = config.get('app.confirmEmailExpiration') as string;
 const RESET_PASSWORD_EXPIRATION = config.get('app.resetPasswordExpiration') as string;
 
 /**
@@ -22,7 +21,6 @@ const RESET_PASSWORD_EXPIRATION = config.get('app.resetPasswordExpiration') as s
  */
 type TUserDocument<T extends TUser = TUser> = mongoose.Document & T & {
   validatePassword: (candidatePassword: string) => boolean;
-  signConfirmEmailToken: () => string;
   signResetPasswordToken: () => string;
   protect: () => TUserProtected
 };
@@ -70,10 +68,6 @@ const UserSchema = new mongoose.Schema<TUserDocument>({
     lowercase: true,
     required: true,
     unique: true,
-  },
-  isEmailConfirmed: {
-    type: Boolean,
-    required: true,
   },
   password: {
     type: String,
@@ -131,14 +125,6 @@ UserSchema.methods.validatePassword = function (candidatePassword: string) {
   return bcrypt.compareSync(candidatePassword, this.password);
 };
 
-UserSchema.methods.signConfirmEmailToken = function () {
-  return jsonwebtoken.sign({
-    email: this.email,
-  }, APP_SECRET, {
-    expiresIn: CONFIRM_EMAIL_EXPIRATION,
-  });
-};
-
 UserSchema.methods.signResetPasswordToken = function () {
   return jsonwebtoken.sign({
     email: this.email,
@@ -153,7 +139,6 @@ UserSchema.methods.protect = function (): TUserProtected {
     'password',
     'settings',
     'googleId',
-    'isEmailConfirmed',
     'jiraIntegrations',
     'customerId',
   ]);

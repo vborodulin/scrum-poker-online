@@ -43,19 +43,6 @@ deps:
   needs: []
   when: manual
 
-build_tilda:
-  stage: build
-  script:
-    - >
-      docker build
-      --cache-from $CI_REGISTRY_IMAGE/tilda:$CI_COMMIT_BRANCH
-      -f ./gitlab/tilda/Dockerfile
-      -t $CI_REGISTRY_IMAGE/tilda:$CI_COMMIT_BRANCH
-      -t $CI_REGISTRY_IMAGE/tilda:latest .
-    - docker push $CI_REGISTRY_IMAGE/tilda
-  needs: []
-  when: manual
-
 build_frontend:
   stage: build
   script:

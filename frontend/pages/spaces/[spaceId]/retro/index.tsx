@@ -40,6 +40,4 @@ export const getServerSideProps = reduxWrapper.getServerSideProps((store) => asy
   };
 });
 
-export default auth.withAuthSync(RetroPage, {
-  needConfirmEmail: true,
-});
+export default auth.withAuthSync(RetroPage);

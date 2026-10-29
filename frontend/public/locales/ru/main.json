@@ -27,79 +27,134 @@
     "description": "Пожалуйста, обновите страницу. Если не помогло, напишите нам.",
     "reloadBtn": "Обновить страницу"
   },
-  "index": {
-  },
+  "index": {},
   "pages": {
     "index": {
-      "intro": {
-        "title": "Онлайн Покер Планирование",
-        "desc": "Повысьте скорость разработки. Играйте на компьютере и телефоне.",
-        "tryBtn": "Попробовать Chpokify бесплатно"
+      "hero": {
+        "label": "Покер планирования и ретроспективы",
+        "title": "Planning poker онлайн и ретро для agile-команд",
+        "desc": "Оценивайте задачи и проводите ретроспективы спринта в одном месте. Работает в любом браузере на компьютере и телефоне.",
+        "primaryBtn": "Начать бесплатно",
+        "secondaryBtn": "Как это работает",
+        "imgAlt": "Дашборд Chpokify с покер-сессиями и командами"
       },
-      "collaborate": {
-        "title": "Начните оценивать задачи онлайн",
-        "item1": {
-          "title": "Пространство для любой компании и проекта",
-          "desc": "Как в Слаке, у вас есть отдельное рабочее пространство.",
-          "altImg": "Рабочие пространства"
+      "products": {
+        "title": "Два инструмента для каждого спринта",
+        "desc": "Планируйте спринт с покером планирования и подводите итоги на ретроспективе — без переключения между сервисами.",
+        "moreLink": "Подробнее",
+        "poker": {
+          "title": "Planning Poker",
+          "desc": "Все голосуют независимо, карты открываются одновременно, команда обсуждает расхождения и договаривается об оценке."
         },
-        "item2": {
-          "title": "Команды для всех",
-          "desc": "Приглашайте столько людей и создавайте столько команд, сколько нужно.",
-          "altImg": "Команды"
-        },
-        "item3": {
-          "title": "На любом устройстве – компьютере и телефоне",
-          "desc": "Chpokify доступен на любой платформе с браузером.",
-          "altImg": "Устройства"
+        "retro": {
+          "title": "Ретроспектива",
+          "desc": "Соберите обратную связь по спринту, проголосуйте за важные темы и превратите их в задачи."
         }
       },
-      "integrations": {
-        "title": "Подключите все свои любимые сервисы"
-      },
-      "howItWorks": {
-        "title": "Как это работает?",
-        "registerBlock": {
-          "title": "1. Зарегистрируйтесь и получите свое рабочее пространство",
-          "desc": "Когда вы регистрируетесь, мы создаем уютное рабочее пространство для вас и вашей команды. В этом пространстве у вас будет все необходимое для создания задач и их оценки. Вы можете создать столько пространств, сколько необходимо – для каждой компании, для любого проекта",
-          "actionTitle": "Попробовать бесплатно",
-          "altImg": "Регистрация пространства"
-        },
-        "inviteBlock": {
-          "title": "2. Пригласите людей и объединяйте их в команды",
-          "desc": "Приглашайте людей в свое пространство по щелчку пальцев. Больше никаких монотонных регистраций для ваших сотрудников –  мы автоматически зарегистрируем их по вашему приглашению. Вы можете сразу выбрать команду, в которую пригласить нового сотрудника.",
-          "actionTitle": "Создать команду",
-          "altImg": "Создание команды"
-        },
-        "startSessionBlock": {
-          "title": "3. Начните новую сессию и добавьте задачи",
-          "desc": "Создайте покер сессию для вашего очередного спирнта и добавьте соответствующие ему задачи.",
-          "actionTitle": "Начать сессию",
-          "altImg": "Начать сессию"
-        },
-        "voteModerateBlock": {
-          "title": "4. Голосуйте, управляйте",
-          "desc": "Вы полностью управляете процессом. Решайте, когда и какая команда будет голосовать. Получили слишком разные или подозрительные результаты? Обсудите их с командой, сделайте заметки и сбросьте или перезапустите голосование.",
-          "actionTitle": "Стать администратором",
-          "altImg": "Голосуйте и управляйте"
-        },
-        "analyzeBlock": {
-          "title": "5. Подводите итоги и анализируйте",
-          "desc": "Готовы завершить оценку задач спринта? Хорошая работа! Создавайте отчеты о прогрессе команды и смотрите наблюдайте за другой статистикой.",
-          "actionTitle": "Попробовать",
-          "altImg": "Анализируйте"
+      "poker": {
+        "label": "Покер планирования",
+        "title": "Планирование спринта без бесконечных созвонов",
+        "desc": "Создайте сессию, добавьте задачи вручную или импортируйте из Jira и оценивайте вместе в реальном времени.",
+        "imgAlt": "Сессия покера планирования в Chpokify",
+        "features": {
+          "teams": {
+            "title": "Команды внутри сессии",
+            "desc": "Фронтенд, бэкенд и QA голосуют отдельно и получают свою оценку для каждой задачи."
+          },
+          "moderate": {
+            "title": "Управление у модератора",
+            "desc": "Запускайте голосование для одной команды или для всех, открывайте карты и переголосовывайте при расхождениях."
+          },
+          "decks": {
+            "title": "Свои колоды карт",
+            "desc": "Используйте стандартную колоду или создайте свою — с числами или иконками."
+          },
+          "autoReveal": {
+            "title": "Автооткрытие карт",
+            "desc": "Карты переворачиваются сами, как только проголосовали все."
+          },
+          "timer": {
+            "title": "Учёт времени",
+            "desc": "Видно, сколько времени команда тратит на каждую задачу и на всю сессию."
+          },
+          "jira": {
+            "title": "Интеграция с Jira",
+            "desc": "Импортируйте задачи из Jira и отправляйте оценки обратно в выбранное поле."
+          }
         }
       },
-      "extra": {
-        "title": "Пользовательский интерфейс Chpokify",
-        "darkMode": "Темная тема",
-        "darkModeDesc": "Работаете допоздна? Мы и сами часто это делаем. Поэтому предусмотрели темную тему. Переключайтесь на нее, чтобы снизить нагрузку на глаза во время работы в темное время суток.",
-        "designSystem": "Дизайн система",
-        "designSystemDesc": "Мы совместили привычные и простые формы, ненавязчивые нейтральные цвета и легкость логики работы интерфейса."
+      "retro": {
+        "label": "Ретроспектива",
+        "title": "Ретро, после которых что-то меняется",
+        "desc": "Выберите технику, пригласите команду по ссылке и пройдите путь от обратной связи до плана действий за одну встречу.",
+        "features": {
+          "templates": {
+            "title": "Готовые техники",
+            "desc": "Start. Stop. Continue., Mad. Sad. Glad., What went well? — или свои колонки."
+          },
+          "blur": {
+            "title": "Честная обратная связь",
+            "desc": "Размойте карточки, чтобы их видели только авторы, пока вы не готовы к обсуждению."
+          },
+          "voting": {
+            "title": "Голосование",
+            "desc": "Ограничьте число голосов и сортируйте карточки по ним, чтобы обсудить самое важное."
+          },
+          "actions": {
+            "title": "Задачи по итогам",
+            "desc": "Превратите любую карточку в задачу и держите план рядом с доской."
+          },
+          "call": {
+            "title": "Видеозвонок",
+            "desc": "Подключайтесь к звонку прямо из ретро, не переключаясь между сервисами."
+          },
+          "export": {
+            "title": "Экспорт в CSV",
+            "desc": "Выгрузите все карточки, чтобы поделиться итогами или сохранить историю."
+          }
+        },
+        "board": {
+          "label": "Ретроспектива",
+          "title": "Спринт 24",
+          "wentWell": {
+            "title": "Что прошло хорошо?",
+            "card1": "Релиз вышел вовремя",
+            "card2": "Классно попарились над оплатой"
+          },
+          "notWell": {
+            "title": "Что пошло не так?",
+            "card1": "Слишком много встреч",
+            "card2": "Нестабильные e2e-тесты"
+          },
+          "actions": {
+            "title": "Задачи",
+            "card1": "Починить нестабильные тесты до следующего спринта"
+          }
+        }
+      },
+      "steps": {
+        "title": "Начните за минуту",
+        "space": {
+          "title": "Создайте пространство",
+          "desc": "Зарегистрируйтесь и получите рабочее пространство для компании или проекта."
+        },
+        "invite": {
+          "title": "Пригласите команду",
+          "desc": "Поделитесь ссылкой — коллеги присоединятся в один клик с компьютера или телефона."
+        },
+        "session": {
+          "title": "Проведите сессию",
+          "desc": "Запустите покер планирования или ретро и сразу получите результат."
+        }
+      },
+      "cta": {
+        "title": "Готовы к следующему спринту?",
+        "desc": "Приводите команду в Chpokify и тратьте меньше времени на встречи.",
+        "btn": "Начать бесплатно"
       }
     },
     "space": {
-     "title": "Покер планирования"
+      "title": "Покер планирования"
     },
     "retro": {
       "title": "Ретроспектива",
@@ -313,35 +368,22 @@
     },
     "sitemap": {
       "productTitle": "Продукт",
-      "companyTitle": "Компания",
       "socialTitle": "Социальные сети",
-      "guidesTitle": "Руководства",
       "blogTitle": "Блог",
       "legalTitle": "Юридическая информация",
       "communityTitle": "Статьи сообщества",
       "communityAndGeneralTitle": "Статьи сообщества / Общие советы",
       "communityAndScrumTitle": "Статьи сообщества / Скрам покер",
       "communityAndPlanningTitle": "Статьи сообщества / Покер планирования",
-      "planningPokerLink": "Покер планирования",
-      "agileEcosystem": "Аджайл Экосистема",
-      "retro": "Ретроспектива",
       "registrationLink": "Регистрация",
       "pricesLink": "Цены",
       "jiraConnectLink": "Интеграция с JIRA",
       "privacyPolicyLink": "Политика конфиденциальности",
       "termsOfUseLink": "Правила пользования",
-      "contactsLink": "Контакты",
-      "pressLink": "СМИ",
-      "teamLink": "Команда",
-      "joinLink": "Присоединиться",
-      "missionLink": "Миссия",
       "discordLink": "Discord",
       "youtubeLink": "Youtube",
       "facebookLink": "Facebook",
       "linkedInLink": "LinkedIn",
-      "planningPokerGuideLink": "Planning poker guide",
-      "saveSprintLink": "How to save time on sprint planning",
-      "200IceLink": "200 icebreakers for your Agile team",
       "blog": {
         "article0": "Chpokify Blog",
         "article1": "About the project approach",
@@ -393,25 +435,6 @@
     "blog": "Блог"
   },
   "comingSoon": "Скоро...",
-  "needConfirmEmail": {
-    "title": "Проверьте вашу почту",
-    "description": "Подтвердите адрес почты, чтобы завершить регистрацию. Если ссылка на почту не пришла, отправьте ее повторно.",
-    "successMessage": "Ссылка для подтверждения отправлена на вашу почту.",
-    "signOutBtn": "Выйти",
-    "resendBtn": "Отправить повторно",
-    "resendWithTimerBtn": "Отправить снова через {{timer}}",
-    "emailResendSuccess": "Подтверждение отправлено на почту."
-  },
-  "confirmEmailSuccess": {
-    "title": "Почта подтверждена!",
-    "description": "Спасибо.",
-    "resumeBtn": "Погнали!"
-  },
-  "confirmEmailFail": {
-    "title": "Подтверждение не удалось.",
-    "description": "Ссылка неверная или истек ее срок действия. Попробуйте заново.",
-    "tryAgainBtn": "Ну давайте попробуем"
-  },
   "forgotPassword": {
     "title": "Сброс пароля",
     "description": "Введите адрес почты, и мы отправим вам ссылку для сброса пароля.",
@@ -441,13 +464,13 @@
       "placeholder": "Адрес почты",
       "errorMessage": {
         "step1": {
-          "title":"Такой адрес уже зарегистрирован. Пожалуйста,"
+          "title": "Такой адрес уже зарегистрирован. Пожалуйста,"
         },
         "step2": {
-          "title":"войдите с паролем"
+          "title": "войдите с паролем"
         },
         "step3": {
-          "title":"чтобы присоединиться к сессии."
+          "title": "чтобы присоединиться к сессии."
         }
       }
     },
@@ -882,7 +905,7 @@
     "aboutAddJira": "Чтобы отправить счет в Jira, добавьте целевое поле на странице Экраны в Настройках проекта. Воспользуйтесь инструкцией. Если не помогло, ",
     "aboutAddJiraBtn": "напишите нам",
     "step1": {
-      "title":"1. Нажмите Настройки > “Задачи”."
+      "title": "1. Нажмите Настройки > “Задачи”."
     },
     "step2": {
       "title": "2. Под “ПОЛЯ” нажмите “Пользовательские поля”."
@@ -951,15 +974,12 @@
     "description": "Scrum инструменты управления для agile команд.",
     "allRights": "© {{year}} Chpokify. Scrum инструменты управления для agile команд. Для удаленных и гибридных команд. Все права защищены.",
     "planningPoker": "Покер планирования",
-    "howToPlayPokerLik": "Как использовать методологию Покер планирования?",
     "whatChpokifyLink": "Что такое Chpokify?",
     "productTitle": "Продукт",
     "pricesLink": "Цены",
     "sitemapLink": "Карта сайта",
     "helpTitle": "Помощь",
     "supportLink": "Поддержка",
-    "contactUsLink": "Связаться",
-    "eventsLink": "События",
     "reportBugLink": " Сообщить об ошибке",
     "leaveFeedbackLink": "Оставить обратную связь",
     "privacyPolicyLink": "Политика конфиденциальности",
@@ -968,16 +988,7 @@
     "blogLink": "Блог",
     "communityLink": "Сообщество",
     "howToConnectJiraLink": "Как подключить Jira?",
-    "saveTimeOfEstimationsLink": "Покер планирования",
-    "retroLink": "Ретроспектива",
-    "agileEcosystemLink": "Аджайл Экосистема",
-    "companyTitle": "Компания",
-    "pressLink": "СМИ",
-    "teamLink": "Команда",
-    "joinLink": "Присоединиться",
     "integrationsLink": "Интеграции",
-    "purposeLink": "Миссия",
-    "icebreakerQuestionsLink": "200 вопросов для разогрева",
     "termsOfUseLink": "Правила пользования"
   },
   "pokerUserCard": {
@@ -1074,10 +1085,10 @@
     "menuItem": "Tutorial",
     "step": [
       {
-        "content": "🎉 Welcome to your freshly made space! Please allow to demonstrate what you can do here. You can skip tutorial any time and get back to it later (or never). \uD83D\uDE80 Get started!\n"
+        "content": "🎉 Welcome to your freshly made space! Please allow to demonstrate what you can do here. You can skip tutorial any time and get back to it later (or never). 🚀 Get started!\n"
       },
       {
-        "content": "Here you see all the people in your space. It's only you here. Feeling \uD83D\uDE25 lonely?\n"
+        "content": "Here you see all the people in your space. It's only you here. Feeling 😥 lonely?\n"
       },
       {
         "content": "Let's invite someone! Click the button to send invites.\n"
@@ -1092,13 +1103,13 @@
         "content": "Okay, it's time for a new team! Click the button to create one.\n"
       },
       {
-        "content": "Create first team. Name your team and assign people to it. Assign yourself if you're going to vote along with the others. As an \uD83D\uDC51 administrator, you can spectate and manage any session without being a part of a team. Members can play only when they are part of a team.\n"
+        "content": "Create first team. Name your team and assign people to it. Assign yourself if you're going to vote along with the others. As an 👑 administrator, you can spectate and manage any session without being a part of a team. Members can play only when they are part of a team.\n"
       },
       {
         "content": "Click on the team to edit it and re-assign people any time. Even during a poker session.\n"
       },
       {
-        "content": "\uD83D\uDD79️ Ready to play? Click the button to create a new session. \n"
+        "content": "🕹️ Ready to play? Click the button to create a new session. \n"
       },
       {
         "content": "Name your session (or don't) and add description if needed.\n"

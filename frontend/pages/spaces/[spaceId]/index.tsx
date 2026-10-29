@@ -63,6 +63,4 @@ export const getServerSideProps = reduxWrapper.getServerSideProps((store) => asy
   };
 });
 
-export default auth.withAuthSync(SpacePage, {
-  needConfirmEmail: true,
-});
+export default auth.withAuthSync(SpacePage);

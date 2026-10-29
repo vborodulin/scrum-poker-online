@@ -49,6 +49,4 @@ export const getServerSideProps = reduxWrapper.getServerSideProps((store) => asy
   };
 });
 
-export default auth.withAuthSync(PokerSessionPage, {
-  needConfirmEmail: true,
-});
+export default auth.withAuthSync(PokerSessionPage);

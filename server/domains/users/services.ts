@@ -10,7 +10,6 @@ import { TUserDocument, UserModel } from '@models/user';
 export type TCreateGoogleOAuthData = {
   email: string;
   googleId: string;
-  isEmailConfirmed: boolean;
   imageUrl?: string;
 }
 
@@ -45,7 +44,6 @@ class UserService {
     return new UserModel({
       email,
       username: currUsername,
-      isEmailConfirmed: true,
       role: USER_ROLES.USER,
       showSpaceOnboarding: true,
       showPokerOnboarding: true,
@@ -89,7 +87,6 @@ class UserService {
       email,
       username,
       password,
-      isEmailConfirmed: true,
       role: USER_ROLES.USER,
       showSpaceOnboarding: true,
       showPokerOnboarding: true,
@@ -105,26 +102,21 @@ class UserService {
       email,
       googleId,
       imageUrl,
-      isEmailConfirmed,
     } = data;
 
     return this.createWithEmail(email, {
       googleId,
-      isEmailConfirmed,
       imageUrl,
     });
   }
 
   public async createAppleOAuth(email: string) {
-    return this.createWithEmail(email, {
-      isEmailConfirmed: true,
-    });
+    return this.createWithEmail(email, {});
   }
 
   public async createCryptoUser(email: string, address: string) {
     return this.createWithEmail(email, {
       address,
-      isEmailConfirmed: true,
     });
   }
 }

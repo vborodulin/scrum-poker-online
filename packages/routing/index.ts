@@ -12,12 +12,6 @@ const getResetPasswordUrlTemplate = () => '/reset-password/[token]';
 const getResetPasswordUrl = (token: string) => getResetPasswordUrlTemplate()
   .replace('[token]', token);
 
-const getNeedConfirmEmailUrl = () => '/need-confirm-email';
-
-const getConfirmEmailUrlTemplate = () => '/confirm-email/[token]';
-const getConfirmEmailUrl = (token: string) => getConfirmEmailUrlTemplate()
-  .replace('[token]', token);
-
 // account-settings
 const getAccountSettingsUrl = () => '/account-settings';
 
@@ -99,31 +93,13 @@ const getJiraFieldScreenUrl = () => '/jira-field-to-screen';
 const getJiraCallbackUrl = () => '/jira/callback';
 
 // resources
-const getSaveTimeOfEstimationsUrl = () => '/save-sprint-planning-time';
-
-const getPurposeLink = () => '/purpose';
-
-const getPressUrl = () => '/press';
-
-const getTeamUrl = () => '/team';
-
-const getJoinUrl = () => '/join-team';
-
-const getIntegrationsUrl = () => '/integrations';
-
 const getBlogUrl = () => 'https://blog.chpokify.com/';
-
-const getAgileEcosystemUrl = () => '/agile-ecosystem';
 
 const getAgileMeetupUrl = () => 'https://www.facebook.com/events/4939790466042151';
 
 const getLiveXPEnglishBannerUrl = () => 'https://track.livexp.com/click?pid=9&offer_id=3';
 
 const getAppStoreUrl = () => 'https://apps.apple.com/ru/app/chpokify/id1592132191';
-
-const getEventsUrl = () => '/events';
-
-const getLandingRetroUrl = () => '/retro';
 
 const getBlogUrls = () => [
   '/',
@@ -190,14 +166,6 @@ const getFacebookUrl = () => 'https://www.facebook.com/Chpokify';
 
 const getLinkedInUrl = () => 'https://www.linkedin.com/company/chpokify';
 
-const getContactUrl = () => '/contact';
-
-const getEnterpriseUrl = () => '/enterprise';
-
-const getPlanningPokerGuideUrl = () => '/planning-poker-guide';
-
-const getIcebreakerQuestions = () => '/icebreaker-questions';
-
 // issues
 const getTasksTemplate = () => '/spaces/[spaceId]/tasks';
 const getTasksUrl = (spaceId: TEntityID) => getTasksTemplate()
@@ -217,9 +185,6 @@ const routing = {
   getForgotPasswordUrl,
   getResetPasswordUrlTemplate,
   getResetPasswordUrl,
-  getNeedConfirmEmailUrl,
-  getConfirmEmailUrlTemplate,
-  getConfirmEmailUrl,
   getSpaceUrlTemplate,
   getSpaceUrl,
   getSpacesChooseUrl,
@@ -242,19 +207,7 @@ const routing = {
   getDonateUrl,
   getJiraConnectUrl,
   getJiraCallbackUrl,
-  getSaveTimeOfEstimationsUrl,
-  getPurposeLink,
-  getPressUrl,
-  getTeamUrl,
-  getJoinUrl,
-  getIntegrationsUrl,
-  getAgileEcosystemUrl,
-  getLandingRetroUrl,
   getBlogUrl,
-  getContactUrl,
-  getEnterpriseUrl,
-  getPlanningPokerGuideUrl,
-  getIcebreakerQuestions,
   getTasksTemplate,
   getTasksUrl,
   getSpacePricingTemplate,
@@ -293,7 +246,6 @@ const routing = {
   getInviteToRetroSessionTemplate,
   getInviteToRetroSessionUrl,
   getAgileMeetupUrl,
-  getEventsUrl,
   getLiveXPEnglishBannerUrl,
   getAppStoreUrl,
   getKeepmailCallbackUrl,
@@ -308,6 +260,7 @@ const FACEBOOK_URL = 'https://www.facebook.com/Chpokify';
 const LINKEDIN_URL = 'https://www.linkedin.com/company/chpokify';
 const YOUTUBE_URL = 'https://www.youtube.com/channel/UCNUYYqX4UiohLcvLB536Bqw';
 const DISCORD_CHANNEL = 'https://discord.gg/QC8fCMYWyC';
+const PLANNING_POKER_GUIDE_URL = 'https://chpokify.com/community/how-to-play-planning-poker/';
 
 const ROUTING_EXTERNAL = {
   REPORT_URL,
@@ -319,6 +272,7 @@ const ROUTING_EXTERNAL = {
   LINKEDIN_URL,
   YOUTUBE_URL,
   DISCORD_CHANNEL,
+  PLANNING_POKER_GUIDE_URL,
 };
 
 const ROUTING_DEEPLINK = {

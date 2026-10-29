@@ -53,11 +53,6 @@ const getCurrUsername = createSelector(
   (currUser) => currUser?.username || ''
 );
 
-const getIsEmailConfirmed = createSelector(
-  getCurrUser,
-  (currUser) => !!currUser?.isEmailConfirmed
-);
-
 // user settings
 
 const getCurrUserSettings = createSelector(
@@ -110,7 +105,6 @@ export const authSelectors = {
   getCurrUserId,
   getCurrUserEmail,
   getCurrUsername,
-  getIsEmailConfirmed,
   getCurrUserThemeType,
   getShowSpaceOnboarding,
   getShowPokerOnboarding,

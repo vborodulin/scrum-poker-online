@@ -1,31 +1,32 @@
 import { routing } from '@chpokify/routing';
-import Link from 'next/link';
+import NextLink from 'next/link';
 import React from 'react';
-import { css } from 'styled-components';
 
 import { Button, TButtonProps } from '@components/uiKit/Button';
 
-export type TIndexActionBtnProps = Partial<TButtonProps> & {
-  isPromo?: boolean;
-};
+export type TIndexActionBtnProps = Partial<TButtonProps>;
 
 const IndexActionBtn = (props: TIndexActionBtnProps): React.ReactElement | null => {
   const {
-    isPromo,
+    variant = 'primary',
     ...other
   } = props;
 
   return (
-    <Link
+    <NextLink
       href={routing.getSignUpUrl()}
+      passHref
     >
       <Button
-        css={
-          !isPromo && css`background-color: ${({ theme }) => theme.colors.baseInvert.normal}`
-        }
+        as="a"
+        variant={variant}
+        height="56px"
+        textProps={{
+          fontSize: 4,
+        }}
         {...other}
       />
-    </Link>
+    </NextLink>
   );
 };
 

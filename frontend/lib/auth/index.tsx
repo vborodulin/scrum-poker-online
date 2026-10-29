@@ -10,13 +10,10 @@ import { authSelectors } from '@Redux/domains/auth/selectors';
 import { useAppDispatch } from '@Redux/hooks';
 import { TAppPage, TPageContext } from '@Redux/types';
 
-import { NeedConfirmEmail } from '@components/domains/auth/NeedConfirmEmail';
 import { LOCAL_STORAGE_KEYS } from '@components/domains/core/types';
-import { Footer } from '@components/domains/layouts/Footer';
 
 import { CircularProgress } from '@components/uiKit/CircularProgress';
 import { ContentCenter } from '@components/uiKit/ContentCenter';
-import { PageLayout } from '@components/uiKit/PageLayout';
 
 import { useEventListener } from '@components/utils/hooks/useEventListener';
 
@@ -47,19 +44,13 @@ export const SyncLogoutProcessor = (): React.ReactElement | null => {
   return null;
 };
 
-export type TWithAuthSyncOptions = {
-  needConfirmEmail: boolean
-};
-
 const withAuthSync = (
-  WrappedComponent: TAppPage<any, any>,
-  options: TWithAuthSyncOptions = { needConfirmEmail: false }
+  WrappedComponent: TAppPage<any, any>
 ) => {
   const Component: TAppPage<any, any> = (props) => {
     const router = useRouter();
 
     const currUserId = useSelector(authSelectors.getCurrUserId);
-    const isEmailConfirmed = useSelector(authSelectors.getIsEmailConfirmed);
 
     useEffect(() => {
       if (!currUserId) {
@@ -72,20 +63,6 @@ const withAuthSync = (
         <ContentCenter>
           <CircularProgress />
         </ContentCenter>
-      );
-    }
-
-    if (options.needConfirmEmail && currUserId && !isEmailConfirmed) {
-      return (
-        <>
-          <PageLayout>
-            <ContentCenter>
-              <NeedConfirmEmail />
-            </ContentCenter>
-          </PageLayout>
-
-          <Footer />
-        </>
       );
     }
 

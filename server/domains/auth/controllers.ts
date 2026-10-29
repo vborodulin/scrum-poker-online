@@ -61,10 +61,7 @@ const signIn = createHandler(async (req: TAppRequest<{}, AuthSchemas.TLogInBodyR
 
   const { inviteSpaceToken } = req.body;
 
-  const {
-    space,
-    tokenPayload,
-  } = await SpaceService.addParticipantByInvite(
+  const { space } = await SpaceService.addParticipantByInvite(
     user._id,
     user.email,
     inviteSpaceToken
@@ -73,12 +70,6 @@ const signIn = createHandler(async (req: TAppRequest<{}, AuthSchemas.TLogInBodyR
   if (space) {
     await space.save();
   }
-
-  if (tokenPayload) {
-    user.isEmailConfirmed = true;
-  }
-
-  await user.save();
 
   res.locals.result = {
     user,
@@ -349,10 +340,7 @@ const signUp = createHandler(async (
     password
   );
 
-  const {
-    space,
-    tokenPayload,
-  } = await SpaceService.addParticipantByInvite(
+  const { space } = await SpaceService.addParticipantByInvite(
     user._id,
     user.email,
     inviteSpaceToken
@@ -362,15 +350,7 @@ const signUp = createHandler(async (
     await space?.save();
   }
 
-  if (tokenPayload) {
-    user.isEmailConfirmed = true;
-  }
-
   await user.save();
-
-  if (!user.isEmailConfirmed) {
-    await authService.sendConfirmEmail(user);
-  }
 
   await authService.logIn(user);
 
@@ -387,64 +367,6 @@ const signOut = createHandler(async (
   authService.signOut();
 
   res.locals.result = SUCCESS_VOID_RESULT;
-});
-
-const sendConfirmEmail = createHandler(async (
-  req: TAppRequest,
-  res: TAppResponse<AuthSchemas.TSendConfirmEmailResResp>
-) => {
-  const { user } = req;
-  const authService = new AuthService(req, res);
-  await authService.sendConfirmEmail(user);
-
-  res.locals.result = SUCCESS_VOID_RESULT;
-});
-
-const confirmEmail = createHandler(async (
-  req: TAppRequest<{}, AuthSchemas.TConfirmEmailBodyReq>,
-  res: TAppResponse<AuthSchemas.TConfirmEmailResResp>
-) => {
-  const { body: { token } } = req;
-
-  const result = UserModel.validateToken(token);
-
-  if ('err' in result) {
-    throw new BadRequestError(result.err.message, [
-      {
-        message: transServer.t('errors.auth.confirmEmail.tokenInvalid'),
-        path: ['body', 'token'],
-      },
-    ]);
-  }
-
-  const { data: { email } } = result;
-
-  const updatedUser = await UserModel.findOneAndUpdate({
-    email,
-  }, {
-    isEmailConfirmed: true,
-  }, { new: true });
-
-  if (!updatedUser) {
-    throw new BadRequestError(ERROR_CODES.INVALID_PARAM, [
-      {
-        message: transServer.t('errors.auth.confirmEmail.tokenUserNotFound'),
-        path: ['body', 'token'],
-      },
-    ]);
-  }
-
-  const authService = new AuthService(req, res);
-  await authService.logIn(updatedUser);
-
-  await mailService.sendWelcomeEmail(
-    updatedUser.username,
-    updatedUser.email
-  );
-
-  res.locals.result = {
-    user: updatedUser,
-  };
 });
 
 const restorePassword = createHandler(async (
@@ -564,8 +486,6 @@ const authController = {
   appleOauth,
   signUp,
   signOut,
-  sendConfirmEmail,
-  confirmEmail,
   restorePassword,
   resetPassword,
   validateResetPasswordToken,

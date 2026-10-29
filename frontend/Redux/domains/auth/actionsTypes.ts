@@ -55,16 +55,6 @@ export const authActionsTypes = {
   RESET_PASSWORD_VALIDATE_FULFILLED: 'auth/password/reset/validate/fulfilled',
   RESET_PASSWORD_VALIDATE_REJECTED: 'auth/password/reset/validate/rejected',
 
-  // confirm email
-  CONFIRM_EMAIL_PENDING: 'auth/email/confirm/pending',
-  CONFIRM_EMAIL_FULFILLED: 'auth/email/confirm/fulfilled',
-  CONFIRM_EMAIL_REJECTED: 'auth/email/confirm/rejected',
-
-  // resend confirm email
-  CONFIRM_EMAIL_RESEND_PENDING: 'auth/email/confirm/resend/pending',
-  CONFIRM_EMAIL_RESEND_FULFILLED: 'auth/email/confirm/resend/fulfilled',
-  CONFIRM_EMAIL_RESEND_REJECTED: 'auth/email/confirm/resend/rejected',
-
   // after login redirect
   AFTER_LOGIN_REDIRECT_DATA_SET: 'auth/afterLoginRedirect/data/set',
   AFTER_LOGIN_REDIRECT_DATA_REMOVE: 'auth/afterLoginRedirect/data/remove',

@@ -5,7 +5,6 @@ import {
 const config = {
   app: {
     shutdownTime: 10000,
-    confirmEmailExpiration: '24h',
     resetPasswordExpiration: '1h',
     inviteToSpaceExpiration: '5 days',
   },

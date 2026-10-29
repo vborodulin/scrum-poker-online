@@ -7,7 +7,7 @@ WORKDIR /home
 COPY /migrations .
 
 # install dependencies
-RUN yarn global add migrate-mongo
+RUN yarn global add migrate-mongo@8.2.3
 RUN yarn install
 
 CMD [ "migrate-mongo", "up" ]

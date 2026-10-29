@@ -5,6 +5,7 @@ WORKDIR /home
 
 # install dependencies
 COPY package.json .
+COPY yarn.lock .
 COPY tsconfig.json .
 
 COPY server/package.json ./server/package.json

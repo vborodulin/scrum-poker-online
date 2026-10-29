@@ -35,18 +35,6 @@ type TSitemapLinks = Record<string, Array<TSitemapLink>>;
 const getSitemapLinks = (t: TFunction):TSitemapLinks => ({
   [t('pages.sitemap.productTitle')]: [
     {
-      title: t('pages.sitemap.agileEcosystem'),
-      href: routing.getAgileEcosystemUrl(),
-    },
-    {
-      title: t('pages.sitemap.planningPokerLink'),
-      href: routing.getSaveTimeOfEstimationsUrl(),
-    },
-    {
-      title: t('pages.sitemap.retro'),
-      href: routing.getLandingRetroUrl(),
-    },
-    {
       title: t('pages.sitemap.registrationLink'),
       href: routing.getSignUpUrl(),
     },
@@ -58,29 +46,6 @@ const getSitemapLinks = (t: TFunction):TSitemapLinks => ({
       title: t('pages.sitemap.jiraConnectLink'),
       href: routing.getJiraConnectUrl(),
     },
-  ],
-  [t('pages.sitemap.companyTitle')]: [
-    {
-      title: t('pages.sitemap.contactsLink'),
-      href: routing.getContactUrl(),
-    },
-    {
-      title: t('pages.sitemap.pressLink'),
-      href: routing.getPressUrl(),
-    },
-    {
-      title: t('pages.sitemap.teamLink'),
-      href: routing.getTeamUrl(),
-    },
-    {
-      title: t('pages.sitemap.joinLink'),
-      href: routing.getJoinUrl(),
-    },
-    {
-      title: t('pages.sitemap.missionLink'),
-      href: routing.getPurposeLink(),
-    },
-
   ],
   [t('pages.sitemap.socialTitle')]: [
     {
@@ -106,20 +71,6 @@ const getSitemapLinks = (t: TFunction):TSitemapLinks => ({
       href: routing.getLinkedInUrl(),
       target: '_blank',
       isAbsolute: true,
-    },
-  ],
-  [t('pages.sitemap.guidesTitle')]: [
-    {
-      title: t('pages.sitemap.planningPokerGuideLink'),
-      href: routing.getPlanningPokerGuideUrl(),
-    },
-    {
-      title: t('pages.sitemap.saveSprintLink'),
-      href: routing.getSaveTimeOfEstimationsUrl(),
-    },
-    {
-      title: t('pages.sitemap.200IceLink'),
-      href: routing.getIcebreakerQuestions(),
     },
   ],
   [t('pages.sitemap.blogTitle')]: routing.getBlogUrls()

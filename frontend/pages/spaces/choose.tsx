@@ -34,6 +34,4 @@ export const getServerSideProps = reduxWrapper.getServerSideProps(() => async (c
   },
 }));
 
-export default auth.withAuthSync(ChoosePage, {
-  needConfirmEmail: true,
-});
+export default auth.withAuthSync(ChoosePage);

@@ -3,7 +3,6 @@ import { Router } from 'express';
 
 import { authController } from '@auth/controllers';
 
-import { authMiddleware } from '@core/middleware/auth';
 import { rateLimitMiddleware } from '@core/middleware/rateLimit';
 import { validateMiddleware } from '@core/middleware/validate';
 
@@ -67,23 +66,6 @@ authRouter.post(
 authRouter.post(
   '/sign-out',
   authController.signOut
-);
-
-authRouter.post(
-  '/email/confirm',
-  validateMiddleware(AuthSchemas.ConfirmationEmailSchema),
-  authController.confirmEmail
-);
-
-authRouter.post(
-  '/email/confirm/resend',
-  rateLimitMiddleware({
-    windowMs: 1.5 * 60 * 1000,
-    max: 1,
-    skipFailedRequests: true,
-  }),
-  authMiddleware(),
-  authController.sendConfirmEmail
 );
 
 authRouter.post(

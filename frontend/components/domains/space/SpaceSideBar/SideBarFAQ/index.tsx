@@ -1,4 +1,4 @@
-import { routing } from '@chpokify/routing';
+import { ROUTING_EXTERNAL } from '@chpokify/routing';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 import { useSelector } from 'react-redux';
@@ -38,7 +38,7 @@ const SideBarFAQ = (props: TSideBarIssuesProps): React.ReactElement | null => {
 
   return (
     <a
-      href={routing.getPlanningPokerGuideUrl()}
+      href={ROUTING_EXTERNAL.PLANNING_POKER_GUIDE_URL}
       target="_blank"
     >
       <SideBarItem

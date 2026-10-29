@@ -30,75 +30,130 @@
     "description": "Please, reload the page. If this error will occur again, please contact us.",
     "reloadBtn": "Reload page"
   },
-  "index": {
-  },
+  "index": {},
   "pages": {
     "index": {
-      "intro": {
-        "title": "Planning Poker Online",
-        "desc": "Speed up development process of your agile teams. Play on desktop or mobile.",
-        "tryBtn": "Try Chpokify for free"
+      "hero": {
+        "label": "Planning poker & retrospectives",
+        "title": "Planning poker online and retros for agile teams",
+        "desc": "Estimate stories and run sprint retrospectives in one place. Works in any browser on desktop and mobile.",
+        "primaryBtn": "Start for free",
+        "secondaryBtn": "See how it works",
+        "imgAlt": "Chpokify dashboard with poker sessions and teams"
       },
-      "collaborate": {
-        "title": "Start making online estimations today",
-        "item1": {
-          "title": "Spacer for every project or company",
-          "desc": "Just like in Slack – every space is your environment.",
-          "altImg": "spaces"
+      "products": {
+        "title": "Two tools for every sprint",
+        "desc": "Plan the sprint with planning poker and wrap it up with a retrospective — without switching services.",
+        "moreLink": "Learn more",
+        "poker": {
+          "title": "Planning Poker",
+          "desc": "Everyone votes privately, cards are revealed at once, the team discusses the outliers and agrees on an estimate."
         },
-        "item2": {
-          "title": "Teams for everyone",
-          "desc": "Invite and assign people to as many teams as you need.",
-          "altImg": "spaces"
-        },
-        "item3": {
-          "title": "On any device – mobile and desktop",
-          "desc": "Chpokify is available on any platform with browser.",
-          "altImg": "spaces"
+        "retro": {
+          "title": "Retrospective",
+          "desc": "Collect feedback on the sprint, vote for the most important topics and turn them into action items."
         }
       },
-      "integrations": {
-        "title": "Connect to all your favorite services"
-      },
-      "howItWorks": {
-        "title": "How it works in details",
-        "registerBlock": {
-          "title": "1. Register and get your own space",
-          "desc": "When you sign up, we create a cozy space for you and your teammates.\n    In that space you will have everything you need to create stories and\n    estimate them. You can have as many spaces you need for different projects or companies.",
-          "actionTitle": "Register for free",
-          "altImg": "register-space"
-        },
-        "inviteBlock": {
-          "title": "2. Invite people and team them up",
-          "desc": "Invite people to your space in a second. No more stuttering registrations for\n        your co-workers – we'll auto-register\n        them by invite. Have a big team? Assign invited people to teams at any time.",
-          "actionTitle": "Create your team",
-          "altImg": "create-team"
-        },
-        "startSessionBlock": {
-          "title": "3. Start session and create stories",
-          "desc": "Create a poker session dedicated to sprint that you've planned and fill it with stories.",
-          "actionTitle": "Start session",
-          "altImg": "create-session"
-        },
-        "voteModerateBlock": {
-          "title": "4. Vote, moderate",
-          "desc": "Control the field. Decide, when and which team is going to vote right now.\n        Got different or wrong results? Discuss with team, take notes and reset or revote if needed.",
-          "actionTitle": "Become a moderator",
-          "altImg": "vote-moderate-space"
-        },
-        "analyzeBlock": {
-          "title": "5. Finalize, analyze",
-          "desc": "Ready to finish sprint estimate session? Nicely done!\n    Create reports of team's progress during the sprints history and review other statistics.",
-          "actionTitle": "Try analyze your team stats",
-          "altImg": "analyze-space"
+      "poker": {
+        "label": "Planning poker",
+        "title": "Sprint planning without endless meetings",
+        "desc": "Create a session, add stories manually or import them from Jira, and estimate together in real time.",
+        "imgAlt": "Planning poker session in Chpokify",
+        "features": {
+          "teams": {
+            "title": "Teams inside a session",
+            "desc": "Front-end, back-end and QA vote separately and get their own score for every story."
+          },
+          "moderate": {
+            "title": "Moderator in control",
+            "desc": "Start voting for one team or for everyone, reveal the cards and revote when results differ."
+          },
+          "decks": {
+            "title": "Custom card decks",
+            "desc": "Use the default deck or create your own with numbers or icons."
+          },
+          "autoReveal": {
+            "title": "Auto-reveal",
+            "desc": "Cards flip automatically as soon as everyone has voted."
+          },
+          "timer": {
+            "title": "Time tracking",
+            "desc": "See how much time the team spends on each story and on the whole session."
+          },
+          "jira": {
+            "title": "Jira integration",
+            "desc": "Import issues from Jira and send estimates back to the field you choose."
+          }
         }
       },
-      "extra": {
-        "title": "Chpokify UI",
-        "darkMode": "Dark mode",
-        "darkModeDesc": " We know that you may work till late, just like we do.\n Therefore, we made a dark mode. Switch to it and keep your eyes healthy.",
-        "designSystem": "Design system",
-        "designSystemDesc": "  With our brand new design-system\n Chpokify UI you&apos;ll get a new level of sensations."
+      "retro": {
+        "label": "Retrospective",
+        "title": "Retros that lead to real changes",
+        "desc": "Pick a technique, invite the team by link and go from feedback to an action plan in one session.",
+        "features": {
+          "templates": {
+            "title": "Ready-made techniques",
+            "desc": "Start. Stop. Continue., Mad. Sad. Glad., What went well? — or your own columns."
+          },
+          "blur": {
+            "title": "Honest feedback",
+            "desc": "Blur the cards so only their authors see them until you are ready to discuss."
+          },
+          "voting": {
+            "title": "Voting",
+            "desc": "Limit votes per person and sort cards by votes to focus on what matters most."
+          },
+          "actions": {
+            "title": "Action items",
+            "desc": "Turn any card into an action and keep the plan next to the board."
+          },
+          "call": {
+            "title": "Video call",
+            "desc": "Join a call right from the retro without switching tools."
+          },
+          "export": {
+            "title": "Export to CSV",
+            "desc": "Download all cards to share the results or keep the history."
+          }
+        },
+        "board": {
+          "label": "Retrospective",
+          "title": "Sprint 24",
+          "wentWell": {
+            "title": "What went well?",
+            "card1": "Release shipped on time",
+            "card2": "Great pairing on the payment flow"
+          },
+          "notWell": {
+            "title": "What didn’t go well?",
+            "card1": "Too many meetings",
+            "card2": "Flaky end-to-end tests"
+          },
+          "actions": {
+            "title": "Actions",
+            "card1": "Fix flaky tests before the next sprint"
+          }
+        }
+      },
+      "steps": {
+        "title": "Get started in a minute",
+        "space": {
+          "title": "Create a space",
+          "desc": "Sign up and get a workspace for your company or project."
+        },
+        "invite": {
+          "title": "Invite the team",
+          "desc": "Share a link — teammates join in one click from desktop or phone."
+        },
+        "session": {
+          "title": "Run a session",
+          "desc": "Start planning poker or a retro and get the results right away."
+        }
+      },
+      "cta": {
+        "title": "Ready for your next sprint?",
+        "desc": "Bring your team to Chpokify and spend less time in meetings.",
+        "btn": "Start for free"
       }
     },
     "space": {
@@ -316,35 +371,22 @@
     },
     "sitemap": {
       "productTitle": "Product",
-      "companyTitle": "Company",
       "socialTitle": "Social",
-      "guidesTitle": "Guides",
       "blogTitle": "Blog",
       "legalTitle": "Legal",
       "communityTitle": "Community's articles",
       "communityAndGeneralTitle": "Community's articles / General Advice",
       "communityAndScrumTitle": "Community's articles / Scrum poker",
       "communityAndPlanningTitle": "Community's articles / Planning poker",
-      "planningPokerLink": "Planning poker",
-      "agileEcosystem": "Agile Ecosystem",
-      "retro": "Retrospective",
       "registrationLink": "Registration",
       "pricesLink": "Pricing",
       "jiraConnectLink": "JIRA Integration",
       "privacyPolicyLink": "Privacy Policy",
       "termsOfUseLink": "Terms of Use",
-      "contactsLink": "Contacts",
-      "pressLink": "Press",
-      "teamLink": "Team",
-      "joinLink": "Join us",
-      "missionLink": "Mission",
       "discordLink": "Discord",
       "youtubeLink": "Youtube",
       "facebookLink": "Facebook",
       "linkedInLink": "LinkedIn",
-      "planningPokerGuideLink": "Planning poker guide",
-      "saveSprintLink": "How to save time on sprint planning",
-      "200IceLink": "200 icebreakers for your Agile team",
       "blog": {
         "article0": "Chpokify Blog",
         "article1": "About the project approach",
@@ -396,25 +438,6 @@
     "blog": "Blog"
   },
   "comingSoon": "Coming soon",
-  "needConfirmEmail": {
-    "title": "Check your email",
-    "description": "To finish registration, please confirm your email. Didn’t receive a link? Use “Resend”.",
-    "successMessage": "Confirmation link sent. Please check your email.",
-    "signOutBtn": "Sign out",
-    "resendBtn": "Resend",
-    "resendWithTimerBtn": "Resend in {{timer}}",
-    "emailResendSuccess": "Confirmation email sent."
-  },
-  "confirmEmailSuccess": {
-    "title": "Email confirmed!",
-    "description": "Thank you! Your email is now confirmed.",
-    "resumeBtn": "Let's go!"
-  },
-  "confirmEmailFail": {
-    "title": "Confirmation isn't successfull",
-    "description": "Confirmation link might be invalid or expired. Please try again.",
-    "tryAgainBtn": "Let's try again"
-  },
   "forgotPassword": {
     "title": "Reset password",
     "description": "Enter you email address and we’ll send you a link to reset your password.",
@@ -959,15 +982,12 @@
     "description": "Scrum management tools for agile teams.",
     "allRights": "© {{year}} Chpokify. Scrum tools for agile teams. For remote teams, by a remote team. All rights reserved.",
     "planningPoker": "Planning Poker",
-    "howToPlayPokerLik": "How to play Planning Poker?",
     "whatChpokifyLink": "What's Chpokify?",
     "productTitle": "Product",
     "pricesLink": "Pricing",
     "sitemapLink": "Sitemap",
     "helpTitle": "Help",
     "supportLink": "Support",
-    "eventsLink": "Events",
-    "contactUsLink": "Contact us",
     "reportBugLink": "Report bug",
     "leaveFeedbackLink": "Leave feedback",
     "privacyPolicyLink": "Privacy Policy",
@@ -976,16 +996,7 @@
     "blogLink": "Blog",
     "communityLink": "Community",
     "howToConnectJiraLink": "How to connect JIRA?",
-    "saveTimeOfEstimationsLink": "Planning Poker",
-    "retroLink": "Retrospective",
-    "agileEcosystemLink": "Agile Ecosystem",
-    "companyTitle": "Company",
-    "pressLink": "Press",
-    "teamLink": "Team",
-    "joinLink": "Join",
     "integrationsLink": "Integrations",
-    "purposeLink": "Purpose",
-    "icebreakerQuestionsLink": "200 icebreaker questions",
     "termsOfUseLink": "Terms of Use"
   },
   "pokerUserCard": {
@@ -1082,10 +1093,10 @@
     "menuItem": "Tutorial",
     "step": [
       {
-        "content": "🎉 Welcome to your freshly made space! Please allow to demonstrate what you can do here. You can skip tutorial any time and get back to it later (or never). \uD83D\uDE80 Get started!\n"
+        "content": "🎉 Welcome to your freshly made space! Please allow to demonstrate what you can do here. You can skip tutorial any time and get back to it later (or never). 🚀 Get started!\n"
       },
       {
-        "content": "Here you see all the people in your space. It's only you here. Feeling \uD83D\uDE25 lonely?\n"
+        "content": "Here you see all the people in your space. It's only you here. Feeling 😥 lonely?\n"
       },
       {
         "content": "Let's invite someone! Click the button to send invites.\n"
@@ -1100,13 +1111,13 @@
         "content": "Okay, it's time for a new team! Click the button to create one.\n"
       },
       {
-        "content": "Create first team. Name your team and assign people to it. Assign yourself if you're going to vote along with the others. As an \uD83D\uDC51 administrator, you can spectate and manage any session without being a part of a team. Members can play only when they are part of a team.\n"
+        "content": "Create first team. Name your team and assign people to it. Assign yourself if you're going to vote along with the others. As an 👑 administrator, you can spectate and manage any session without being a part of a team. Members can play only when they are part of a team.\n"
       },
       {
         "content": "Click on the team to edit it and re-assign people any time. Even during a poker session.\n"
       },
       {
-        "content": "\uD83D\uDD79️ Ready to play? Click the button to create a new session. \n"
+        "content": "🕹️ Ready to play? Click the button to create a new session. \n"
       },
       {
         "content": "Name your session (or don't) and add description if needed.\n"

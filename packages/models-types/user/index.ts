@@ -54,7 +54,6 @@ export type TUser = {
 
   // protected
   password: string;
-  isEmailConfirmed: boolean;
   jiraIntegrations: Record<string, TJiraIntegration>;
   googleId?: string;
   customerId?: string;
@@ -64,7 +63,6 @@ export type TUser = {
 export type TUserProtected = Omit<TUser,
   'password'
   | 'settings'
-  | 'isEmailConfirmed'
   | 'jiraIntegrations'
   | 'customerId'>;
 

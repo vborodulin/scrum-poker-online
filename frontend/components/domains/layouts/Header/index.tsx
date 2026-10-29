@@ -11,9 +11,8 @@ export type TSpaceHeaderProps = Partial<THeaderContainerProps>;
 
 const Header = (props: TSpaceHeaderProps): React.ReactElement | null => {
   const isLoggedIn = useSelector(authSelectors.getIsLoggedIn);
-  const isEmailConfirmed = useSelector(authSelectors.getIsEmailConfirmed);
 
-  if (isLoggedIn && isEmailConfirmed) {
+  if (isLoggedIn) {
     return (
       <HeaderLoggedIn
         {...props}

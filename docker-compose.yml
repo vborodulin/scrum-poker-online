@@ -1,12 +1,6 @@
 version: "3"
 
 services:
-  tilda:
-    container_name: chpokify-tilda
-    build:
-      dockerfile: ./gitlab/tilda/DockerfileM1
-      context: .
-
   mongodb:
     container_name: chpokify-mongo
     image: mongo:4.0-xenial
@@ -30,10 +24,6 @@ services:
     build:
       context: .
       dockerfile: migrations/Dockerfile
-
-  maildev:
-    container_name: chpokify-maildev
-    image: maildev/maildev
 
   redis:
     container_name: chpokify-redis
@@ -79,13 +69,17 @@ services:
     env_file:
       - .env
     environment:
-      - CLIENT_PORT=3000
+      - CLIENT_PORT=${CLIENT_PORT:-3000}
       - SERVER_PORT=${APP_PORT}
+      # frontend (next dev) runs on the host machine
+      - DEV_IP_ADDR=${DEV_IP_ADDR:-host.docker.internal}
+    extra_hosts:
+      - host.docker.internal:host-gateway
     ports:
-      - 443:443
+      - "${NGINX_PORT:-80}:80"
     command: >
       /bin/bash -c "envsubst \"`for v in $$(compgen -v);do printf '$${%s} ' $$v;done`'\"
-      < /var/www/html/docker/conf.d/nonpermanent.link.tpl
+      < /var/www/html/docker/conf.d/localhost.tpl
       > /etc/nginx/conf.d/default.conf
       && nginx -g 'daemon off;'"
     volumes:

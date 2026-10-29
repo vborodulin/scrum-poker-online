@@ -3,6 +3,7 @@ import { TRetroTemplateData } from '../retroSession';
 export type TPokerConfig = {
   userRemoveOnlineInterval: number
   userSetOnlineInterval: number
+  userLeaveInterval: number
 };
 
 export type TStripeConfig = {

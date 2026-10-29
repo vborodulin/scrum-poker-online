@@ -1,18 +1,19 @@
 import { ENVIRONMENT } from '@chpokify/models-types';
 
 export class WebWorkerSocket {
-  private eventCbMap: Record<string, Function | undefined> = {};
+  // several subscribers per event: worker is subscribed once, on the first callback
+  private eventCbMap: Record<string, Set<Function> | undefined> = {};
 
   public constructor(private worker: Worker) {
     this.worker.onmessage = (event: MessageEvent) => {
       const { data } = event;
-      const cb = this.eventCbMap[data.eventName];
+      const cbs = this.eventCbMap[data.eventName];
 
-      if (!cb) {
+      if (!cbs) {
         return;
       }
 
-      cb(data.args);
+      [...cbs].forEach((cb) => cb(data.args));
     };
   }
 
@@ -21,6 +22,12 @@ export class WebWorkerSocket {
       type: 'disconnect',
     });
     this.worker.terminate();
+  }
+
+  public wake() {
+    this.worker.postMessage({
+      type: 'wake',
+    });
   }
 
   public emit(eventName: string, args: any) {
@@ -32,15 +39,36 @@ export class WebWorkerSocket {
   }
 
   public on(eventName: string, cb: Function) {
-    this.worker.postMessage({
-      type: 'subscribe',
-      eventName,
-    });
+    const cbs = this.eventCbMap[eventName] || new Set<Function>();
 
-    this.eventCbMap[eventName] = cb;
+    if (!cbs.size) {
+      this.worker.postMessage({
+        type: 'subscribe',
+        eventName,
+      });
+    }
+
+    cbs.add(cb);
+    this.eventCbMap[eventName] = cbs;
   }
 
-  public off(eventName: string) {
+  public off(eventName: string, cb?: Function) {
+    const cbs = this.eventCbMap[eventName];
+
+    if (!cbs) {
+      return;
+    }
+
+    if (cb) {
+      cbs.delete(cb);
+    } else {
+      cbs.clear();
+    }
+
+    if (cbs.size) {
+      return;
+    }
+
     this.worker.postMessage({
       type: 'unsubscribe',
       eventName,

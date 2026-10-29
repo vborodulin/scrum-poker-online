@@ -40,6 +40,15 @@ const setInSession = async (
   `/poker-sessions/${pokerSessionId}/in-session`
 );
 
+// fetch with keepalive: request must survive page unload (axios can't do it)
+const leaveSession = async (
+  pokerSessionId: TEntityID
+) => fetch(`${api.defaults.baseURL}/poker-sessions/${pokerSessionId}/out-session`, {
+  method: 'POST',
+  credentials: 'include',
+  keepalive: true,
+}).catch(() => undefined);
+
 // moderate
 
 const create = async (data: pokerSessionsSchemas.TCreateBodyReq) =>
@@ -194,6 +203,7 @@ export const pokerSessionsApi = {
   storySetMany,
   storyRemove,
   setInSession,
+  leaveSession,
   storyStart,
   storyStop,
   storyVoteAll,

@@ -28,12 +28,6 @@ export namespace authTypes {
     | ReturnType<typeof authAsyncActions.signOut.pending>
     | ReturnType<typeof authAsyncActions.signOut.fulfilled>
     | ReturnType<typeof authAsyncActions.signOut.rejected>
-    | ReturnType<typeof authAsyncActions.confirmEmail.pending>
-    | ReturnType<typeof authAsyncActions.confirmEmail.fulfilled>
-    | ReturnType<typeof authAsyncActions.confirmEmail.rejected>
-    | ReturnType<typeof authAsyncActions.resendConfirmEmail.pending>
-    | ReturnType<typeof authAsyncActions.resendConfirmEmail.fulfilled>
-    | ReturnType<typeof authAsyncActions.resendConfirmEmail.rejected>
     | ReturnType<typeof authAsyncActions.restorePassword.pending>
     | ReturnType<typeof authAsyncActions.restorePassword.fulfilled>
     | ReturnType<typeof authAsyncActions.restorePassword.rejected>

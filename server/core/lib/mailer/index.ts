@@ -6,6 +6,12 @@ import { log } from '@core/lib/logger';
 let mailer: Mail;
 
 const initMailer = async () => {
+  if (!process.env.SMTP_HOST) {
+    mailer = nodemailer.createTransport({ jsonTransport: true });
+    log.warn({ methodName: 'initMailer' }, 'SMTP_HOST is not set, emails will not be sent');
+    return;
+  }
+
   mailer = await nodemailer.createTransport({
     // @ts-ignore
     host: process.env.SMTP_HOST as string,

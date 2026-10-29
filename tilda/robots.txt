@@ -1,7 +1,0 @@
-User-Agent: *
-Disallow: /
-
-
-Sitemap: http://chpokify.tilda.ws/sitemap.xml
-Sitemap: http://chpokify.tilda.ws/sitemap-feeds.xml
-Host: chpokify.tilda.ws

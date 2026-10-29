@@ -38,6 +38,4 @@ export const getServerSideProps = reduxWrapper.getServerSideProps((store) => asy
   };
 });
 
-export default auth.withAuthSync(KanbanIndexPage, {
-  needConfirmEmail: true,
-});
+export default auth.withAuthSync(KanbanIndexPage);

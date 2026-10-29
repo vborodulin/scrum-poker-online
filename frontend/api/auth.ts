@@ -26,12 +26,6 @@ const signUp = async (data: AuthSchemas.TSignUpBodyReq) =>
 const signOut = async () =>
   api.post<TSuccessResponse<AuthSchemas.TSignOutResResp>>('/auth/sign-out');
 
-const confirmEmail = async (data: AuthSchemas.TConfirmEmailBodyReq) =>
-  api.post<TSuccessResponse<AuthSchemas.TConfirmEmailResResp>>('/auth/email/confirm', data);
-
-const resendConfirmEmail = async () =>
-  api.post<TSuccessResponse<AuthSchemas.TSendConfirmEmailResResp>>('/auth/email/confirm/resend');
-
 const restorePassword = async (data: AuthSchemas.TRestorePasswordBodyReq) =>
   api.post<TSuccessResponse<AuthSchemas.TRestorePasswordResResp>>('/auth/password/restore', data);
 
@@ -59,8 +53,6 @@ export const authApi = {
   appleOAuth,
   signUp,
   signOut,
-  confirmEmail,
-  resendConfirmEmail,
   restorePassword,
   resetPassword,
   resetPasswordValidate,

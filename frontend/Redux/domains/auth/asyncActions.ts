@@ -52,20 +52,6 @@ const signOut = createAsyncActionCreator(
   authApi.signOut
 );
 
-const confirmEmail = createAsyncActionCreator(
-  authActionsTypes.CONFIRM_EMAIL_PENDING,
-  authActionsTypes.CONFIRM_EMAIL_FULFILLED,
-  authActionsTypes.CONFIRM_EMAIL_REJECTED,
-  authApi.confirmEmail
-);
-
-const resendConfirmEmail = createAsyncActionCreator(
-  authActionsTypes.CONFIRM_EMAIL_RESEND_PENDING,
-  authActionsTypes.CONFIRM_EMAIL_RESEND_FULFILLED,
-  authActionsTypes.CONFIRM_EMAIL_RESEND_REJECTED,
-  authApi.resendConfirmEmail
-);
-
 const restorePassword = createAsyncActionCreator(
   authActionsTypes.RESTORE_PASSWORD_PENDING,
   authActionsTypes.RESTORE_PASSWORD_FULFILLED,
@@ -95,8 +81,6 @@ export const authAsyncActions = {
   appleOAuth,
   signUp,
   signOut,
-  confirmEmail,
-  resendConfirmEmail,
   restorePassword,
   resetPassword,
   resetPasswordValidate,

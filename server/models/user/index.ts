@@ -14,7 +14,6 @@ import { BadRequestError, ERROR_CODES } from '@core/lib/errors';
 import { SpaceModel } from '@models/space';
 
 const APP_SECRET = process.env.APP_SECRET as string;
-const CONFIRM_EMAIL_EXPIRATION = config.get('app.confirmEmailExpiration') as string;
 const RESET_PASSWORD_EXPIRATION = config.get('app.resetPasswordExpiration') as string;
 
 /**
@@ -22,7 +21,6 @@ const RESET_PASSWORD_EXPIRATION = config.get('app.resetPasswordExpiration') as s
  */
 type TUserDocument<T extends TUser = TUser> = mongoose.Document & T & {
   validatePassword: (candidatePassword: string) => boolean;
-  signConfirmEmailToken: () => string;
   signResetPasswordToken: () => string;
   protect: () => TUserProtected
 };
@@ -71,10 +69,6 @@ const UserSchema = new mongoose.Schema<TUserDocument>({
     required: true,
     unique: true,
   },
-  isEmailConfirmed: {
-    type: Boolean,
-    required: true,
-  },
   password: {
     type: String,
     default: '',
@@ -116,6 +110,10 @@ const UserSchema = new mongoose.Schema<TUserDocument>({
   strict: true,
   strictQuery: true,
   minimize: false,
+  toJSON: {
+    // never send password hash to clients (http responses and socket events)
+    transform: (doc, ret) => omit(ret, ['password']),
+  },
 });
 
 /**
@@ -125,14 +123,6 @@ const UserSchema = new mongoose.Schema<TUserDocument>({
 
 UserSchema.methods.validatePassword = function (candidatePassword: string) {
   return bcrypt.compareSync(candidatePassword, this.password);
-};
-
-UserSchema.methods.signConfirmEmailToken = function () {
-  return jsonwebtoken.sign({
-    email: this.email,
-  }, APP_SECRET, {
-    expiresIn: CONFIRM_EMAIL_EXPIRATION,
-  });
 };
 
 UserSchema.methods.signResetPasswordToken = function () {
@@ -149,7 +139,6 @@ UserSchema.methods.protect = function (): TUserProtected {
     'password',
     'settings',
     'googleId',
-    'isEmailConfirmed',
     'jiraIntegrations',
     'customerId',
   ]);
@@ -230,7 +219,7 @@ UserSchema.post<TUserDocument>('save', async function (this: TUserDocument) {
 
     io.to(roomId)
       .emit(eventName, {
-        user: this,
+        user: this.protect(),
       });
   });
 });

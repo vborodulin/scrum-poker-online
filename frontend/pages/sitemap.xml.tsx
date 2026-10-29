@@ -13,15 +13,6 @@ const STATIC_PAGE_PATHES = [
   routing.getTermsOfUseUrl(),
   routing.getPricingUrl(),
   routing.getJiraConnectUrl(),
-  routing.getSaveTimeOfEstimationsUrl(),
-  routing.getPurposeLink(),
-  routing.getPressUrl(),
-  routing.getTeamUrl(),
-  routing.getJoinUrl(),
-  routing.getPlanningPokerGuideUrl(),
-  routing.getIcebreakerQuestions(),
-  routing.getContactUrl(),
-  routing.getAgileEcosystemUrl(),
 ];
 
 const getStaticUrls = (baseUrl: string) => [

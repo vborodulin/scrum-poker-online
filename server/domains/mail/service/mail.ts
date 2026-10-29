@@ -5,7 +5,6 @@ import { routing, ROUTING_EXTERNAL } from '@chpokify/routing';
 import { log } from '@core/lib/logger';
 import { mailer } from '@core/lib/mailer';
 
-import { getConfirmEmailContent } from '@mail/emails/confirm';
 import { getInviteToSpaceEmailContent } from '@mail/emails/inviteToSpace';
 import { getResetEmailContent } from '@mail/emails/resetPassword';
 import { getWelcomeEmailContent } from '@mail/emails/welcome';
@@ -15,29 +14,6 @@ import { routesHelpers } from '@routes/helpers';
 const EMAIL_FROM = {
   name: 'Chpokify',
   address: SUPPORT_EMAIL,
-};
-
-const sendConfirmEmail = async (
-  username: string,
-  email: string,
-  confirmEmailUrl: string
-) => {
-  try {
-    const content = getConfirmEmailContent(
-      username,
-      confirmEmailUrl
-    );
-
-    await mailer.sendMail({
-      from: EMAIL_FROM,
-      to: email,
-      subject: transServer.t('emails.signUpConfirmation.subject'),
-      text: content.txt,
-      html: content.html,
-    });
-  } catch (err) {
-    log.error(err);
-  }
 };
 
 const sendRestorePasswordEmail = async (username: string, email: string, resetPasswordUrl: string) => {
@@ -94,7 +70,7 @@ const sendWelcomeEmail = async (
         username,
         facebookUrl: ROUTING_EXTERNAL.FACEBOOK_URL,
         youtubeUrl: ROUTING_EXTERNAL.YOUTUBE_URL,
-        guideUrl: routesHelpers.getUrl(routing.getPlanningPokerGuideUrl()),
+        guideUrl: ROUTING_EXTERNAL.PLANNING_POKER_GUIDE_URL,
         jiraConnectUrl: routesHelpers.getUrl(routing.getJiraConnectUrl()),
         upgradeUrl: routesHelpers.getUrl(routing.getIndexUrl()),
         supportEmail: SUPPORT_EMAIL,
@@ -117,7 +93,6 @@ const sendWelcomeEmail = async (
 };
 
 const mailService = {
-  sendConfirmEmail,
   sendRestorePasswordEmail,
   sendInviteToSpaceEmail,
   sendWelcomeEmail,

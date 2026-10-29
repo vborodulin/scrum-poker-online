@@ -110,6 +110,9 @@ const PokerSessionSchema = new mongoose.Schema<TPokerSessionDocument>({
   strictQuery: true,
   timestamps: true,
   minimize: false,
+  // concurrent saves (votes of different users, moderator actions) must not overwrite each other:
+  // save fails with VersionError and is retried in updatePokerSession
+  optimisticConcurrency: true,
 });
 
 /**
@@ -211,18 +214,22 @@ PokerSessionSchema.pre<TPokerSessionDocument>('save', async function () {
  * socket update
  */
 
+const emitPokerSessionUpdate = (pokerSession: TPokerSessionDocument) => {
+  const roomId = `pokerSession:${pokerSession.spaceId.toString()}`;
+  const eventName = roomId;
+
+  io.to(roomId)
+    .emit(eventName, {
+      pokerSession,
+    });
+};
+
 PokerSessionSchema.post<TPokerSessionDocument>('save', async function (this: TPokerSessionDocument) {
   if (!this.$locals.wasModified) {
     return;
   }
 
-  const roomId = `pokerSession:${this.spaceId.toString()}`;
-  const eventName = roomId;
-
-  io.to(roomId)
-    .emit(eventName, {
-      pokerSession: this,
-    });
+  emitPokerSessionUpdate(this);
 });
 
 const PokerSessionModel = mongoose.model<TPokerSessionDocument, TPokerSessionModel>(
@@ -231,6 +238,7 @@ const PokerSessionModel = mongoose.model<TPokerSessionDocument, TPokerSessionMod
 
 export {
   PokerSessionModel,
+  emitPokerSessionUpdate,
 };
 
 export type {

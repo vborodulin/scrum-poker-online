@@ -1,6 +1,11 @@
-import { socketConnect } from '@socket';
+/* eslint-disable */
+// must be first: other modules read process.env at import time
+import './env';
+/* eslint-enable */
+
+import { usersInSessions } from '@pokerSessions/components/UsersInSessions';
+import { io, socketConnect } from '@socket';
 import config from 'config';
-import dotenv from 'dotenv';
 import http from 'http';
 import path from 'path';
 
@@ -8,10 +13,7 @@ import { db } from '@core/lib/db';
 import { log } from '@core/lib/logger';
 import { initMailer } from '@core/lib/mailer';
 import { configurePassport } from '@core/lib/passport';
-
-dotenv.config({
-  path: path.resolve(__dirname, '../.env'),
-});
+import { redis } from '@core/lib/redis';
 
 /* eslint-disable */
 import { app } from './app';
@@ -28,7 +30,6 @@ import '@models/retroSession';
 import '@models/retroTemplate';
 import '@models/retroCard';
 import '@models/retroRelations';
-import '@core/lib/redis';
 import '@queue';
 import { sentryInit } from '@core/lib/sentry';
 
@@ -44,36 +45,73 @@ const ADDRESS = process.env.APP_ADDRESS as string;
 const PORT = Number(process.env.APP_PORT);
 const SHUTDOWN_TIME = config.get('app.shutdownTime') as number;
 
+let isShuttingDown = false;
+
+const shutdown = async (signal: NodeJS.Signals) => {
+  if (isShuttingDown) {
+    return;
+  }
+
+  isShuttingDown = true;
+  app.enable('closing');
+
+  log.warn({
+    methodName: 'shutdown',
+    signal,
+  }, 'shutting down');
+
+  global.setTimeout(() => {
+    log.error('could not close connections in time, forcing shut down');
+    process.exit(1);
+  }, SHUTDOWN_TIME).unref();
+
+  try {
+    // disconnects all sockets and closes http server (waits for in-flight requests)
+    await new Promise<void>((resolve) => {
+      io.close(() => resolve());
+    });
+    log.warn('closed out remaining connections');
+
+    await db.mongoose.connection.close();
+    await redis.quit();
+
+    process.exit(0);
+  } catch (err) {
+    log.error({
+      err,
+      methodName: 'shutdown',
+    }, 'shutdown failed');
+    process.exit(1);
+  }
+};
+
 const main = async () => {
   await db.connect();
+  await usersInSessions.restoreTimers();
   await initMailer();
   const httpServer = http.createServer(app);
 
   configurePassport();
 
-  const server = await httpServer.listen(PORT, ADDRESS);
+  socketConnect(httpServer);
+  log.info({ methodName: 'main' }, 'socket connected');
+
+  await new Promise<void>((resolve, reject) => {
+    httpServer.once('error', reject);
+    httpServer.listen(PORT, ADDRESS, () => {
+      httpServer.off('error', reject);
+      resolve();
+    });
+  });
+
   log.info({
-    mathodName: 'main',
+    methodName: 'main',
     address: ADDRESS,
     port: PORT,
   }, 'server is listening');
 
-  await socketConnect(httpServer);
-  log.info({ methodName: 'main' }, 'socket connected');
-
-  process.on('SIGINT', async () => {
-    await db.mongoose.connection.close();
-
-    server.close(() => {
-      log.warn('closed out remaining connections');
-      process.exit(0);
-    });
-
-    setTimeout(() => {
-      log.error('could not close connections in time, forcing shut down');
-      process.exit(1);
-    }, SHUTDOWN_TIME);
-  });
+  process.on('SIGINT', shutdown);
+  process.on('SIGTERM', shutdown);
 };
 
 main()

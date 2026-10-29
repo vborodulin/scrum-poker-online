@@ -4,7 +4,7 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p ${CLIENT_PORT:-3000}",
     "build": "next build",
     "start": "next start",
     "storybook": "start-storybook -p 6006 -c .storybook",

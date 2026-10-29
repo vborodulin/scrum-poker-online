@@ -1,8 +1,10 @@
 import { isServer } from '@chpokify/helpers';
 import { TEntityID } from '@chpokify/models-types';
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import { systemActions } from '@Redux/domains/system/actions';
+import { uiSelectors } from '@Redux/domains/ui/selectors';
 import { useAppDispatch } from '@Redux/hooks';
 
 import { SOCKET_STATUS } from '@components/utils/types';
@@ -26,6 +28,7 @@ const SocketProvider = (props: TThemeContextProviderProps): React.ReactElement |
 
   const dispatch = useAppDispatch();
   const [socket, setSocket] = useState<WebWorkerSocket | null>(null);
+  const isDocumentHidden = useSelector(uiSelectors.getIsDocumentHidden);
 
   useEffect(() => {
     if (isServer() || !currUserId) {
@@ -63,6 +66,12 @@ const SocketProvider = (props: TThemeContextProviderProps): React.ReactElement |
       setSocket(null);
     };
   }, [currUserId]);
+
+  useEffect(() => {
+    if (socket && !isDocumentHidden) {
+      socket.wake();
+    }
+  }, [socket, isDocumentHidden]);
 
   return (
     <SocketContext.Provider

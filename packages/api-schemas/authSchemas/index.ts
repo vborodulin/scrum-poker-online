@@ -48,12 +48,6 @@ export namespace AuthSchemas {
       }),
     });
 
-  export const ConfirmEmailTokenSchema = Joi
-    .string()
-    .messages({
-      'string.empty': transServer.t('schemas.auth.confirmEmailToken.string.empty'),
-    });
-
   export const ResetPasswordTokenSchema = Joi
     .string()
     .messages({
@@ -208,27 +202,6 @@ export namespace AuthSchemas {
 
   // sign out
   export type TSignOutResResp = TSuccessVoidResult;
-
-  // send confirm email
-
-  export type TSendConfirmEmailResResp = TSuccessVoidResult;
-
-  // confirm email
-
-  export type TConfirmEmailBodyReq = {
-    token: string;
-  };
-
-  export const ConfirmationEmailSchema = Joi.object({
-    body: {
-      token: ConfirmEmailTokenSchema.required(),
-    },
-  })
-    .unknown(true);
-
-  export type TConfirmEmailResResp = {
-    user: TUser;
-  };
 
   // request restore password
 

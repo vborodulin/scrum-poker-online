@@ -14,9 +14,6 @@
         "string.empty": "Please enter username.",
         "string.pattern.base": "{{min}}-{{max}} characters long, no spaces. Use: a-z, A-Z, 0-9, _, -."
       },
-      "confirmEmailToken": {
-        "string.empty": "Link is invalid. Please resend a confirmation link."
-      },
       "resetPasswordToken": {
         "string.empty": "Link is invalid. Please reset password again."
       },
@@ -211,10 +208,6 @@
         "invalidToken": "Reset password link is invalid. . Please resend a reset link.",
         "tokenUserNotFound": "User not found."
       },
-      "confirmEmail": {
-        "tokenInvalid": "Confirmation link is expired or invalid. Please resend a confrimation link.",
-        "tokenUserNotFound": "User not found."
-      },
       "validateResetPasswordToken": {
         "invalidToken": "Reset password link is expired or invalid. . Please resend a reset link."
       },
@@ -275,9 +268,6 @@
     },
     "passwordReset": {
       "subject": "Reset password"
-    },
-    "signUpConfirmation": {
-      "subject": "Sign up confirmation"
     }
   }
 }

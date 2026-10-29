@@ -3,7 +3,27 @@
 The project management tool designed for agile teams
 
 ## Start project in local environment
- 🛠 A Step-by-step guide on how to start the project in local environment is in progress.
+Everything runs over plain HTTP on `http://localhost`, no SSL certificate is needed.
+
+1. Create env file and fill `APP_SECRET` and `MONGO_ROOT_PASSWORD`:
+   ```
+   cp .env.example .env
+   ```
+2. Start backend (mongo, redis, migrations, server, nginx):
+   ```
+   yarn install
+   yarn server:dev
+   ```
+3. Start frontend in another terminal:
+   ```
+   yarn client:dev
+   ```
+4. Open http://localhost (nginx proxies `/` to frontend on port 3000, `/api` and `/socket.io` to server).
+
+If port 80 is busy, set `NGINX_PORT` in `.env` and add the port to `CLIENT_DOMAIN`, `BASE_API_CLIENT_URL`, `BASE_API_SSR_URL`.
+If port 3000 is busy, set `CLIENT_PORT` in `.env`.
+
+Emails are not sent while `SMTP_HOST` is empty. To send them, fill `SMTP_*` in `.env`.
 
 ## JIRA integrations
 https://developer.atlassian.com/server/jira/platform/oauth/

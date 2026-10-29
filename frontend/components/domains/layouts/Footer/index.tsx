@@ -56,7 +56,7 @@ const Footer = () => {
         gridTemplateColumns={[
           'repeat(2, minmax(auto, 200px))',
           'repeat(3, minmax(auto, 200px))',
-          'repeat(5, minmax(auto, 200px))',
+          'repeat(4, minmax(auto, 200px))',
         ]}
         gridGap={[4, 8, 18]}
         justifyContent="center"
@@ -132,43 +132,6 @@ const Footer = () => {
               as="li"
             >
               <LinkComponent
-                href={routing.getAgileEcosystemUrl()}
-                isExternal={false}
-                target="_blank"
-              >
-                {t('footer.agileEcosystemLink')}
-              </LinkComponent>
-            </Box>
-
-            <Box
-              as="li"
-            >
-              <LinkComponent
-                href={routing.getSaveTimeOfEstimationsUrl()}
-                isExternal={false}
-                target="_blank"
-              >
-                {t('footer.saveTimeOfEstimationsLink')}
-              </LinkComponent>
-            </Box>
-
-            <Box
-              as="li"
-            >
-              <LinkComponent
-                href={routing.getLandingRetroUrl()}
-                isExternal={false}
-                target="_blank"
-                locale={DEFAULT_LOCALE}
-              >
-                {t('footer.retroLink')}
-              </LinkComponent>
-            </Box>
-
-            <Box
-              as="li"
-            >
-              <LinkComponent
                 href={routing.getPrivacyPolicyUrl()}
                 isExternal={false}
                 target="_blank"
@@ -220,50 +183,12 @@ const Footer = () => {
               as="li"
             >
               <LinkComponent
-                href={routing.getEventsUrl()}
-                isExternal={false}
-                target="_blank"
-                locale={DEFAULT_LOCALE}
-              >
-                {t('footer.eventsLink')}
-              </LinkComponent>
-            </Box>
-            <Box
-              as="li"
-            >
-              <LinkComponent
-                href={routing.getPlanningPokerGuideUrl()}
-                isExternal={false}
-                target="_blank"
-                locale={DEFAULT_LOCALE}
-              >
-                {t('footer.howToPlayPokerLik')}
-              </LinkComponent>
-            </Box>
-
-            <Box
-              as="li"
-            >
-              <LinkComponent
                 href={routing.getJiraConnectUrl()}
                 isExternal={false}
                 target="_blank"
                 locale={DEFAULT_LOCALE}
               >
                 {t('footer.howToConnectJiraLink')}
-              </LinkComponent>
-            </Box>
-
-            <Box
-              as="li"
-            >
-              <LinkComponent
-                href={routing.getIcebreakerQuestions()}
-                isExternal={false}
-                target="_blank"
-                locale={DEFAULT_LOCALE}
-              >
-                {t('footer.icebreakerQuestionsLink')}
               </LinkComponent>
             </Box>
 
@@ -290,74 +215,6 @@ const Footer = () => {
                 locale={DEFAULT_LOCALE}
               >
                 {t('footer.blogLink')}
-              </LinkComponent>
-            </Box>
-          </Grid>
-        </Box>
-
-        <Box>
-          <Text
-            fontSize={3}
-            fontWeight={1}
-            mb={4}
-          >
-            {t('footer.companyTitle')}
-          </Text>
-
-          <Grid
-            as="ul"
-            justifyContent="flex-start"
-            gridGap={2}
-          >
-            <Box
-              as="li"
-            >
-              <LinkComponent
-                href={routing.getPurposeLink()}
-                isExternal={false}
-                target="_blank"
-                locale={DEFAULT_LOCALE}
-              >
-                {t('footer.purposeLink')}
-              </LinkComponent>
-            </Box>
-
-            <Box
-              as="li"
-            >
-              <LinkComponent
-                href={routing.getPressUrl()}
-                isExternal={false}
-                target="_blank"
-                locale={DEFAULT_LOCALE}
-              >
-                {t('footer.pressLink')}
-              </LinkComponent>
-            </Box>
-
-            <Box
-              as="li"
-            >
-              <LinkComponent
-                href={routing.getTeamUrl()}
-                isExternal={false}
-                target="_blank"
-                locale={DEFAULT_LOCALE}
-              >
-                {t('footer.teamLink')}
-              </LinkComponent>
-            </Box>
-
-            <Box
-              as="li"
-            >
-              <LinkComponent
-                href={routing.getJoinUrl()}
-                isExternal={false}
-                target="_blank"
-                locale={DEFAULT_LOCALE}
-              >
-                {t('footer.joinLink')}
               </LinkComponent>
             </Box>
           </Grid>
@@ -407,17 +264,6 @@ const Footer = () => {
               </LinkComponent>
             </Box>
 
-            <Box
-              as="li"
-            >
-              <LinkComponent
-                target="_blank"
-                isExternal={false}
-                href={routing.getContactUrl()}
-              >
-                {t('footer.contactUsLink')}
-              </LinkComponent>
-            </Box>
           </Grid>
         </Box>
       </Grid>

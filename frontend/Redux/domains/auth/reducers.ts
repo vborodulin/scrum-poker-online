@@ -53,8 +53,6 @@ const userReducer = (state: TUserState = userInitialState, action: TAppAction): 
       return action.payload.user;
     case authActionsTypes.CRYPTO_AUTH_FULFILLED:
       return action.payload.user;
-    case authActionsTypes.CONFIRM_EMAIL_FULFILLED:
-      return action.payload.user;
     case authActionsTypes.SIGN_OUT_FULFILLED:
       return userInitialState;
     case authActionsTypes.SIGN_UP_FULFILLED:

@@ -1,5 +1,4 @@
 import { transServer } from '@chpokify/i18n';
-import { routing } from '@chpokify/routing';
 import { OAuth2Client, TokenPayload } from 'google-auth-library';
 import { SiweMessage } from 'siwe';
 
@@ -7,11 +6,7 @@ import { BadRequestError, ERROR_CODES, UnprocessableEntityError } from '@core/li
 import { passport } from '@core/lib/passport';
 import { TAppRequest, TAppResponse } from '@core/types';
 
-import { mailService } from '@mail/service/mail';
-
 import { TUser, TUserDocument, UserModel } from '@models/user';
-
-import { routesHelpers } from '@routes/helpers';
 
 import { UserService } from '@users/services';
 
@@ -95,7 +90,6 @@ class AuthService {
   public async getGoogleOAuthUser(googleId: string, payload: TokenPayload) {
     const {
       email,
-      email_verified: emailVerified,
       picture,
     } = payload;
 
@@ -118,7 +112,6 @@ class AuthService {
     if (userWithEmail) {
       userWithEmail.set({
         googleId,
-        isEmailConfirmed: true,
         imageUrl: picture,
       });
 
@@ -130,7 +123,6 @@ class AuthService {
     const newUser = await userService.createGoogleOAuth({
       email,
       googleId,
-      isEmailConfirmed: !!emailVerified,
       imageUrl: picture,
     });
 
@@ -144,10 +136,6 @@ class AuthService {
     });
 
     if (userWithEmail) {
-      userWithEmail.set({
-        isEmailConfirmed: true,
-      });
-      await userWithEmail.save();
       return userWithEmail;
     }
 
@@ -189,15 +177,6 @@ class AuthService {
   public signOut() {
     this.req.logOut();
     this.res.clearCookie(process.env.APP_COOKIE_SESSION_NAME as string, { path: '/' });
-  }
-
-  public async sendConfirmEmail(user: TUserDocument) {
-    const confirmEmailToken = user.signConfirmEmailToken();
-    await mailService.sendConfirmEmail(
-      user.username,
-      user.email,
-      routesHelpers.getUrl(routing.getConfirmEmailUrl(confirmEmailToken))
-    );
   }
 }
 

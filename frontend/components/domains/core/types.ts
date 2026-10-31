@@ -54,18 +54,10 @@ export enum CLASS_TEST {
   AUTH_GOOGLE_BTN = 'auth-google-btn',
   AUTH_APPLE_BTN = 'auth-apple-btn',
   TEAM_CREATE_MODAL_SUBMIT_BTN = 'team-create-modal-submit-btn',
-  POKER_VIDEO_CALL_START_BTN = 'pokervideo-call-start-btn',
   POKER_SESSION_FEEDBACK_BTN = 'poker-session-feedback-btn',
-  JIRA_CONNECT_LINK = 'jira-connect-link',
-  POKER_SESSION_JIRA_IMPORT_STORIES = 'poker-session-jira-import-stories',
   RETRO_SESSION_CREATE_MODAL_SUBMIT_BTN = 'retro-session-modal-submit-create-btn',
   RETRO_SESSION_EDIT_MODAL_SUBMIT_BTN = 'retro-session-modal-submit-edit-btn',
   COOKIES_BANNER_CLOSE_BTN = 'cookies-banner-close-btn'
-}
-
-export enum POST_MESSAGE_TYPE {
-  KEEPMAIL_OAUTH_CODE = 'keepmail-oauth-code',
-  KEEPMAIL_OAUTH_ERROR = 'keepmail-oauth-error',
 }
 
 export const DEFAULT_LOCALE = 'en';

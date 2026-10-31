@@ -1,13 +1,10 @@
 import { ExtensibleError } from '@chpokify/helpers';
-import { TJiraIntegration } from '@chpokify/models-types/core/integrations';
 import { Response, Request, NextFunction } from 'express';
 import * as core from 'express-serve-static-core';
 import { LabelValues } from 'prom-client';
 
 import { typesHelpers } from '@core/types/helpers';
 
-import { TPokerSessionDocument } from '@models/pokerSession';
-import { TStoryDocument } from '@models/story';
 import { TUserDocument } from '@models/user';
 
 export type TThrowError<T extends any, E extends Error = Error> = {
@@ -65,17 +62,3 @@ export type TAppMiddleware = (
   res: TAppResponse,
   next: TAppNext,
 ) => void;
-
-export enum QUEUE {
-  'JIRA' = 'JIRA'
-}
-
-export enum QUEUE_JOB_NAME {
-  'JIRA_SET_FIELD_ISSUE' = 'JIRA_SET_FIELD_ISSUE'
-}
-
-export type TJiraSetFieldIssue={
-  story: TStoryDocument,
-  pokerSession: TPokerSessionDocument,
-  jiraIntegrations: Record<string, TJiraIntegration>
-}

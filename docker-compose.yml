@@ -61,20 +61,46 @@ services:
       - server_node_modules:/home/server/node_modules
       - ./server/:/home/server/
 
+  frontend:
+    container_name: chpokify-frontend
+    depends_on:
+      - server
+    build:
+      context: .
+      dockerfile: ./frontend/Dockerfile
+    env_file:
+      - .env
+    environment:
+      # server-side rendering calls the api inside the docker network, browser goes through nginx
+      - BASE_API_SSR_URL=http://server:${APP_PORT}
+    volumes:
+      - api-schemas_frontend_node_modules:/home/packages/api-schemas/node_modules
+      - ./packages/api-schemas:/home/packages/api-schemas
+      - models-types_frontend_node_modules:/home/packages/models-types/node_modules
+      - ./packages/models-types:/home/packages/models-types
+      - helpers_frontend_node_modules:/home/packages/helpers/node_modules
+      - ./packages/helpers:/home/packages/helpers
+      - routing_frontend_node_modules:/home/packages/routing/node_modules
+      - ./packages/routing:/home/packages/routing
+      - i18n_frontend_node_modules:/home/packages/i18n/node_modules
+      - ./packages/i18n:/home/packages/i18n
+      - frontend_node_modules:/home/frontend/node_modules
+      - frontend_next:/home/frontend/.next
+      - ./frontend/:/home/frontend/
+
   nginx:
     container_name: chpokify-nginx
     image: nginx:1.21.4
     depends_on:
       - server
+      - frontend
     env_file:
       - .env
     environment:
       - CLIENT_PORT=${CLIENT_PORT:-3000}
       - SERVER_PORT=${APP_PORT}
-      # frontend (next dev) runs on the host machine
-      - DEV_IP_ADDR=${DEV_IP_ADDR:-host.docker.internal}
-    extra_hosts:
-      - host.docker.internal:host-gateway
+      # frontend (next dev) container
+      - DEV_IP_ADDR=frontend
     ports:
       - "${NGINX_PORT:-80}:80"
     command: >
@@ -97,4 +123,11 @@ volumes:
   models-types_node_modules:
   helpers_node_modules:
   server_node_modules:
+  routing_frontend_node_modules:
+  i18n_frontend_node_modules:
+  api-schemas_frontend_node_modules:
+  models-types_frontend_node_modules:
+  helpers_frontend_node_modules:
+  frontend_node_modules:
+  frontend_next:
   nginx_data_container:

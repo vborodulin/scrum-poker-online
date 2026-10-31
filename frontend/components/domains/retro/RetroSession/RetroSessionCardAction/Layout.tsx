@@ -21,6 +21,7 @@ const StylesRetroCardMenuWithBtn = styled(CardMenuBtn)<TCardMenuBtnProps>`
 
 export const rootBlurCardMixin = css`
    filter: blur(8px);
+   user-select: none;
 `;
 
 const rootCombinedTargetForMixin = css`

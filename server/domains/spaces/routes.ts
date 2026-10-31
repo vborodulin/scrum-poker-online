@@ -3,7 +3,6 @@ import { SPACE_PARTICIPANT_ROLE } from '@chpokify/models-types';
 import { Router } from 'express';
 
 import { authMiddleware } from '@core/middleware/auth';
-import { rateLimitMiddleware } from '@core/middleware/rateLimit';
 import { validateMiddleware } from '@core/middleware/validate';
 
 import { spacesControllers } from '@spaces/controllers';
@@ -70,18 +69,6 @@ spacesRouter.post(
   '/:spaceId/invite',
   spacesMiddlewares.checkHasRole(SPACE_PARTICIPANT_ROLE.ADMIN),
   spacesControllers.inviteGen
-);
-
-spacesRouter.post(
-  '/:spaceId/invite/send/email',
-  rateLimitMiddleware({
-    windowMs: 60 * 60 * 1000,
-    max: 100,
-    skipFailedRequests: true,
-  }),
-  validateMiddleware(spacesSchemas.inviteSendEmailSchema),
-  spacesMiddlewares.checkHasRole(SPACE_PARTICIPANT_ROLE.ADMIN),
-  spacesControllers.inviteSendEmail
 );
 
 spacesRouter.get(

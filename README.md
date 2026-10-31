@@ -2,52 +2,57 @@
 
 The project management tool designed for agile teams
 
-## Start project in local environment
-Everything runs over plain HTTP on `http://localhost`, no SSL certificate is needed.
+## Run locally
 
-1. Create env file and fill `APP_SECRET` and `MONGO_ROOT_PASSWORD`:
-   ```
-   cp .env.example .env
-   ```
-2. Start backend (mongo, redis, migrations, server, nginx):
-   ```
-   yarn install
-   yarn server:dev
-   ```
-3. Start frontend in another terminal:
-   ```
-   yarn client:dev
-   ```
-4. Open http://localhost (nginx proxies `/` to frontend on port 3000, `/api` and `/socket.io` to server).
+Everything runs over plain HTTP on `http://localhost`. You don't need an SSL certificate or a domain.
 
-If port 80 is busy, set `NGINX_PORT` in `.env` and add the port to `CLIENT_DOMAIN`, `BASE_API_CLIENT_URL`, `BASE_API_SSR_URL`.
-If port 3000 is busy, set `CLIENT_PORT` in `.env`.
-
-Emails are not sent while `SMTP_HOST` is empty. To send them, fill `SMTP_*` in `.env`.
-
-## JIRA integrations
-https://developer.atlassian.com/server/jira/platform/oauth/
-
-### Generate an RSA public/private key pair
-In terminal, run the following openssl commands. You can do this anywhere in your file system, but note that this is where the files will be created.
-
-Generate a 1024-bit private key:
+Everything runs in Docker Compose: MongoDB, Redis, a one-off migrations container, the API/socket server, the Next.js frontend (`next dev`), and nginx in front of it all. The server, frontend, and `packages/*` sources are mounted into the containers, so code changes reload automatically.
 
 ```
-openssl genrsa -out jira_privatekey.pem 1024
-```
-Create an X509 certificate:
-
-```
-openssl req -newkey rsa:1024 -x509 -key jira_privatekey.pem -out jira_publickey.cer -days 365
+browser ──► nginx (localhost:80)
+              ├─ /api, /socket.io ──► server container (:8083)
+              └─ /                 ──► frontend container (next dev, :3000)
 ```
 
-Extract the private key (PKCS8 format) to the jira_privatekey.pcks8 file:
+### Prerequisites
+
+- Docker with Compose (Docker Desktop or OrbStack on macOS)
+- Optional: Node.js and Yarn 1.x on the host, only for editor tooling (type-check, lint). The repo pins its own Yarn (`.yarn/releases/yarn-1.18.0.cjs`), so any global Yarn 1 works.
+
+### 1. Configure the environment
 
 ```
-openssl pkcs8 -topk8 -nocrypt -in jira_privatekey.pem -out jira_privatekey.pcks8
+cp .env.example .env
 ```
-Extract the public key from the certificate to the jira_publickey.pem file:
+
+Set `MONGO_ROOT_PASSWORD` in `.env` to any password; Mongo is created with it on first run. `APP_SECRET` has a placeholder value that is fine locally. Leave the rest as is for a default local setup.
+
+### 2. Start everything
+
 ```
-openssl x509 -pubkey -noout -in jira_publickey.cer  > jira_publickey.pem
+yarn dev
 ```
+
+This runs `docker-compose up --build` and stays in the foreground (without Yarn: `docker-compose up --build`). On the first run it builds the images, creates the database, and applies the migrations. The frontend is ready once its logs show `compiled client and server successfully`.
+
+### 3. Open the app
+
+Go to **http://localhost**. The frontend and API are only published through nginx.
+
+Sign up with any email. You don't need to confirm it.
+
+### Stop / reset
+
+```
+docker-compose down       # stop all containers
+docker-compose down -v    # also wipe Mongo/Redis data
+```
+
+### Troubleshooting
+
+- **Port 80 is busy.** Set `NGINX_PORT=8000` in `.env` and add the port to `CLIENT_DOMAIN` and `BASE_API_CLIENT_URL` (e.g. `http://localhost:8000`). Then restart `yarn dev`.
+- **`502 Bad Gateway` on `/`.** The frontend is still compiling or has crashed. Check its logs with `docker logs -f chpokify-frontend`.
+- **`502 Bad Gateway` on `/api`.** The server container is still starting or has crashed. Check its logs with `docker logs -f chpokify-server`.
+- **Mongo authentication fails after changing `MONGO_ROOT_PASSWORD`.** The password is only applied when the data volume is first created. Run `docker-compose down -v` and start again.
+- **Changed `.env`.** Restart `yarn dev`. Containers don't pick up changes on the fly.
+- **Changed dependencies (`package.json`).** `node_modules` live in Docker volumes, which a rebuild doesn't refresh. Run `docker-compose down`, remove the stale volumes (`docker volume ls | grep node_modules`, then `docker volume rm <name>`), and start `yarn dev` again.

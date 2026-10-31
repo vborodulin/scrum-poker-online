@@ -1,1 +1,3 @@
-export $(cat ./.env)
+set -a
+. ./.env
+set +a

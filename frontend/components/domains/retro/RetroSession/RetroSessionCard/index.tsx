@@ -6,6 +6,8 @@ import { retroSessionsCardsSelectors } from '@Redux/domains/retroSessionsCards/s
 import { retroSessionsCardsRepoSelectors } from '@Redux/domains/retroSessionsCardsRepo/selectors';
 import { spacesRepoSelectors } from '@Redux/domains/spacesRepo/selectors';
 
+import { retroHelpers } from '@components/domains/retro/helpers';
+
 import { TFlexProps } from '@components/uiKit/Flex';
 
 import { Layout } from './Layout';
@@ -49,8 +51,8 @@ const RetroSessionCard = (props: TRetroSessionCardProps): React.ReactElement | n
       hasMenuBtnItem={canModerate || (canEditCards && isMyCard)}
       hasDescriptionItem={!isHiddenDescriptionCards}
       hasDescription={!!description}
-      title={title}
-      description={description}
+      title={isHiddenCard ? retroHelpers.maskHiddenText(title) : title}
+      description={isHiddenCard ? retroHelpers.maskHiddenText(description) : description}
       {...other}
     />
   );

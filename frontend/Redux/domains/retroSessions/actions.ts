@@ -16,13 +16,6 @@ const removeCurrId = () => ({
   payload: {},
 }) as const;
 
-const isVideoCallOpenSet = (isVideoCallOpen: boolean) => ({
-  type: retroSessionsActionsTypes.IS_VIDEO_CALL_OPEN_SET,
-  payload: {
-    isVideoCallOpen,
-  },
-}) as const;
-
 const columnActionsSidebarToggle = () => ({
   type: retroSessionsActionsTypes.COLUMN_ACTIONS_SIDE_BAR_TOGGLE,
   payload: {
@@ -76,7 +69,6 @@ const exportCSVCardsActionRejected = (error: TAppError) => ({
 const retroSessionsActions = {
   setCurrId,
   removeCurrId,
-  isVideoCallOpenSet,
   columnActionsSidebarToggle,
   columnActionsSidebarClose,
   upsert,

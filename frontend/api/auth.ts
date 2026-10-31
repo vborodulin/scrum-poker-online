@@ -26,25 +26,6 @@ const signUp = async (data: AuthSchemas.TSignUpBodyReq) =>
 const signOut = async () =>
   api.post<TSuccessResponse<AuthSchemas.TSignOutResResp>>('/auth/sign-out');
 
-const restorePassword = async (data: AuthSchemas.TRestorePasswordBodyReq) =>
-  api.post<TSuccessResponse<AuthSchemas.TRestorePasswordResResp>>('/auth/password/restore', data);
-
-const resetPassword = async (data: AuthSchemas.TResetPasswordBodyReq) =>
-  api.post<TSuccessResponse<AuthSchemas.TResetPasswordResResp>>('/auth/password/reset', data);
-
-const resetPasswordValidate = (data: AuthSchemas.TValidateResetPasswordTokenBodyReq) =>
-  api.post<TSuccessResponse<AuthSchemas.TValidateResetPasswordTokenResResp>>(
-    '/auth/password/reset/validate', data
-  );
-
-const getNonce = () => api.get<TSuccessResponse<{ nonce: string }>>('/auth/nonce');
-
-const logInCrypto = (data: AuthSchemas.TSignInCryptoBodyReq) =>
-  api.post<TSuccessResponse<AuthSchemas.TSignInCryptoResp>>('/auth/crypto/login', data);
-
-const singUpCrypto = (data: AuthSchemas.TSignUpCryptoBodyReq) =>
-  api.post<TSuccessResponse<AuthSchemas.TSignUpCryptoResp>>('/auth/crypto/signup', data);
-
 export const authApi = {
   get,
   logIn,
@@ -53,10 +34,4 @@ export const authApi = {
   appleOAuth,
   signUp,
   signOut,
-  restorePassword,
-  resetPassword,
-  resetPasswordValidate,
-  getNonce,
-  logInCrypto,
-  singUpCrypto,
 };

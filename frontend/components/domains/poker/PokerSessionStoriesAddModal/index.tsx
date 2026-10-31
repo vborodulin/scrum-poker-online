@@ -1,12 +1,8 @@
-import { objectHelpers } from '@chpokify/helpers';
 import { TStory } from '@chpokify/models-types';
 import { map } from 'lodash';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 
-import { authSelectors } from '@Redux/domains/auth/selectors';
-import { jiraAsyncActions } from '@Redux/domains/jira/asyncActions';
-import { jiraSelectors } from '@Redux/domains/jira/selectors';
 import { pokerSessionsActions } from '@Redux/domains/pokerSessions/actions';
 import { pokerSessionsAsyncActions } from '@Redux/domains/pokerSessions/asyncActions';
 import { pokerSessionsSelectors } from '@Redux/domains/pokerSessions/selectors';
@@ -25,11 +21,6 @@ const PokerSessionStoriesAddModal = (props: TPokerSessionStoriesAddModalProps): 
   } = props;
   const dispatch = useAppDispatch();
   const pokerSessionId = useSelector(pokerSessionsSelectors.getCurrId);
-  const jiraIntegration = useSelector(authSelectors.getJiraIntegrations);
-  const jiraFields = useSelector(jiraSelectors.getFields);
-  const pokerSession = useSelector(pokerSessionsSelectors.getCurr);
-
-  const hasJiraInPokerSession = !objectHelpers.isEmptyObject(pokerSession?.jira || {});
 
   const handleAddStoriesToPokerSession = async (data: { stories: TStory[] }) => {
     const res = await dispatch(pokerSessionsAsyncActions.storyAddMany(
@@ -46,21 +37,9 @@ const PokerSessionStoriesAddModal = (props: TPokerSessionStoriesAddModalProps): 
     }
   };
 
-  useEffect(() => {
-    if (hasJiraInPokerSession) {
-      const baseUrl = pokerSession?.jira?.baseUrl as string;
-
-      if (!jiraFields[baseUrl]) {
-        dispatch(jiraAsyncActions.getFields(baseUrl));
-      }
-    }
-  }, [hasJiraInPokerSession]);
-
   return (
     <StoriesAddModal
       onAfterSubmit={handleAddStoriesToPokerSession}
-      hasJiraInPokerSession={hasJiraInPokerSession}
-      jiraIntegration={jiraIntegration}
       {...other}
     />
   );

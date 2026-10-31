@@ -1,5 +1,5 @@
 import {
-  isEqualsId, spaceHelpers, objectHelpers,
+  isEqualsId, spaceHelpers,
 } from '@chpokify/helpers';
 import { pokerSessionHelpers } from '@chpokify/helpers/pokerSession';
 import { transServer } from '@chpokify/i18n';
@@ -16,7 +16,6 @@ import {
   TPokerSessionTeamVoting,
   TPokerSessionVoting, TRatingPokerSession,
 } from '@chpokify/models-types/pokerSession';
-import { getJiraApiErrorMsg, JiraApi } from '@domains/jira/jiraApi';
 import { get, set } from 'lodash';
 
 import { BadRequestError, ERROR_CODES } from '@core/lib/errors';
@@ -25,7 +24,6 @@ import { jwtToken } from '@core/lib/jwtToken';
 import { PokerCardDeckModel } from '@models/pokerCardDeck';
 import { TPokerSessionDocument } from '@models/pokerSession';
 import { SpaceModel, TSpaceDocument } from '@models/space';
-import { TStoryDocument } from '@models/story';
 
 type TCardDataChoose = {
     userId: TEntityID,
@@ -89,58 +87,6 @@ class PokerSessionService {
     }
 
     return score;
-  }
-
-  public async saveScoreInFieldJira(story: TStoryDocument, jiraIntegrations: Record<string, any>)
-        : Promise<string | undefined> {
-    const {
-      jira,
-      results,
-      teamsIds,
-    } = this.pokerSession;
-    const baseUrl = jira?.baseUrl as string;
-    const jiraData = story?.jiraData;
-
-    if (objectHelpers.isEmptyObject(jira as {})
-            || objectHelpers.isEmptyObject(jiraIntegrations)
-            || objectHelpers.isEmptyObject(jiraIntegrations[baseUrl])
-            || !jiraData
-    ) {
-      return;
-    }
-
-    const keyIssue = jiraData?.key as string;
-    const storyId = story._id;
-
-    const fieldJiraUpdate = jira?.field?.id;
-    const integration = jiraIntegrations[baseUrl];
-    const jiraClient = JiraApi.getInstance(
-      baseUrl,
-      integration.accessToken,
-      integration.accessTokenSecret
-    );
-
-    const resultFromStory = results[storyId];
-
-    const score = this.getStoryScores(teamsIds, resultFromStory);
-
-    const updateField = {
-      fields: {
-        [fieldJiraUpdate]: score,
-      },
-    };
-
-    let res;
-
-    try {
-      await jiraClient.updateIssue(keyIssue, updateField);
-    } catch (err) {
-      const errorMessage = err.error.errors[fieldJiraUpdate] as string;
-      const error = getJiraApiErrorMsg(err.statusCode, errorMessage);
-      res = error;
-    }
-
-    return res;
   }
 
   public validateStoryActive(storyId: TEntityID) {

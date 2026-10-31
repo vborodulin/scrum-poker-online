@@ -45,11 +45,6 @@ const entitiesReducer = (state = entitiesInitialState, action: TAppAction): TEnt
       return update(state, { [user._id.toString()]: { $set: user } });
     }
 
-    case authActionsTypes.CRYPTO_AUTH_FULFILLED: {
-      const { user } = action.payload;
-      return update(state, { [user._id.toString()]: { $set: user } });
-    }
-
     case authActionsTypes.GET_FULFILLED: {
       const { user } = action.payload;
 

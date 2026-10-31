@@ -21,7 +21,6 @@ const pokerSessions: TPokerSession[] = [
     results: {},
     active: null,
     isAutoReveal: false,
-    isVideoCall: false,
     cardSetId: 'ObjectId',
 
   },
@@ -35,7 +34,6 @@ const pokerSessions: TPokerSession[] = [
     results: {},
     active: null,
     isAutoReveal: false,
-    isVideoCall: false,
     cardSetId: 'ObjectId',
   },
   {
@@ -48,7 +46,6 @@ const pokerSessions: TPokerSession[] = [
     results: {},
     active: null,
     isAutoReveal: false,
-    isVideoCall: false,
     cardSetId: 'ObjectId',
   },
 ];

@@ -1,8 +1,6 @@
 import dynamic from 'next/dynamic';
 
-import { TLogInProps } from './LogIn';
-
-const LogIn = dynamic<TLogInProps>(
+const LogIn = dynamic<{}>(
   () => import('./LogIn').then((mod) => mod.LogIn),
   {
     ssr: false,

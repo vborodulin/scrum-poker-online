@@ -183,19 +183,6 @@ const Footer = () => {
               as="li"
             >
               <LinkComponent
-                href={routing.getJiraConnectUrl()}
-                isExternal={false}
-                target="_blank"
-                locale={DEFAULT_LOCALE}
-              >
-                {t('footer.howToConnectJiraLink')}
-              </LinkComponent>
-            </Box>
-
-            <Box
-              as="li"
-            >
-              <LinkComponent
                 href={communityUrl}
                 isExternal={false}
                 target="_blank"

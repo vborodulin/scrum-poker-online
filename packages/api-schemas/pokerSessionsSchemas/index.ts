@@ -10,7 +10,6 @@ import {
 import Joi from '@hapi/joi';
 
 import { coreSchemas, TSuccessVoidResult } from '../coreSchemas';
-import { jiraSchemas } from '../jiraSchemas';
 
 export namespace pokerSessionsSchemas {
   export const TitleSchema = Joi.string()
@@ -27,12 +26,6 @@ export namespace pokerSessionsSchemas {
         max: POKER_SESSION_TITLE_MAX_LENGTH,
       }),
     });
-
-  const JiraSchema = Joi.object({
-    baseUrl: jiraSchemas.JIRA_BASE_URL_SCHEMA,
-    project: Joi.object(),
-    field: Joi.object(),
-  });
 
   const RatingSchema = Joi.object({
     skip: Joi.boolean(),
@@ -79,8 +72,6 @@ export namespace pokerSessionsSchemas {
     description: DescriptionSchema,
     teamsIds: TeamIdsSchema.required(),
     isAutoReveal: Joi.bool(),
-    isVideoCall: Joi.bool(),
-    jira: JiraSchema,
   })
     .unknown(true);
 
@@ -131,12 +122,6 @@ export namespace pokerSessionsSchemas {
   export type TGenInviteResResp = {
     url: string;
   };
-  export type TJiraBodyReq = {
-    baseUrl?: string;
-    project?: Record<string, any>;
-    field?: Record<string, any>;
-  }
-
   export type TRatingBodyReq = {
     comment?: string;
     result?: number,
@@ -152,8 +137,6 @@ export namespace pokerSessionsSchemas {
     description?: TPokerSession['description'];
     teamsIds?: TEntityID[];
     isAutoReveal?: boolean;
-    isVideoCall?: boolean;
-    jira?: TJiraBodyReq
   }
 
   export const createSchema = Joi.object({
@@ -172,8 +155,6 @@ export namespace pokerSessionsSchemas {
     description?: TPokerSession['description'];
     teamsIds?: TPokerSession['teamsIds'];
     isAutoReveal?: boolean;
-    isVideoCall?: boolean;
-    jira?: TJiraBodyReq
   };
   // setRating
   export type TSetRatingBodyReq = {
@@ -193,8 +174,6 @@ export namespace pokerSessionsSchemas {
       description: DescriptionSchema,
       teamsIds: TeamIdsSchema,
       isAutoReveal: Joi.bool(),
-      isVideoCall: Joi.bool(),
-      jira: JiraSchema,
       cardSetId: coreSchemas.ObjectIdSchema,
     },
   })

@@ -1,6 +1,4 @@
-import {
-  spacesSchemas, SUCCESS_VOID_RESULT, TSuccessVoidResult,
-} from '@chpokify/api-schemas';
+import { spacesSchemas } from '@chpokify/api-schemas';
 import { transServer } from '@chpokify/i18n';
 import { routing } from '@chpokify/routing';
 
@@ -8,8 +6,6 @@ import { BadRequestError, ERROR_CODES, ForbiddenError } from '@core/lib/errors';
 import { jwtToken } from '@core/lib/jwtToken';
 import { createHandler } from '@core/middleware/createHandler';
 import { TAppRequest, TAppResponse } from '@core/types';
-
-import { mailService } from '@mail/service/mail';
 
 import {
   SpaceModel, TInviteTokenPayload, TSpaceDocument,
@@ -161,29 +157,6 @@ const inviteGen = createHandler(async (
   };
 });
 
-const inviteSendEmail = createHandler(async (
-  req: TAppRequest<{}, spacesSchemas.TInviteSendEmailBodyReq>,
-  res: TAppResponse<TSuccessVoidResult>
-) => {
-  const space = res.locals.get('space') as TSpaceDocument;
-  const spaceService = new SpaceService(space);
-
-  const {
-    email,
-    teamId,
-  } = req.body;
-
-  const token = spaceService.genInviteToken(email, teamId);
-
-  await mailService.sendInviteToSpaceEmail(
-    email,
-    space.name,
-    routesHelpers.getUrl(routing.getInviteToSpaceUrl(token))
-  );
-
-  res.locals.result = SUCCESS_VOID_RESULT;
-});
-
 const getStat = createHandler(async (
   req: TAppRequest,
   res: TAppResponse<spacesSchemas.TGetStatResResp>
@@ -203,6 +176,5 @@ export const spacesControllers = {
   inviteValidate,
   inviteAccept,
   inviteGen,
-  inviteSendEmail,
   getStat,
 };

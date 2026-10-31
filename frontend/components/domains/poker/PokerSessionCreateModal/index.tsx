@@ -20,11 +20,6 @@ const PokerSessionCreateModal = (props: TSessionCreateMainModalProps): React.Rea
   } = props;
 
   const {
-    domainOptions,
-    jiraOptions,
-    isConnectedJira,
-    isShowIntegJira,
-    handleToggleIntegJira,
     register,
     watchCardSetId,
     errors,
@@ -32,38 +27,21 @@ const PokerSessionCreateModal = (props: TSessionCreateMainModalProps): React.Rea
     formState,
     handleSubmit,
     onSubmit,
-    onRefreshIntegrations,
-    jiraApiErr,
-    onClickConnectingJira,
   } = usePokerSessionCreateModal({ edit: false });
 
   const lastPokerSession = useSelector(pokerSessionsSelectors.getLastEntity);
 
   return (
     <Layout
-      jiraApiErr={jiraApiErr}
-      domainOptions={domainOptions}
-      jiraProjectsOptions={jiraOptions.projects}
-      jiraFieldsOptions={jiraOptions.fields}
-      isConnectedJira={isConnectedJira}
-      isShowIntegJira={isShowIntegJira}
-      setIsShowIntegJira={() => handleToggleIntegJira()}
       formRefs={{
         title: register,
         description: register,
         isAutoReveal: register,
-        isVideoCall: register,
         cardSetId: register,
-      }}
-      formRefsJira={{
-        baseUrl: register,
-        projectJira: register,
-        fieldJira: register,
       }}
       defaultValue={{
         title,
         cardSetId: lastPokerSession?.cardSetId.toString(),
-        isVideoCall: lastPokerSession?.isVideoCall,
         isAutoReveal: lastPokerSession?.isAutoReveal,
       }}
       cardSetId={watchCardSetId}
@@ -71,8 +49,6 @@ const PokerSessionCreateModal = (props: TSessionCreateMainModalProps): React.Rea
       errGlobalMsg={errGlobalMsg}
       isLoading={formState.isSubmitting}
       onCancel={onClose}
-      onClickConnectingJira={onClickConnectingJira}
-      onRefreshIntegrations={onRefreshIntegrations}
       onSubmit={handleSubmit(onSubmit)}
       {...other}
     />

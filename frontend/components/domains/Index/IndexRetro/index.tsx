@@ -13,7 +13,6 @@ import {
   IconDownload,
   IconNote,
   IconThumbUpOutline,
-  IconCameraCamera,
   IconVisibilityOff,
 } from '@components/uiKit/Icons';
 
@@ -35,10 +34,6 @@ const FEATURES = [
   {
     key: 'actions',
     Icon: IconCheckCircle,
-  },
-  {
-    key: 'call',
-    Icon: IconCameraCamera,
   },
   {
     key: 'export',

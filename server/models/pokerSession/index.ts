@@ -95,15 +95,6 @@ const PokerSessionSchema = new mongoose.Schema<TPokerSessionDocument>({
     type: mongoose.Schema.Types.Boolean,
     default: false,
   },
-  isVideoCall: {
-    type: mongoose.Schema.Types.Boolean,
-    default: false,
-  },
-  jira: {
-    baseUrl: mongoose.Schema.Types.String,
-    project: mongoose.Schema.Types.Mixed,
-    field: mongoose.Schema.Types.Mixed,
-  },
   rating: [RatingSchema],
 }, {
   strict: true,
@@ -180,7 +171,6 @@ PokerSessionSchema.statics.createNew = function (
     storiesIds: [],
     rating: [],
     isAutoReveal: false,
-    isVideoCall: false,
     results: {},
     active: null,
     cardSetId: new ObjectID(),

@@ -5,7 +5,6 @@ import update from 'immutability-helper';
 import { isEqual } from 'lodash';
 import { HYDRATE } from 'next-redux-wrapper';
 
-import { jiraActionTypes } from '@Redux/domains/jira/actionTypes';
 import { storiesActionsTypes } from '@Redux/domains/stories/actionsTypes';
 import { TAppAction } from '@Redux/types';
 
@@ -47,14 +46,6 @@ const entitiesReducer = (state = initialState, action: TAppAction): TStoriesStat
     }
 
     case storiesActionsTypes.CREATE_MANY_FULFILLED: {
-      const { stories } = action.payload;
-
-      return update(state, {
-        $merge: arrayHelpers.normalizeArr(stories, '_id'),
-      });
-    }
-
-    case jiraActionTypes.ISSUES_IMPORT_FULFILLED: {
       const { stories } = action.payload;
 
       return update(state, {

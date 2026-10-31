@@ -1,1 +1,1 @@
-export { softDeletePlugin } from './softDelete';
+export { markSoftDeleted, softDeletePlugin } from './softDelete';

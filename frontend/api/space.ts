@@ -1,4 +1,4 @@
-import { TSuccessResponse, spacesSchemas, participantsSchemas } from '@chpokify/api-schemas';
+import { TSuccessResponse, spacesSchemas } from '@chpokify/api-schemas';
 import { TEntityID } from '@chpokify/models-types';
 
 import { api } from '@lib/api';
@@ -29,12 +29,6 @@ const inviteAccept = async (spaceId: TEntityID, data: spacesSchemas.TInviteAccep
 const inviteGen = async (spaceId: TEntityID) =>
   api.post<TSuccessResponse<spacesSchemas.TGenInviteResResp>>(
     `/spaces/${spaceId}/invite`
-  );
-
-const inviteSendEmail = async (spaceId: TEntityID, data: spacesSchemas.TInviteSendEmailBodyReq) =>
-  api.post<TSuccessResponse<participantsSchemas.TInviteSendEmailResp>>(
-    `/spaces/${spaceId}/invite/send/email`,
-    data
   );
 
 const get = async (spaceId: TEntityID) =>
@@ -71,7 +65,6 @@ export const spacesApi = {
   inviteValidate,
   inviteAccept,
   inviteGen,
-  inviteSendEmail,
   get,
   update,
   remove,

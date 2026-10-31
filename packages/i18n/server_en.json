@@ -2,7 +2,13 @@
   "schemas": {
     "authGuest": {
       "teamId": {
-        "string.empty": "There is not a single command in the session, ask the admin to create and repeat again"
+        "string.empty": "There is not a single command in the session, ask the admin to create and repeat again",
+        "any.required": "Please choose your team.",
+        "invalid": "This team is not in the invite link. Please choose another team."
+      },
+      "username": {
+        "string.empty": "Please enter your name.",
+        "string.invalid": "Name should be %{min}-%{max} characters long: letters, digits, spaces, _ . ' -"
       }
     },
     "auth": {
@@ -13,9 +19,6 @@
       "username": {
         "string.empty": "Please enter username.",
         "string.pattern.base": "{{min}}-{{max}} characters long, no spaces. Use: a-z, A-Z, 0-9, _, -."
-      },
-      "resetPasswordToken": {
-        "string.empty": "Link is invalid. Please reset password again."
       },
       "email": {
         "string.empty": "Please enter email.",
@@ -91,15 +94,6 @@
         "string.empty": "Link is invalid. Please ask the space owner to invite you again."
       }
     },
-    "jiraIntegration": {
-      "baseUrl": {
-        "string.empty": "Your JIRA URL can not be empty.",
-        "string.pattern.base": "URL is invalid. Check if you added https://"
-      },
-      "jql": {
-        "string.max": "Should be max %{max} characters long."
-      }
-    },
     "retroSession": {
       "inviteToken": {
         "string.empty": "Link is invalid. Please ask the space owner to invite you again."
@@ -113,16 +107,10 @@
     "tooManyRequests": "Too many requests. Please again it later.",
     "tooManyRequestsWithRemaining": "Too many requests. Please wait %{distance}.",
     "forbidden": "You've no permission to do this action.",
-    "forbiddenJira": "You've no permission to jira.",
-    "upgradeAccountToJira": "Upgrade account to use Jira",
-    "upgradeAccountToVideoCall": "Upgrade account to use Video call",
-    "upgradeAccountToVideoCallAndJira": "Upgrade account to use Jira and Video call",
     "upgradeAccountToMultiAdmins": "Upgrade account to use Multi admins mode",
     "upgradeAccountToCreateTeam": "Upgrade account to Create team",
     "upgradeAccountToInviteParticipants": "Upgrade account to invite participants",
     "limitInviteParticipants": "Admin should upgrade their space to allow you to join this session",
-    "forbiddenVideoCall": "You've no permission to video call.",
-    "forbiddenVideoCallAndJira": "You've no permission to video call and jira.",
     "serverIsShuttingDown": "Server is shutting down.",
     "session": {
       "notFound": "Session not found"
@@ -203,30 +191,9 @@
       "notAuthorized": "You are not authorized, please login again.",
       "invalidSignIn": "Email or password is invalid.",
       "sessionExpired": "Your session is expired, need login again.",
-      "resetPasswordInvalid": "Password is invalid.",
-      "resetPassword": {
-        "invalidToken": "Reset password link is invalid. . Please resend a reset link.",
-        "tokenUserNotFound": "User not found."
-      },
-      "validateResetPasswordToken": {
-        "invalidToken": "Reset password link is expired or invalid. . Please resend a reset link."
-      },
       "guest": {
-        "forbidden": "This email is already registered. Please log in with password to join the session."
+        "inviteUsed": "This invite link has already been used. Please ask the session admin for a new link."
       }
-    },
-    "jiraIntegration": {
-      "noConnectedDomain": "JIRA domain is not connected to Chpokify. Go to integration settings and follow instructions."
-    },
-    "jiraOauth": {
-      "common": "This account is not connected yet. Please check that the instructions are followed correctly or contact us by %{supportEmail}. JIRA error code: %{error}.",
-      "notFoundUrl": "Can't connect to the provide JIRA url. Please check the correctness."
-    },
-    "jiraApi": {
-      "common": "Couldn’t import from JIRA. Please try again. If it happens again, please contact us by %{supportEmail}. JIRA error code: %{error}.",
-      "auth": "Couldn’t import because of JIRA auth problem. Refresh your JIRA connection in integrations settings. If it won’t help, contact us by %{supportEmail}. JIRA error code: %{error}.",
-      "tokenRejected": "Jira connection expired.",
-      "fieldNotScreen": "Can’t be pasted to this field. Please add it to your project’s screens in Jira first."
     },
     "paymentSubscription": {
       "invalidId": "Subscription id is invalid.",
@@ -246,7 +213,8 @@
     "retroCard": {
       "invalidId": "Retro card id is invalid.",
       "notFound": "Retro card not found.",
-      "invalidMaxVotes": "You used all %{maxVotes} of your votes!"
+      "invalidMaxVotes": "You used all %{maxVotes} of your votes!",
+      "combineWithItself": "Retro card can't be combined with itself."
     },
     "retroSessionTemplate": {
       "invalidId": "Retro template id is invalid.",
@@ -257,17 +225,6 @@
         "notFound": "Retro template column not found.",
         "notFoundAction": "Retro template action column not found."
       }
-    }
-  },
-  "emails": {
-    "welcome": {
-      "subject": "Welcome to Chpokify!"
-    },
-    "spaceInvite": {
-      "subject": "Accept invite to space %{spaceName}"
-    },
-    "passwordReset": {
-      "subject": "Reset password"
     }
   }
 }

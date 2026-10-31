@@ -7,6 +7,14 @@ export type TWithSoftDeleted = {
 
 type TDocument = TWithSoftDeleted & mongoose.Document;
 
+// sets soft delete fields without saving: lets callers delete with their own save (e.g. saveWithRetry)
+const markSoftDeleted = (doc: mongoose.Document) => {
+  doc.set({
+    isDeleted: true,
+    deletedAt: new Date(),
+  });
+};
+
 const softDeletePlugin = (schema: mongoose.Schema) => {
   schema.add({
     isDeleted: {
@@ -33,8 +41,7 @@ const softDeletePlugin = (schema: mongoose.Schema) => {
   ];
 
   const setDocumentIsDeleted = async (doc: TDocument) => {
-    doc.isDeleted = true;
-    doc.deletedAt = new Date();
+    markSoftDeleted(doc);
     doc.$isDeleted(true);
     await doc.save();
   };
@@ -68,5 +75,6 @@ const softDeletePlugin = (schema: mongoose.Schema) => {
 };
 
 export {
+  markSoftDeleted,
   softDeletePlugin,
 };

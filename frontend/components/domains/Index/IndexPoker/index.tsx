@@ -12,7 +12,6 @@ import {
   IconCardsOutline,
   IconFlagOutline,
   IconGroupOfUsers,
-  IconJira,
   IconTimer,
   IconVisibilityOn,
 } from '@components/uiKit/Icons';
@@ -39,10 +38,6 @@ const FEATURES = [
   {
     key: 'timer',
     Icon: IconTimer,
-  },
-  {
-    key: 'jira',
-    Icon: IconJira,
   },
 ];
 

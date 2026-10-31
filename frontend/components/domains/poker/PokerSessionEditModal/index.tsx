@@ -22,11 +22,6 @@ const PokerSessionEditModal = (props: TPokerSessionEditModalProps): React.ReactE
 
   const pokerSession = useSelector(pokerSessionsSelectors.getById)(pokerSessionId);
   const {
-    domainOptions,
-    jiraOptions,
-    isConnectedJira,
-    isShowIntegJira,
-    handleToggleIntegJira,
     register,
     watchCardSetId,
     errors,
@@ -34,54 +29,31 @@ const PokerSessionEditModal = (props: TPokerSessionEditModalProps): React.ReactE
     formState,
     handleSubmit,
     onSubmit,
-    onRefreshIntegrations,
-    jiraApiErr,
-    onClickConnectingJira,
   } = usePokerSessionCreateModal({
     edit: true,
     pokerSessionId,
     onClose,
-    pokerSession,
   });
 
   return (
     <Layout
-      jiraApiErr={jiraApiErr}
-      domainOptions={domainOptions}
-      jiraProjectsOptions={jiraOptions.projects}
-      jiraFieldsOptions={jiraOptions.fields}
-      isConnectedJira={isConnectedJira}
-      isShowIntegJira={isShowIntegJira}
-      setIsShowIntegJira={() => handleToggleIntegJira()}
       formRefs={{
         title: register,
         description: register,
         isAutoReveal: register,
-        isVideoCall: register,
         cardSetId: register,
-      }}
-      formRefsJira={{
-        baseUrl: register,
-        projectJira: register,
-        fieldJira: register,
       }}
       defaultValue={{
         title: pokerSession?.title,
         description: pokerSession?.description,
         cardSetId: pokerSession?.cardSetId,
         isAutoReveal: pokerSession?.isAutoReveal,
-        isVideoCall: pokerSession?.isVideoCall,
-        fieldJira: pokerSession?.jira?.field?.id,
-        projectJira: pokerSession?.jira?.project?.id,
-        baseUrl: pokerSession?.jira?.baseUrl,
       }}
       cardSetId={watchCardSetId}
       errors={errors}
       errGlobalMsg={errGlobalMsg}
       isLoading={formState.isSubmitting}
       onCancel={onClose}
-      onRefreshIntegrations={onRefreshIntegrations}
-      onClickConnectingJira={onClickConnectingJira}
       onSubmit={handleSubmit(onSubmit)}
       onClose={onClose}
       {...other}

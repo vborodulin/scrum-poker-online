@@ -104,4 +104,3 @@ export * from './Login';
 export * from './Count';
 export * from './MobilePhoneIphone';
 export * from './Logo';
-export * from './Jira';

@@ -11,14 +11,7 @@ import { useAsyncActionInfo } from '@components/utils/hooks/useAsyncActionInfo';
 
 import { Layout, TFormData } from './Layout';
 
-export type TLogInProps = {
-  hasCrypto?: boolean;
-}
-
-const LogIn = (props: TLogInProps): React.ReactElement | null => {
-  const {
-    hasCrypto,
-  } = props;
+const LogIn = (): React.ReactElement | null => {
   const dispatch = useAppDispatch();
 
   const invite = useSelector(spacesSelectors.getInvite);
@@ -81,7 +74,6 @@ const LogIn = (props: TLogInProps): React.ReactElement | null => {
       hasChanges={formState.dirty}
       isLoading={formState.isSubmitting}
       onSubmit={handleSubmit(onSubmit)}
-      hasCrypto={hasCrypto}
     />
   );
 };

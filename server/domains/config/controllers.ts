@@ -21,9 +21,6 @@ const getConfig = createHandler(async (
       baseUrl: process.env.CLIENT_DOMAIN as string,
       poker,
       apple,
-      jitsi: {
-        host: config.get('jitsi.host'),
-      },
       tagManager,
       retro,
     },

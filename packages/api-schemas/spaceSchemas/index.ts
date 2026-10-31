@@ -8,9 +8,6 @@ import {
 } from '@chpokify/models-types';
 import Joi from '@hapi/joi';
 
-import { AuthSchemas } from '../authSchemas';
-import { coreSchemas } from '../coreSchemas';
-
 export { teamsSchemas } from '../teamsSchemas';
 export { pokerSessionsSchemas } from '../pokerSessionsSchemas';
 export { participantsSchemas } from '../participantsSchemas';
@@ -111,12 +108,6 @@ export namespace spacesSchemas {
     url: string;
   };
 
-  // invite send email
-  export type TInviteSendEmailBodyReq = {
-    email: string;
-    teamId?: string
-  };
-
   // invite accept
   export type TInviteAcceptBodyReq = {
     token: string;
@@ -132,14 +123,6 @@ export namespace spacesSchemas {
   export type TInviteAcceptResResp = {
     space: TSpace
   };
-
-  export const inviteSendEmailSchema = Joi.object({
-    body: {
-      email: AuthSchemas.EmailSchema.required(),
-      teamId: coreSchemas.ObjectIdSchema,
-    },
-  })
-    .unknown(true);
 
   // get stat
   export type TGetStatResResp = TSpaceStat;

@@ -14,7 +14,7 @@ const openRatingModal = async (pokerSessionId: TEntityID) =>
   );
 
 const setRatingModal = async (pokerSessionId: TEntityID, data: pokerSessionsSchemas.TSetRatingBodyReq) =>
-  api.post(
+  api.post<TSuccessResponse<pokerSessionsSchemas.TUpdateResResp>>(
     `/poker-sessions/${pokerSessionId}/rating/modal`,
     data
   );

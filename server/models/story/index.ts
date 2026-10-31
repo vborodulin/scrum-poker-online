@@ -49,9 +49,6 @@ const StorySchema = new mongoose.Schema({
     type: mongoose.Schema.Types.String,
     maxlength: STORY_DESCRIPTION_MAX_LENGTH,
   },
-  jiraData: {
-    type: mongoose.Schema.Types.Mixed,
-  },
 }, {
   timestamps: true,
   strict: true,
@@ -108,10 +105,6 @@ StorySchema.index({
 StorySchema.index({
   spaceId: 1,
   id: 1,
-});
-
-StorySchema.index({
-  'jiraData.self': 1,
 });
 
 /**

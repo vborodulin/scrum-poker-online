@@ -1,4 +1,3 @@
-import { arrayHelpers } from '@chpokify/helpers';
 import { THEME_TYPES } from '@chpokify/models-types';
 import { createSelector } from '@reduxjs/toolkit';
 
@@ -17,11 +16,6 @@ const getAuth = ({ auth }: TAppState) => auth;
 const getCurrUser = createSelector(
   getAuth,
   (auth) => auth.user
-);
-
-const getResetPasswordTokenPayload = createSelector(
-  getAuth,
-  (auth) => auth.resetPasswordTokenPayload
 );
 
 const getAfterLoginRedirectData = createSelector(
@@ -76,30 +70,8 @@ const getShowPokerOnboarding = createSelector(
   (user) => !!user?.showPokerOnboarding
 );
 
-// jira integrations
-const jiraUrls = createSelector(
-  getCurrUser,
-  (user) => Object.keys(user?.jiraIntegrations || {})
-);
-
-const isConnectedJira = createSelector(
-  jiraUrls,
-  (jiraUrlsArr) => !arrayHelpers.isEmptyArr(jiraUrlsArr)
-);
-
-const getJiraIntegrationsList = createSelector(
-  getCurrUser,
-  (user) => Object.values(user?.jiraIntegrations || {})
-);
-
-const getJiraIntegrations = createSelector(
-  getCurrUser,
-  (user) => user?.jiraIntegrations || {}
-);
-
 export const authSelectors = {
   getCurrUser,
-  getResetPasswordTokenPayload,
   getAfterLoginRedirectData,
   getIsLoggedIn,
   getCurrUserId,
@@ -108,9 +80,5 @@ export const authSelectors = {
   getCurrUserThemeType,
   getShowSpaceOnboarding,
   getShowPokerOnboarding,
-  jiraUrls,
-  isConnectedJira,
-  getJiraIntegrationsList,
-  getJiraIntegrations,
   isCurrUserGuest,
 };

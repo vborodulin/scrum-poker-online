@@ -5,13 +5,10 @@ enum INVITE_USER_TO {
   RETRO
 }
 
-type TResetPasswordTokenPayload = {
-  email: string
-};
-
 type TLogInGuest = {
-  email: string;
-  teamId: TEntityID
+  username: string;
+  // may be omitted when the invite link has only one team
+  teamId?: TEntityID
   inviteToken: string;
   inviteTo: INVITE_USER_TO
 };
@@ -22,5 +19,4 @@ export {
 
 export type{
   TLogInGuest,
-  TResetPasswordTokenPayload,
 };

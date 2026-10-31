@@ -35,6 +35,7 @@
     "client:start": "source scripts/load_env.sh && yarn frontend run start",
     "client:dev": "source scripts/load_env.sh && yarn frontend run dev",
     "server:demon": "yarn server run demon",
+    "dev": "docker-compose up --build --remove-orphans",
     "server:dev": "docker-compose up --build --remove-orphans",
     "server:build": "webpack --config webpack.config.js",
     "server:start": "node ./server/build/index.js",

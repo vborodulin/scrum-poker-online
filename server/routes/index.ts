@@ -1,5 +1,4 @@
 import { configRouter } from '@domains/config/routes';
-import { jiraRouter } from '@domains/jira/routes';
 import { retroSessionsRouter } from '@domains/retroSessions/routes';
 import { statsRouter } from '@domains/stats/routes';
 import { pokerSessionsRouter } from '@pokerSessions/routes';
@@ -22,7 +21,6 @@ router.use('/auth', authRouter);
 router.use('/spaces', spacesRouter);
 router.use('/users', usersRouter);
 router.use('/poker-sessions', pokerSessionsRouter);
-router.use('/jira', jiraRouter);
 router.use('/retro-sessions', retroSessionsRouter);
 
 export { router };

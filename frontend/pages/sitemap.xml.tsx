@@ -8,11 +8,9 @@ const STATIC_PAGE_PATHES = [
   routing.getIndexUrl(),
   routing.getLogInUrl(),
   routing.getSignUpUrl(),
-  routing.getForgotPasswordUrl(),
   routing.getPrivacyPolicyUrl(),
   routing.getTermsOfUseUrl(),
   routing.getPricingUrl(),
-  routing.getJiraConnectUrl(),
 ];
 
 const getStaticUrls = (baseUrl: string) => [

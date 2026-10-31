@@ -19,8 +19,6 @@ export const retroSessionsActionsTypes = {
   CURRENT_ID_SET: 'retroSessions/setCurrentId',
   REMOVE_CURRENT_ID: 'retroSessions/removeCurrentId',
 
-  IS_VIDEO_CALL_OPEN_SET: 'retroSessions/videoCall/open/set',
-
   COLUMN_ACTIONS_SIDE_BAR_TOGGLE: 'retroSessions/columnActionsSidebar/toggle',
   COLUMN_ACTIONS_SIDE_BAR_CLOSE: 'retroSessions/columnActionsSidebar/close',
 

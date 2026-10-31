@@ -10,10 +10,6 @@ export type TStripeConfig = {
   publishableKey: string;
 };
 
-export type TJitsiConfig = {
-  host: string;
-}
-
 export type TAppleConfig = {
   clientId: string;
   redirectURI: string;
@@ -30,7 +26,6 @@ export type TRetroConfig = {
 export type TClientConfig = {
   baseUrl: string;
   poker: TPokerConfig;
-  jitsi: TJitsiConfig;
   apple: TAppleConfig;
   tagManager: TTagManagerConfig;
   retro: TRetroConfig;

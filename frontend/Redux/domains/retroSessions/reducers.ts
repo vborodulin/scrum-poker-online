@@ -78,15 +78,6 @@ const retroSessionIdReducer = (
   }
 };
 
-const isVideoCallOpenReducer = (state: boolean = false, action: TAppAction): boolean => {
-  switch (action.type) {
-    case retroSessionsActionsTypes.IS_VIDEO_CALL_OPEN_SET:
-      return action.payload.isVideoCallOpen;
-    default:
-      return state;
-  }
-};
-
 const isColumnActionsSidebarOpenReducer = (state: boolean = false, action: TAppAction): boolean => {
   switch (action.type) {
     case retroSessionsActionsTypes.COLUMN_ACTIONS_SIDE_BAR_TOGGLE:
@@ -167,7 +158,6 @@ export const retroSessionsReducer = combineReducers({
   entities: entitiesReducer,
   countEntities: countEntitiesReducer,
   retroSessionId: retroSessionIdReducer,
-  isVideoCallOpen: isVideoCallOpenReducer,
   isColumnActionsSidebarOpen: isColumnActionsSidebarOpenReducer,
   invite: inviteReducer,
 });

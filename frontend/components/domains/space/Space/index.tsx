@@ -1,7 +1,6 @@
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 
-import { IntegrationsSpacePromo } from '@components/domains/integrations/IntegrationsSpacePromo';
 import { CreateSession } from '@components/domains/poker/PokerSessionCreate';
 import { PokerSessionsList } from '@components/domains/poker/PokerSessionsList';
 import { Participants } from '@components/domains/space/Participants';
@@ -42,7 +41,6 @@ const Space = () => {
         >
           <Teams />
           <Participants />
-          <IntegrationsSpacePromo />
           <PokerCardDecks />
         </Grid>
       </Grid>

@@ -1,1 +1,0 @@
-export { jiraQueue } from './jiraQueue';

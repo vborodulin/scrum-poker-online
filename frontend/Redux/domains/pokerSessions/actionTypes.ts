@@ -144,9 +144,6 @@ export const pokerSessionsActionsTypes = {
   STORY_TEAM_SCORES_SET_FULFILLED: 'pokerSessions/story/team/scores/set/fulfilled',
   STORY_TEAM_SCORES_SET_REJECTED: 'pokerSessions/story/team/scores/set/rejected',
 
-  // video call
-  IS_VIDEO_CALL_OPEN_SET: 'pokerSessions/isVideoVall/open/set',
-
   // destroy
   DESTROY: 'pokerSessions/destroy',
 

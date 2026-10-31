@@ -13,7 +13,6 @@ import { RetroSessionContent } from '@components/domains/retro/RetroSession/Retr
 import { RetroSessionHeader } from '@components/domains/retro/RetroSession/RetroSessionHeader';
 import { RetroSessionSettingsActions } from '@components/domains/retro/RetroSession/RetroSessionSettingsActions';
 import { RetroSessionThumbForbidden } from '@components/domains/retro/RetroSession/RetroSessionThumbForbidden';
-import { RetroSessionVideoCall } from '@components/domains/retro/RetroSession/RetroSessionVideoCall';
 
 import { Flex } from '@components/uiKit/Flex';
 
@@ -57,7 +56,6 @@ const RetroSession = (): React.ReactElement => {
         <RetroSessionHeader />
         <RetroSessionContent />
         <RetroSessionSettingsActions />
-        <RetroSessionVideoCall />
       </Flex>
 
       <RetroSessionColumnActionsWrapper />

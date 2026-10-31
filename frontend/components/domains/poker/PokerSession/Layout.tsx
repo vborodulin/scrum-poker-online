@@ -6,7 +6,6 @@ import { PokerSessionHeader } from '@components/domains/poker/PokerSession/Poker
 import { PokerSessionStoriesList } from '@components/domains/poker/PokerSession/PokerSessionStoriesList';
 import { PokerSessionStory } from '@components/domains/poker/PokerSession/PokerSessionStory';
 import { PokerSessionTeams } from '@components/domains/poker/PokerSession/PokerSessionTeams';
-import { PokerVideoCall } from '@components/domains/poker/PokerVideoCall';
 import { PokerChooseCardsProcessor } from '@components/domains/poker/utils/PokerChooseCardsProcessor';
 import { StoriesListSelectProcessor } from '@components/domains/poker/utils/StoriesListSelectedProcessor';
 
@@ -33,7 +32,6 @@ const Layout = (props: TLayoutProps): React.ReactElement | null => {
       {...other}
     >
       <PokerSessionHeader
-        isVideoCall={pokerSession.isVideoCall}
         pokerSessionId={pokerSession._id}
         title={pokerSessionHelpers.getTitle(pokerSession)}
         description={pokerSession.description}
@@ -76,8 +74,6 @@ const Layout = (props: TLayoutProps): React.ReactElement | null => {
 
       <PokerChooseCardsProcessor />
       <StoriesListSelectProcessor />
-
-      <PokerVideoCall />
     </Flex>
   );
 };

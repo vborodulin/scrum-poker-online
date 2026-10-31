@@ -53,6 +53,9 @@ const RetroCardSchema = new mongoose.Schema<TRetroCardDocument>({
   strict: true,
   strictQuery: true,
   minimize: false,
+  // concurrent saves (votes, edits and combining) must not overwrite each other:
+  // save fails with VersionError and is retried in saveWithRetry
+  optimisticConcurrency: true,
 });
 
 /**

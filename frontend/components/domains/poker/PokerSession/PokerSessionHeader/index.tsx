@@ -14,7 +14,6 @@ import { Text } from '@components/uiKit/Text';
 
 export type TPokerSessionHeaderProps = Partial<TGridProps> & {
   pokerSessionId: TEntityID;
-  isVideoCall: boolean;
   title: string;
   description?: string;
 };
@@ -24,7 +23,6 @@ const PokerSessionHeader = (props: TPokerSessionHeaderProps): React.ReactElement
     pokerSessionId,
     title,
     description,
-    isVideoCall,
     ...other
   } = props;
 
@@ -75,7 +73,6 @@ const PokerSessionHeader = (props: TPokerSessionHeaderProps): React.ReactElement
       </Flex>
 
       <PokerSessionActions
-        isVideoCall={isVideoCall}
         pokerSessionId={pokerSessionId}
       />
     </Grid>

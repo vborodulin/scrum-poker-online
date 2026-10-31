@@ -71,11 +71,6 @@ export const spacesActionsTypes = {
   INVITE_ACCEPT_FULFILLED: 'space/invite/accept/fulfilled',
   INVITE_ACCEPT_REJECTED: 'space/invite/accept/rejected',
 
-  // participants send invite to email
-  INVITE_SEND_EMAIL_PENDING: 'space/invite/send/email/pending',
-  INVITE_SEND_EMAIL_FULFILLED: 'space/invite/send/email/fulfilled',
-  INVITE_SEND_EMAIL_REJECTED: 'space/invite/send/email/rejected',
-
   INVITE_TOKEN_CLEAR: 'space/inviteToken/clear',
 
   // get spaces when me participant

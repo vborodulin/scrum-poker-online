@@ -1,7 +1,7 @@
 {
   "index": {
     "title": "Chpokify | Planning Poker Online & Sprint Retrospectives",
-    "description": "Chpokify is a free online planning poker and retrospective tool for agile and scrum teams: estimate stories, run retros and integrate with Jira."
+    "description": "Chpokify is a free online planning poker and retrospective tool for agile and scrum teams: estimate stories and run retros."
   },
   "pricing": {
     "title": "Chpokify Pricing | Sprint Planning Poker",
@@ -22,14 +22,6 @@
   "terms": {
     "title": "Terms of Use | Chpokify | Essential Sprint Planning Kit",
     "description": "By creating an account and using Chpokify, you agree to our Terms of Use, as outlined on this page."
-  },
-  "jiraConnect": {
-    "title": "Jira integration | Planning Poker App",
-    "description": "Import Issues, Stories, and Tasks Right From Your Jira Account Without Leaving Session. Conduct Effective Planning Poker Estimations with Chpokify"
-  },
-  "jiraAddFieldToScreen": {
-    "title": "Export effort points to Jira | Planning Poker App",
-    "description": "Follow these steps to change which screens your custom field is associated with in your Jira."
   },
   "sitemap": {
     "title": "Sitemap | Planning Poker App",

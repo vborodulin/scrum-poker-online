@@ -54,7 +54,7 @@
       "poker": {
         "label": "Покер планирования",
         "title": "Планирование спринта без бесконечных созвонов",
-        "desc": "Создайте сессию, добавьте задачи вручную или импортируйте из Jira и оценивайте вместе в реальном времени.",
+        "desc": "Создайте сессию, добавьте задачи и оценивайте вместе в реальном времени.",
         "imgAlt": "Сессия покера планирования в Chpokify",
         "features": {
           "teams": {
@@ -76,10 +76,6 @@
           "timer": {
             "title": "Учёт времени",
             "desc": "Видно, сколько времени команда тратит на каждую задачу и на всю сессию."
-          },
-          "jira": {
-            "title": "Интеграция с Jira",
-            "desc": "Импортируйте задачи из Jira и отправляйте оценки обратно в выбранное поле."
           }
         }
       },
@@ -103,10 +99,6 @@
           "actions": {
             "title": "Задачи по итогам",
             "desc": "Превратите любую карточку в задачу и держите план рядом с доской."
-          },
-          "call": {
-            "title": "Видеозвонок",
-            "desc": "Подключайтесь к звонку прямо из ретро, не переключаясь между сервисами."
           },
           "export": {
             "title": "Экспорт в CSV",
@@ -161,8 +153,6 @@
       "share": "Пригласить",
       "retroHeaderActions": {
         "shareBtn": "Поделиться",
-        "videoCallBtn": "Видеозвонок",
-        "videoOnCall": "В звонке",
         "actionsBtn": "План действий"
       },
       "retroItem": {
@@ -377,7 +367,6 @@
       "communityAndPlanningTitle": "Статьи сообщества / Покер планирования",
       "registrationLink": "Регистрация",
       "pricesLink": "Цены",
-      "jiraConnectLink": "Интеграция с JIRA",
       "privacyPolicyLink": "Политика конфиденциальности",
       "termsOfUseLink": "Правила пользования",
       "discordLink": "Discord",
@@ -419,7 +408,6 @@
         "scrumPokerOnline": "Scrum poker online",
         "whatIsScrumPoker": "What is scrum poker",
         "howToPlayPlanningPoker": "How to play planning poker",
-        "jiraPlanningPoker": "Jira planning poker",
         "pokerTipsInScrumPlanningPoker": "Poker tips in scrum planning poker",
         "top5PlanningPokerTools": "Top 5 planning poker tools",
         "planningPokerEstimation": "What is the planning poker estimation used for",
@@ -435,23 +423,6 @@
     "blog": "Блог"
   },
   "comingSoon": "Скоро...",
-  "forgotPassword": {
-    "title": "Сброс пароля",
-    "description": "Введите адрес почты, и мы отправим вам ссылку для сброса пароля.",
-    "emailPlaceholder": "Адрес почты",
-    "resetBtn": "Сбросить пароль",
-    "resendWithTimerBtn": "Сбросить через {{timer}}",
-    "logInLink": "Вход",
-    "mailSentMessage": "Ссылка для восстановления пароля отправлена на вашу почту."
-  },
-  "resetPassword": {
-    "title": "Смена пароля",
-    "description": "Введите ваш новый пароль",
-    "passwordPlaceholder": "Новый пароль",
-    "repeatPasswordPlaceholder": "Повторите новый пароль",
-    "logInLink": "Вход",
-    "submitBtn": "Установить пароль"
-  },
   "joinSession": {
     "title": "Присоединиться к сессии",
     "loginOrSignUpBtn": "Вход или регистрация",
@@ -491,8 +462,7 @@
     "passwordPlaceholder": "Пароль",
     "signUpBtn": "Зарегистрироваться",
     "dividerOAuth": "ИЛИ",
-    "logInBtn": "Войти",
-    "forgotPasswordLink": "Забыл пароль"
+    "logInBtn": "Войти"
   },
   "signUp": {
     "title": "Создать бесплатный аккаунт",
@@ -564,14 +534,7 @@
   "inviteToSpaceModal": {
     "title": "Invite people to space",
     "description": "Chpokify is free for up to {{freeUsersCount}} users. When {{paidUsersCount}}th user added, you’ll only be charged after {{trialDaysCount}} days free trial.",
-    "dividerLabel": "OR",
     "sendInviteLinkTitle": "Invite by link",
-    "sendInviteBtn": "Send invite",
-    "sendInviteEmailTitle": "Invite by email",
-    "emailPlaceholder": "Enter email to send the invitation",
-    "showTeamsSwitcherLabel": "Assign invited user to team",
-    "selectTeamPlaceholder": "Select team to assign to",
-    "successEmailSentHelperText": "Invite to {{email}} sent.",
     "cancelBtn": "Cancel"
   },
   "inviteToSpaceAcceptSuccess": {
@@ -600,7 +563,6 @@
     "retroItem": "Ретро",
     "localeItem": "Русский",
     "kanbanItem": "Доска",
-    "integrationsItem": "Интеграции",
     "supportItem": "Поддержка",
     "signOutItem": "Выйти",
     "spaceAdminLabel": "Вы админ",
@@ -730,7 +692,6 @@
     "emptyTeamsDescription": "Команд пока нет. Создать?",
     "settingsTitle": "Настройки",
     "isAutoRevealLabel": "Автоматически открывать карты, когда все участники проголосовали",
-    "isVideoCallLabel": "Разрешить видеозвонок в этой сессии",
     "cardDeckLabel": "Колода",
     "createTeamBtn": "Создать команду"
   },
@@ -799,17 +760,7 @@
     "emptyTeamsInSession": "No teams in session",
     "teamsLabel": "Команды",
     "teamsScoresLabel": "Счет команды",
-    "addTeamsBtn": "Добавить команды",
-    "jira": {
-      "title": "Jira",
-      "errorTitleUp": "Экспорт не удался.",
-      "errorTitleDown": "Но это легко исправить!",
-      "errorContentTxt": "Чтобы отправить счет в Jira, добавьте целевое поле на странице Экраны в Настройках проекта. Воспользуйтесь",
-      "errorContentLink": "инструкцией",
-      "errorHelpTxt": "Если не помогло,",
-      "errorHelpLink": " напишите нам",
-      "errorBtn": "Как исправить?"
-    }
+    "addTeamsBtn": "Добавить команды"
   },
   "pokerSessionChooseTeams": {
     "title": "Команды в сессии",
@@ -864,17 +815,8 @@
   },
   "storiesAddModal": {
     "tabFreeformInput": "Ручной ввод",
-    "tabImportFromJira": "Импорт из Jira",
-    "tabCreate": "Создать",
-    "tabIntegrations": "Интеграции",
     "title": "Добавить задачи",
-    "connectedToJira": "Подключите ваш Atlassian Jira проект и импортируйте задачи в один клик",
-    "connectedToJiraBtn": "Подключить Jira",
-    "useJira": "Использовать подключение к Jira",
-    "jiraAccount": "Аккаунт Jira",
-    "jiraProject": "Проект",
     "goToSettingsSessionsBtn": "К настройкам сессии",
-    "connectedJiraNotUseInSession": "Активируйте подключение к Jira в настройках сессии, чтобы импортировать задачи",
     "freeformInput": {
       "description": "Вы можете добавить сразу несколько задач, разместив каждую на отдельной строке. Задачи можно редактировать и во время сессии.",
       "placeholderMobile": "Вставьте или напишите несколько задач, каждую на новой строке",
@@ -882,42 +824,6 @@
       "cancelBtn": "Отмена",
       "submitBtn": "Добавить"
     }
-  },
-  "storiesIntegrationImport": {
-    "description": "Задачи можно редактировать в любое время.",
-    "systemLabel": "Выберите систему",
-    "domainLabel": "Выберите аккаунт Jira",
-    "projectLabel": "Выберите проект",
-    "selectJiraField": "Выберите целевое поле в Jira, в которое счет будет экспортирован из Chpokify",
-    "jqlLabel": "Вставьте или введите JQL-запрос",
-    "useDifferentProject": "Импорт не удается, так как выбран другой проект. Выберите целевой проект в настройках сессии и попробуйте снова.",
-    "useEmptyProject": "Пожалуйста, укажите проект в вашем JQL-запросе.",
-    "jqlPlaceholder": "Пример: project = CHPOK AND Sprint = 1",
-    "jqlEmptyHint": "Оставьте пустым, чтобы импортировать 50 последних задач из бэклога.",
-    "backlogItem": "Бэклог (первые 200 задач)",
-    "getStartedJql": "Узнать больше о JQL-запросе",
-    "connectJira": "Как  подключить Jira?",
-    "cancelBtn": "Отмена",
-    "submitBtn": "Импортировать"
-  },
-  "jiraAddFieldToScreen": {
-    "title": "Как добавить пользовательское поле на Экран проекта в Jira?",
-    "aboutAddJira": "Чтобы отправить счет в Jira, добавьте целевое поле на странице Экраны в Настройках проекта. Воспользуйтесь инструкцией. Если не помогло, ",
-    "aboutAddJiraBtn": "напишите нам",
-    "step1": {
-      "title": "1. Нажмите Настройки > “Задачи”."
-    },
-    "step2": {
-      "title": "2. Под “ПОЛЯ” нажмите “Пользовательские поля”."
-    },
-    "step3": {
-      "title": "3. Найдите пользовательское поле и нажмите “Связать с Экранами”.",
-      "alternatively": "3.1 Вы так же можете нажать контесткную ссылку поля и затем нажать “Экраны” > “Связать это поле с Экранами”."
-    },
-    "step4": {
-      "title": "4. Проверьте, на на каких экранах нужно отобразить это поле, и нажмите “Обновить”."
-    },
-    "successDone": "Когда все будет готово, экспорт в Jira должен заработать корректно. Если это не помогло,"
   },
   "cardDecks": {
     "title": "Колоды карт",
@@ -946,9 +852,6 @@
       "submitBtn": "Удалить",
       "cancelBtn": "Отмена"
     }
-  },
-  "integrations": {
-    "jira": "Jira"
   },
   "pokerSessionStoryCreateModal": {
     "title": "Создать задачу",
@@ -987,8 +890,6 @@
     "resourcesTitle": "Полезные материалы",
     "blogLink": "Блог",
     "communityLink": "Сообщество",
-    "howToConnectJiraLink": "Как подключить Jira?",
-    "integrationsLink": "Интеграции",
     "termsOfUseLink": "Правила пользования"
   },
   "pokerUserCard": {
@@ -1142,68 +1043,6 @@
       "name": "Идеальные дни"
     }
   },
-  "integrationsSpacePromo": {
-    "intergationsList": {
-      "title": "Текущие интеграции",
-      "requestBtn": "Запросить интеграцию"
-    },
-    "title": "Интеграции",
-    "description": "Импортируйте и экспортируйте задачи из других сервисов в Chpokify.",
-    "jiraBtn": "Atlassian Jira",
-    "slackBtn": "Slack"
-  },
-  "jiraIntegration": {
-    "title": "Как подключить Jira к Chpokify?",
-    "videoTitle": "Как подключить Jira к Chpokify?",
-    "teamAssist": {
-      "one": "Наша команда с радостью поможет вам настроить подключение к Jira. ",
-      "link": "Напишите нам,",
-      "two": " чтобы договориться о видеозвонке (по кипрскому времени)."
-    },
-    "contactAdministrator": "You will need to contact or be an administrator of your JIRA system in order to complete this integration. If you are not an administrator of your JIRA instance you can share the values and the instructions below. Remember to add your JIRA URL at the bottom of this page to link the account once you have completed the setup in JIRA.",
-    "step1": {
-      "title": "1. Create and set up JIRA application link",
-      "adminSettings": "1.1 As JIRA administrator, go to “Settings”, then “Application links”.",
-      "enterUrl": "1.2 Enter the Application URL then press “Create new link”.",
-      "pressContinue": "1.3 In the “Configure Application URL” modal window just press “Continue”.",
-      "fillNameNadType": "1.4 In the “Link applications” modal window copy and paste Chpokify to Application Name and choose Generic Application (usually selected by default), and then press “Continue”.",
-      "hint": "There will be other fields on this form in JIRA but ignore those for now.",
-      "applicationUrl": "Application URL",
-      "applicationName": "Application Name",
-      "applicationType": "Application Type"
-    },
-    "step2": {
-      "title": "2. Incoming authentications settings",
-      "clickPencil": "2.1 After completeing the first step, you’ll see the “Chpokify” line appeared in the table. Click pencil icon on the right.",
-      "configure": "2.2 In the “Configure Chpokify” modal window select “Incoming Authentication” and copy and paste all the settings below, and then press “Save”. Keep in mind that this modal window has many options, so you have to scroll down to see them.",
-      "consumerKey": "Consumer Key",
-      "consumerName": "Consumer Name",
-      "publicKey": "Public Key",
-      "consumerCallbackUrl": "Consumer Callback URL"
-    },
-    "step3": {
-      "title": "3. Link JIRA to Chpokify",
-      "description": "Paste your JIRA URL (ex: https://myaccount.atlassian.net) and finally press “Link”.",
-      "linkPlaceholder": "Required",
-      "linkBtn": "Link JIRA to Chpokify"
-    },
-    "existingIntegrations": {
-      "title": "Existing JIRA Integrations",
-      "removeBtn": "Remove",
-      "refreshBtn": "Refresh",
-      "refreshNowBtn": "Refresh now",
-      "noContent": "You have no jira integrations yet."
-    }
-  },
-  "jiraCallback": {
-    "success": {
-      "title": "JIRA successfully connected!",
-      "description": "Page will be closed after {{seconds}} seconds..."
-    },
-    "fail": {
-      "description": "Page will be closed after {{seconds}} seconds..."
-    }
-  },
   "pokerVotingScoresBanner": {
     "title": "Ваша карта",
     "emptyCard": "—",
@@ -1299,9 +1138,6 @@
   "sideBarFaq": {
     "title": "Вопросы и ответы"
   },
-  "sideBarIntegrations": {
-    "title": "Интеграции"
-  },
   "sideBarSettings": {
     "title": "Настройки пространства"
   },
@@ -1388,9 +1224,7 @@
     "featuresTitle": "Функции",
     "features": {
       "basicPlan": "Все функции плана Базовый",
-      "jiraIntegration": "Интеграция с Jira",
       "retroIntegration": "Интеграция с Chpokify Retro",
-      "videoCalls": "Видеозвонки",
       "multiTeamsVoting": "Командное голосование",
       "multiTeamsPlayers": "Гибкое распределение игроков",
       "multiAdminsMode": "Совместное управление сессией",
@@ -1481,13 +1315,6 @@
     "subscriptionProblem": "Subscription needs action",
     "upgrade": "Upgrade",
     "trial": "Trial ends {{in}}"
-  },
-  "pokerJoinCallBtn": {
-    "joinCall": "Видеозвонок",
-    "onCall": "В звонке"
-  },
-  "pokerVideoCall": {
-    "title": "Видеозвонок"
   },
   "contactSalesBtn": {
     "title": "Связаться"

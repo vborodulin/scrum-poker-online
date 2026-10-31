@@ -6,7 +6,6 @@ export namespace authTypes {
     | ReturnType<typeof authActions.afterLoginRedirectDataSet>
     | ReturnType<typeof authActions.afterLoginRedirectDataRemove>
     | ReturnType<typeof authActions.signOutFromOtherTab>
-    | ReturnType<typeof authActions.cryptoAuthFulfilled>
     | ReturnType<typeof authAsyncActions.get.pending>
     | ReturnType<typeof authAsyncActions.get.fulfilled>
     | ReturnType<typeof authAsyncActions.get.rejected>
@@ -28,13 +27,4 @@ export namespace authTypes {
     | ReturnType<typeof authAsyncActions.signOut.pending>
     | ReturnType<typeof authAsyncActions.signOut.fulfilled>
     | ReturnType<typeof authAsyncActions.signOut.rejected>
-    | ReturnType<typeof authAsyncActions.restorePassword.pending>
-    | ReturnType<typeof authAsyncActions.restorePassword.fulfilled>
-    | ReturnType<typeof authAsyncActions.restorePassword.rejected>
-    | ReturnType<typeof authAsyncActions.resetPassword.pending>
-    | ReturnType<typeof authAsyncActions.resetPassword.fulfilled>
-    | ReturnType<typeof authAsyncActions.resetPassword.rejected>
-    | ReturnType<typeof authAsyncActions.resetPasswordValidate.pending>
-    | ReturnType<typeof authAsyncActions.resetPasswordValidate.fulfilled>
-    | ReturnType<typeof authAsyncActions.resetPasswordValidate.rejected>
 }

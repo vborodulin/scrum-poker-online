@@ -4,7 +4,6 @@ import {
 } from '@chpokify/models-types';
 import { io } from '@socket';
 import bcrypt from 'bcryptjs';
-import config from 'config';
 import jsonwebtoken from 'jsonwebtoken';
 import { omit } from 'lodash';
 import mongoose from 'mongoose';
@@ -14,14 +13,12 @@ import { BadRequestError, ERROR_CODES } from '@core/lib/errors';
 import { SpaceModel } from '@models/space';
 
 const APP_SECRET = process.env.APP_SECRET as string;
-const RESET_PASSWORD_EXPIRATION = config.get('app.resetPasswordExpiration') as string;
 
 /**
  * mongoose types
  */
 type TUserDocument<T extends TUser = TUser> = mongoose.Document & T & {
   validatePassword: (candidatePassword: string) => boolean;
-  signResetPasswordToken: () => string;
   protect: () => TUserProtected
 };
 
@@ -49,9 +46,6 @@ const UserSettingsSchema = new mongoose.Schema({
 
 const UserSchema = new mongoose.Schema<TUserDocument>({
   googleId: {
-    type: String,
-  },
-  address: {
     type: String,
   },
   username: {
@@ -95,10 +89,6 @@ const UserSchema = new mongoose.Schema<TUserDocument>({
     type: UserSettingsSchema,
     required: true,
   },
-  jiraIntegrations: {
-    type: mongoose.Schema.Types.Mixed,
-    default: {},
-  },
   customerId: {
     type: mongoose.Schema.Types.String,
   },
@@ -125,21 +115,12 @@ UserSchema.methods.validatePassword = function (candidatePassword: string) {
   return bcrypt.compareSync(candidatePassword, this.password);
 };
 
-UserSchema.methods.signResetPasswordToken = function () {
-  return jsonwebtoken.sign({
-    email: this.email,
-  }, APP_SECRET, {
-    expiresIn: RESET_PASSWORD_EXPIRATION,
-  });
-};
-
 UserSchema.methods.protect = function (): TUserProtected {
   // @ts-ignore
   return omit(this.toObject(), [
     'password',
     'settings',
     'googleId',
-    'jiraIntegrations',
     'customerId',
   ]);
 };

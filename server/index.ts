@@ -11,7 +11,6 @@ import path from 'path';
 
 import { db } from '@core/lib/db';
 import { log } from '@core/lib/logger';
-import { initMailer } from '@core/lib/mailer';
 import { configurePassport } from '@core/lib/passport';
 import { redis } from '@core/lib/redis';
 
@@ -30,7 +29,6 @@ import '@models/retroSession';
 import '@models/retroTemplate';
 import '@models/retroCard';
 import '@models/retroRelations';
-import '@queue';
 import { sentryInit } from '@core/lib/sentry';
 
 /* eslint-enable */
@@ -88,7 +86,6 @@ const shutdown = async (signal: NodeJS.Signals) => {
 const main = async () => {
   await db.connect();
   await usersInSessions.restoreTimers();
-  await initMailer();
   const httpServer = http.createServer(app);
 
   configurePassport();

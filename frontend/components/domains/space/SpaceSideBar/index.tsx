@@ -31,8 +31,6 @@ import { Paper, TPaperProps } from '@components/uiKit/Paper';
 
 import { useEventListener } from '@components/utils/hooks/useEventListener';
 
-import { SideBarIntegrations } from './SideBarIntegrations';
-
 export type TSpaceSideBarProps = {};
 
 const Root = styled(Paper)<TPaperProps>`
@@ -112,12 +110,6 @@ const SpaceSideBar = (props: TSpaceSideBarProps): React.ReactElement | null => {
         />
 
         <SideBarTasks />
-
-        {
-          canModerate && (
-            <SideBarIntegrations />
-          )
-        }
 
         {
           canModerate && (

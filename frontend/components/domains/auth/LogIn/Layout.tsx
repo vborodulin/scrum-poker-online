@@ -2,10 +2,8 @@ import { TInviteTokenPayload } from '@chpokify/models-types';
 import { routing } from '@chpokify/routing';
 import { useTranslation, Trans } from 'next-i18next';
 import React, { FormEvent } from 'react';
-import { useConnect } from 'wagmi';
 
 import { APPLE_AUTH_PLACEMENT, AppleAuthBtn } from '@components/domains/auth/buttons/AppleAuthBtn';
-import { ConnectorBtn } from '@components/domains/auth/buttons/ConnectorBtn';
 import { GOOGLE_AUTH_PLACEMENT, GoogleAuthBtn } from '@components/domains/auth/buttons/GoogleAuthBtn';
 import { InputPassword } from '@components/domains/auth/InputPassword';
 import { Modal } from '@components/domains/shared/Modal';
@@ -46,7 +44,6 @@ export type TLogInLayoutProps = {
   hasChanges: boolean;
   isLoading: boolean;
   onSubmit: (event: FormEvent) => void;
-  hasCrypto?: boolean;
 }
 
 const Layout = (props: TLogInLayoutProps): React.ReactElement | null => {
@@ -59,11 +56,9 @@ const Layout = (props: TLogInLayoutProps): React.ReactElement | null => {
     errGlobalMsg,
     isLoading,
     onSubmit,
-    hasCrypto = false,
   } = props;
 
   const { t } = useTranslation(TRANS.MAIN);
-  const { connectors, error } = useConnect();
 
   const renderTitle = () => {
     if (invitePayload) {
@@ -128,34 +123,6 @@ const Layout = (props: TLogInLayoutProps): React.ReactElement | null => {
             mb={4}
           />
 
-          {
-            hasCrypto && (
-              <>
-                {
-                  connectors.map((connector) => (
-                    <ConnectorBtn
-                      key={connector.id}
-                      connector={connector}
-                      width="100%"
-                      mb={4}
-                    />
-                  ))
-                }
-
-                {
-                  error && (
-                    <FormHelperText
-                      variant="negative"
-                      mb={4}
-                    >
-                      {error.message}
-                    </FormHelperText>
-                  )
-                }
-              </>
-            )
-          }
-
           <DividerWithText
             mb={4}
           >
@@ -201,15 +168,7 @@ const Layout = (props: TLogInLayoutProps): React.ReactElement | null => {
       </PaperContent>
 
       <PaperFooter>
-        <PaperActions
-          justifyContent="space-between"
-        >
-          <LinkComponent
-            href={routing.getForgotPasswordUrl()}
-          >
-            {t('logIn.forgotPasswordLink')}
-          </LinkComponent>
-
+        <PaperActions>
           <Button
             type="submit"
             variant="primary"

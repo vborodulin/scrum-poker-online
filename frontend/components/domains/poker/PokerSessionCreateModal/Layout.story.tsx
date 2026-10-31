@@ -11,7 +11,6 @@ export default {
 
 export const Default = () => (
   <Layout
-    jiraApiErr={undefined}
     formRefs={{
       title: null,
       description: null,
@@ -29,7 +28,6 @@ export const Default = () => (
 
 export const EmptyTeams = () => (
   <Layout
-    jiraApiErr={undefined}
     formRefs={{
       title: null,
       description: null,

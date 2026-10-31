@@ -1,5 +1,3 @@
-import { TUser } from '@chpokify/models-types';
-
 import { authActionsTypes } from '@Redux/domains/auth/actionsTypes';
 
 const afterLoginRedirectDataSet = (afterLoginRedirect: {
@@ -20,16 +18,8 @@ const signOutFromOtherTab = () => ({
   payload: {},
 }) as const;
 
-const cryptoAuthFulfilled = (user: TUser) => ({
-  type: authActionsTypes.CRYPTO_AUTH_FULFILLED,
-  payload: {
-    user,
-  },
-});
-
 export const authActions = {
   afterLoginRedirectDataSet,
   afterLoginRedirectDataRemove,
   signOutFromOtherTab,
-  cryptoAuthFulfilled,
 };

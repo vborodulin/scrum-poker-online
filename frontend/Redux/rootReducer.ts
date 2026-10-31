@@ -3,7 +3,6 @@ import { combineReducers } from '@reduxjs/toolkit';
 import { asyncInfoReducer } from '@Redux/domains/asyncInfo/reducers';
 import { authReducer } from '@Redux/domains/auth/reducers';
 import { configReducer } from '@Redux/domains/config/reducers';
-import { jiraReducer } from '@Redux/domains/jira/reducers';
 import { kanbanBoardRelationsReducer } from '@Redux/domains/kanbanBoardRelations/reducers';
 import { kanbanBoardsReducer } from '@Redux/domains/kanbanBoards/reducers';
 import { persistReducer } from '@Redux/domains/persist/reducers';
@@ -18,7 +17,6 @@ import { storiesReducer } from '@Redux/domains/stories/reducers';
 import { systemReducer } from '@Redux/domains/system/reducers';
 import { uiReducer } from '@Redux/domains/ui/reducers';
 import { usersReducer } from '@Redux/domains/users/reducers';
-import { videoCallReducer } from '@Redux/domains/videoCall/reducers';
 
 const rootReducer = combineReducers({
   asyncInfo: asyncInfoReducer,
@@ -34,9 +32,7 @@ const rootReducer = combineReducers({
   ui: uiReducer,
   users: usersReducer,
   config: configReducer,
-  jira: jiraReducer,
   persist: persistReducer,
-  videoCall: videoCallReducer,
   pokerCardDecks: pokerCardDecksReducer,
   kanbanBoards: kanbanBoardsReducer,
   kanbanBoardRelations: kanbanBoardRelationsReducer,

@@ -56,7 +56,11 @@ const clearOldRetroSessionActionsInStorage = (retroSessionsIds: TEntityID[]) => 
   }
 };
 
+// hidden cards must not render real text: blur alone leaves it in the DOM (copy-paste, find in page)
+const maskHiddenText = (text: string | undefined): string | undefined => text?.replace(/\S/g, 'x');
+
 const retroHelpers = {
+  maskHiddenText,
   redirectRetroSessionPageByToken,
   clearOldRetroSessionActionsInStorage,
 };

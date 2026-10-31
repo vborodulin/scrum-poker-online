@@ -176,21 +176,6 @@ class StatsService {
               },
             },
           },
-          jiraInPokerSession: {
-            $anyElementTrue: {
-              $map: {
-                input: '$pokersessions.jira',
-                as: 'pokersessionsJira',
-                in: {
-                  $cond: [
-                    { $gt: [{ $size: { $objectToArray: '$$pokersessionsJira' } }, 0] },
-                    true,
-                    false,
-                  ],
-                },
-              },
-            },
-          },
         },
       },
       {
@@ -274,9 +259,6 @@ class StatsService {
           },
           customCardDeckInPokerSessions: {
             $last: '$customCardDeckInPokerSession',
-          },
-          jiraInPokerSessions: {
-            $last: '$jiraInPokerSession',
           },
         },
       },

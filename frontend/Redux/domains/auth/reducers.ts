@@ -1,5 +1,5 @@
 import { isEqualsId, objectHelpers } from '@chpokify/helpers';
-import { TResetPasswordTokenPayload, TUser } from '@chpokify/models-types';
+import { TUser } from '@chpokify/models-types';
 import { combineReducers } from '@reduxjs/toolkit';
 import update from 'immutability-helper';
 import { isEqual } from 'lodash';
@@ -51,8 +51,6 @@ const userReducer = (state: TUserState = userInitialState, action: TAppAction): 
       return action.payload.user;
     case authActionsTypes.APPLE_OAUTH_FULFILLED:
       return action.payload.user;
-    case authActionsTypes.CRYPTO_AUTH_FULFILLED:
-      return action.payload.user;
     case authActionsTypes.SIGN_OUT_FULFILLED:
       return userInitialState;
     case authActionsTypes.SIGN_UP_FULFILLED:
@@ -69,21 +67,6 @@ const userReducer = (state: TUserState = userInitialState, action: TAppAction): 
       return updateCurrUser(state, action.payload.user);
     case usersActionsTypes.UPDATE_SETTINGS_FULFILLED:
       return updateCurrUser(state, action.payload.user);
-    default:
-      return state;
-  }
-};
-
-type TResetPasswordTokenPayloadState = TResetPasswordTokenPayload | null;
-
-const resetPasswordTokenPayloadInitialState: TResetPasswordTokenPayloadState = null;
-
-const resetPasswordTokenPayloadReducer = (
-  state: TResetPasswordTokenPayloadState = resetPasswordTokenPayloadInitialState, action: TAppAction
-): TResetPasswordTokenPayloadState => {
-  switch (action.type) {
-    case authActionsTypes.RESET_PASSWORD_VALIDATE_FULFILLED:
-      return action.payload.resetPasswordTokenPayload;
     default:
       return state;
   }
@@ -109,6 +92,5 @@ const afterLoginRedirectDataReducer = (
 
 export const authReducer = combineReducers({
   user: userReducer,
-  resetPasswordTokenPayload: resetPasswordTokenPayloadReducer,
   afterLoginRedirectData: afterLoginRedirectDataReducer,
 });

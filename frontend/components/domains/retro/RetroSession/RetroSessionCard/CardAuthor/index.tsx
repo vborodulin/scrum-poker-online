@@ -8,6 +8,7 @@ import { retroSessionsCardsSelectors } from '@Redux/domains/retroSessionsCards/s
 import { retroSessionsCardsRepoSelectors } from '@Redux/domains/retroSessionsCardsRepo/selectors';
 import { usersSelectors } from '@Redux/domains/users/selectors';
 
+import { retroHelpers } from '@components/domains/retro/helpers';
 import { rootBlurCardMixin } from '@components/domains/retro/RetroSession/RetroSessionCard/Layout';
 
 import { TBoxProps } from '@components/uiKit/Box';
@@ -109,7 +110,7 @@ const CardAuthor = (props: TCardAuthorProps): React.ReactElement | null => {
         isHiddenCard={isHiddenCard}
         ellipses
       >
-        {user?.username}
+        {isHiddenCard ? retroHelpers.maskHiddenText(user?.username) : user?.username}
       </RootAuthorCard>
     );
   };

@@ -14,14 +14,6 @@ const PokerSessionSubscriber = (): React.ReactElement | null => {
   const pokerSessionId = useSelector(pokerSessionsSelectors.getCurrId);
 
   useSocketSubscribe(
-    'jiraReverseError', (error: string) => {
-      dispatch(uiActions.modalOpen(uiTypes.MODAL_TYPES.JIRA_REVERSE_ERROR, {
-        error,
-      }));
-    }
-  );
-
-  useSocketSubscribe(
     `pokerSessionRatingModal:${pokerSessionId}`, () => {
       dispatch(uiActions.modalOpen(uiTypes.MODAL_TYPES.POKER_SESSION_RATING, {
         pokerSessionId,

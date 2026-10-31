@@ -26,9 +26,6 @@ export type TFormData = {
   description?: string;
   isAutoReveal: boolean;
   cardSetId: string;
-  projectJira?: string;
-  fieldJira?: string;
-  baseUrl?: string;
 };
 
 export type TLayoutProps = TModalProps & Omit<TPokerSessionEditFormProps, 'formId'> & {
@@ -47,16 +44,6 @@ const Layout = (props: TLayoutProps): React.ReactElement | null => {
     onClose,
     onCancel,
     onSubmit,
-    isConnectedJira,
-    isShowIntegJira,
-    setIsShowIntegJira,
-    domainOptions,
-    jiraProjectsOptions,
-    jiraFieldsOptions,
-    formRefsJira,
-    onRefreshIntegrations,
-    jiraApiErr,
-    onClickConnectingJira,
     ...other
   } = props;
 
@@ -76,25 +63,14 @@ const Layout = (props: TLayoutProps): React.ReactElement | null => {
       <PaperContent>
         <PokerSessionEditForm
           cardDecksOptions={cardDecksOptions}
-          jiraApiErr={jiraApiErr}
-          isShowIntegJira={isShowIntegJira}
-          setIsShowIntegJira={setIsShowIntegJira}
-          isConnectedJira={isConnectedJira}
-          domainOptions={domainOptions}
-          jiraProjectsOptions={jiraProjectsOptions}
-          jiraFieldsOptions={jiraFieldsOptions}
           formId={FORM_ID}
           cardSetId={cardSetId}
           formRefs={formRefs}
-          formRefsJira={formRefsJira}
           defaultValue={defaultValue}
           errors={errors}
           errGlobalMsg={errGlobalMsg}
           isLoading={isLoading}
-          isEdit
           onSubmit={onSubmit}
-          onRefreshIntegrations={onRefreshIntegrations}
-          onClickConnectingJira={onClickConnectingJira}
         />
       </PaperContent>
 

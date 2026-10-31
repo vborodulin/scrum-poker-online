@@ -18,9 +18,6 @@ const initialState: TState = {
       userRemoveOnlineInterval: 50000,
       userLeaveInterval: 15000,
     },
-    jitsi: {
-      host: '',
-    },
     apple: {
       clientId: '',
       redirectURI: '',

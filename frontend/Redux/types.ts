@@ -6,7 +6,6 @@ import { ThunkDispatch } from 'redux-thunk';
 
 import { authTypes } from '@Redux/domains/auth/types';
 import { TConfigActionsUnion } from '@Redux/domains/config/types';
-import { TJiraActionsUnion } from '@Redux/domains/jira/type';
 import { kanbanBoardRelationsTypes } from '@Redux/domains/kanbanBoardRelations/types';
 import { kanbanBoardTypes } from '@Redux/domains/kanbanBoards/types';
 import { TPersistActionsUnion } from '@Redux/domains/persist/type';
@@ -21,7 +20,6 @@ import { storiesTypes } from '@Redux/domains/stories/types';
 import { systemTypes } from '@Redux/domains/system/types';
 import { uiTypes } from '@Redux/domains/ui/types';
 import { usersTypes } from '@Redux/domains/users/types';
-import { TVideoCallActionsUnion } from '@Redux/domains/videoCall/types';
 import { rootReducer } from '@Redux/rootReducer';
 
 import { TAppError } from '@lib/errors';
@@ -60,9 +58,7 @@ export type TAppAction =
   | retroSessionsCardsTypes.TActionsUnion
   | retroTemplatesTypes.TActionsUnion
   | TConfigActionsUnion
-  | TJiraActionsUnion
   | TPersistActionsUnion
-  | TVideoCallActionsUnion
   | TAppActionHydrate;
 
 type TAppThunkExtraArg = Record<string, any>;

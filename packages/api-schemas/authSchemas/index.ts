@@ -4,7 +4,6 @@ import {
   PASSWORD_MAX_LENGTH,
   PASSWORD_MIN_LENGTH,
   TEntityID,
-  TResetPasswordTokenPayload,
   TUser,
   USERNAME_MAX_LENGTH,
   USERNAME_MIN_LENGTH,
@@ -46,12 +45,6 @@ export namespace AuthSchemas {
         min: PASSWORD_MIN_LENGTH,
         max: PASSWORD_MAX_LENGTH,
       }),
-    });
-
-  export const ResetPasswordTokenSchema = Joi
-    .string()
-    .messages({
-      'string.empty': transServer.t('schemas.auth.resetPasswordToken.string.empty'),
     });
 
   // get curr user
@@ -133,52 +126,6 @@ export namespace AuthSchemas {
     user: TUser;
   };
 
-  // sign in crypto
-  export type TSignInCryptoBodyReq = {
-    message: string;
-    signature: string;
-    inviteSpaceToken?: string;
-  }
-
-  export const SignInCryptoReqSchema = Joi.object()
-    .keys({
-      body: {
-        message: Joi.string().required(),
-        signature: Joi.string().required(),
-        inviteSpaceToken: Joi.string(),
-      },
-    })
-    .unknown(true);
-
-  export type TSignInCryptoResp = {
-    user: TUser;
-  }
-
-  // sign up in crypto
-  export type TSignUpCryptoBodyReq = {
-    code: string;
-    redirectUri: string;
-    message: string;
-    signature: string;
-    inviteSpaceToken?: string;
-  }
-
-  export const SignUpCryptoReqSchema = Joi.object()
-    .keys({
-      body: {
-        code: Joi.string().required(),
-        redirectUri: Joi.string().required(),
-        message: Joi.string().required(),
-        signature: Joi.string().required(),
-        inviteSpaceToken: Joi.string(),
-      },
-    })
-    .unknown(true);
-
-  export type TSignUpCryptoResp = {
-    user: TUser;
-  }
-
   // google oauth
   export type TGoogleOauthBodyReq = {
     idToken: string;
@@ -202,54 +149,4 @@ export namespace AuthSchemas {
 
   // sign out
   export type TSignOutResResp = TSuccessVoidResult;
-
-  // request restore password
-
-  export type TRestorePasswordBodyReq = {
-    email: string;
-  };
-
-  export const RestorePasswordReqSchema = Joi.object({
-    body: {
-      email: EmailSchema.required(),
-    },
-  })
-    .unknown(true);
-
-  export type TRestorePasswordResResp = TSuccessVoidResult;
-
-  // reset password
-
-  export type TResetPasswordBodyReq = {
-    token: string;
-    password: string;
-  };
-
-  export const ResetPasswordReqSchema = Joi.object({
-    body: {
-      token: Joi.string()
-        .required(),
-      password: PasswordSchema.required(),
-    },
-  })
-    .unknown(true);
-
-  export type TResetPasswordResResp = TSuccessVoidResult;
-
-  // reset password token
-
-  export type TValidateResetPasswordTokenBodyReq = {
-    token: string;
-  };
-
-  export const ValidateResetPasswordTokenReqSchema = Joi.object({
-    body: {
-      token: ResetPasswordTokenSchema.required(),
-    },
-  })
-    .unknown(true);
-
-  export type TValidateResetPasswordTokenResResp = {
-    resetPasswordTokenPayload: TResetPasswordTokenPayload;
-  };
 }

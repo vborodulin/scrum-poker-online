@@ -101,13 +101,6 @@ const inviteAccept = createAsyncActionCreator(
   spacesApi.inviteAccept
 );
 
-const inviteSendEmail = createAsyncActionCreator(
-  spacesActionsTypes.INVITE_SEND_EMAIL_PENDING,
-  spacesActionsTypes.INVITE_SEND_EMAIL_FULFILLED,
-  spacesActionsTypes.INVITE_SEND_EMAIL_REJECTED,
-  spacesApi.inviteSendEmail
-);
-
 const getStat = createAsyncActionCreator(
   spacesActionsTypes.STAT_GET_PENDING,
   spacesActionsTypes.STAT_GET_FULFILLED,
@@ -125,7 +118,6 @@ export const spacesAsyncActions = {
   teamsUpdate,
   inviteGen,
   inviteAccept,
-  inviteSendEmail,
   participantsRemove,
   participantSetAdminRole,
   participantTeamsUpdate,

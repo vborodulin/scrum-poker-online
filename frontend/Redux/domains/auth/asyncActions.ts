@@ -52,27 +52,6 @@ const signOut = createAsyncActionCreator(
   authApi.signOut
 );
 
-const restorePassword = createAsyncActionCreator(
-  authActionsTypes.RESTORE_PASSWORD_PENDING,
-  authActionsTypes.RESTORE_PASSWORD_FULFILLED,
-  authActionsTypes.RESTORE_PASSWORD_REJECTED,
-  authApi.restorePassword
-);
-
-const resetPassword = createAsyncActionCreator(
-  authActionsTypes.RESET_PASSWORD_PENDING,
-  authActionsTypes.RESET_PASSWORD_FULFILLED,
-  authActionsTypes.RESET_PASSWORD_REJECTED,
-  authApi.resetPassword
-);
-
-const resetPasswordValidate = createAsyncActionCreator(
-  authActionsTypes.RESET_PASSWORD_VALIDATE_PENDING,
-  authActionsTypes.RESET_PASSWORD_VALIDATE_FULFILLED,
-  authActionsTypes.RESET_PASSWORD_VALIDATE_REJECTED,
-  authApi.resetPasswordValidate
-);
-
 export const authAsyncActions = {
   get,
   logIn,
@@ -81,7 +60,4 @@ export const authAsyncActions = {
   appleOAuth,
   signUp,
   signOut,
-  restorePassword,
-  resetPassword,
-  resetPasswordValidate,
 };

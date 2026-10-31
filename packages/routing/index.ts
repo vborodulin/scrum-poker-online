@@ -6,12 +6,6 @@ const getLogInUrl = () => '/log-in';
 
 const getSignUpUrl = () => '/sign-up';
 
-const getForgotPasswordUrl = () => '/forgot-password';
-
-const getResetPasswordUrlTemplate = () => '/reset-password/[token]';
-const getResetPasswordUrl = (token: string) => getResetPasswordUrlTemplate()
-  .replace('[token]', token);
-
 // account-settings
 const getAccountSettingsUrl = () => '/account-settings';
 
@@ -85,13 +79,6 @@ const getInviteToRetroSessionUrl = (token: string) => getInviteToRetroSessionTem
 // donate
 const getDonateUrl = () => '/sponsorship';
 
-// jira connect
-const getJiraConnectUrl = () => '/jira-connect';
-
-const getJiraFieldScreenUrl = () => '/jira-field-to-screen';
-
-const getJiraCallbackUrl = () => '/jira/callback';
-
 // resources
 const getBlogUrl = () => 'https://blog.chpokify.com/';
 
@@ -148,8 +135,6 @@ const getCommunityWhatIsScrumPokerUrl = () => '/scrum-poker-what-is-it/';
 
 const getCommunityHowToPlayPlanningPokerUrl = () => '/how-to-play-planning-poker/';
 
-const getCommunityJiraPlanningPokerUrl = () => '/jira-planning-poker/';
-
 const getCommunityPokerTipsInScrumPlanningPokerUrl = () => '/planning-poker-online/';
 
 const getCommunityTop5PlanningPokerToolsUrl = () => '/top-5-planning-poker-tools/';
@@ -176,15 +161,10 @@ const getPaymentSuccessTemplate = () => '/spaces/[spaceId]/payment/success';
 const getPaymentSuccessUrl = (spaceId: TEntityID) => getPaymentSuccessTemplate()
   .replace('[spaceId]', spaceId.toString());
 
-const getKeepmailCallbackUrl = () => '/keepmail/callback';
-
 const routing = {
   getIndexUrl,
   getLogInUrl,
   getSignUpUrl,
-  getForgotPasswordUrl,
-  getResetPasswordUrlTemplate,
-  getResetPasswordUrl,
   getSpaceUrlTemplate,
   getSpaceUrl,
   getSpacesChooseUrl,
@@ -199,14 +179,11 @@ const routing = {
   getTermsOfUseUrl,
   getSponsorshipUrl,
   getPricingUrl,
-  getJiraFieldScreenUrl,
   getKanbanUrl,
   getKanbanUrlTemplate,
   getRetroUrl,
   getRetroUrlTemplate,
   getDonateUrl,
-  getJiraConnectUrl,
-  getJiraCallbackUrl,
   getBlogUrl,
   getTasksTemplate,
   getTasksUrl,
@@ -234,7 +211,6 @@ const routing = {
   getCommunityScrumPokerOnlineUrl,
   getCommunityWhatIsScrumPokerUrl,
   getCommunityHowToPlayPlanningPokerUrl,
-  getCommunityJiraPlanningPokerUrl,
   getCommunityPokerTipsInScrumPlanningPokerUrl,
   getCommunityTop5PlanningPokerToolsUrl,
   getCommunityPlanningPokerEstimationUrl,
@@ -248,7 +224,6 @@ const routing = {
   getAgileMeetupUrl,
   getLiveXPEnglishBannerUrl,
   getAppStoreUrl,
-  getKeepmailCallbackUrl,
 };
 
 const REPORT_URL = 'https://forms.gle/YxhGxcDGH17nyjYt9';

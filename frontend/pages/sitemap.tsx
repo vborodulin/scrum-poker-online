@@ -42,10 +42,6 @@ const getSitemapLinks = (t: TFunction):TSitemapLinks => ({
       title: t('pages.sitemap.pricesLink'),
       href: routing.getPricingUrl(),
     },
-    {
-      title: t('pages.sitemap.jiraConnectLink'),
-      href: routing.getJiraConnectUrl(),
-    },
   ],
   [t('pages.sitemap.socialTitle')]: [
     {
@@ -144,12 +140,6 @@ const getSitemapLinks = (t: TFunction):TSitemapLinks => ({
     {
       title: t('pages.sitemap.community.howToPlayPlanningPoker'),
       href: urlJoin(communityUrl, routing.getCommunityHowToPlayPlanningPokerUrl()),
-      target: '_blank',
-      isAbsolute: true,
-    },
-    {
-      title: t('pages.sitemap.community.jiraPlanningPoker'),
-      href: urlJoin(communityUrl, routing.getCommunityJiraPlanningPokerUrl()),
       target: '_blank',
       isAbsolute: true,
     },

@@ -1,10 +1,9 @@
 import { pokerSessionsSchemas, SUCCESS_VOID_RESULT } from '@chpokify/api-schemas';
 import { isEqualsId } from '@chpokify/helpers';
 import { updatePokerSession } from '@pokerSessions/services/updatePokerSession';
-import { jiraQueue } from '@queue';
 
 import { createHandler } from '@core/middleware/createHandler';
-import { QUEUE_JOB_NAME, TAppRequest, TAppResponse } from '@core/types';
+import { TAppRequest, TAppResponse } from '@core/types';
 
 import { TPokerSessionDocument } from '@models/pokerSession';
 import { TStoryDocument } from '@models/story';
@@ -16,10 +15,6 @@ const update = createHandler(async (
   const {
     body,
   } = req;
-  const {
-    jira,
-    ...otherParams
-  } = body;
 
   const pokerSession = await updatePokerSession(
     res.locals.get('pokerSession') as TPokerSessionDocument,
@@ -27,11 +22,7 @@ const update = createHandler(async (
       const prevTeamIds = [...currPokerSession.teamsIds];
       const prevCardDeckId = currPokerSession.cardSetId;
 
-      currPokerSession.set(otherParams);
-
-      if (body.jira) {
-        currPokerSession.set('jira', jira);
-      }
+      currPokerSession.set(body);
 
       if (body.cardSetId && !isEqualsId(body.cardSetId, prevCardDeckId)) {
         pokerSessionService.clearUsersCards();
@@ -247,19 +238,12 @@ const revealAll = createHandler(async (
   req: TAppRequest,
   res: TAppResponse<pokerSessionsSchemas.TRevealResResp>
 ) => {
-  const { jiraIntegrations } = req.user;
   const story = res.locals.get('story') as TStoryDocument;
 
   const pokerSession = await updatePokerSession(
     res.locals.get('pokerSession') as TPokerSessionDocument,
     (_, pokerSessionService) => pokerSessionService.reveal(story._id)
   );
-
-  jiraQueue.add(QUEUE_JOB_NAME.JIRA_SET_FIELD_ISSUE, {
-    pokerSession,
-    story,
-    jiraIntegrations,
-  });
 
   res.locals.result = {
     pokerSession,
@@ -270,7 +254,6 @@ const reveal = createHandler(async (
   req: TAppRequest,
   res: TAppResponse<pokerSessionsSchemas.TTeamRevealResResp>
 ) => {
-  const { jiraIntegrations } = req.user;
   const story = res.locals.get('story') as TStoryDocument;
   const { teamId } = req.params;
 
@@ -278,12 +261,6 @@ const reveal = createHandler(async (
     res.locals.get('pokerSession') as TPokerSessionDocument,
     (_, pokerSessionService) => pokerSessionService.revealTeam(story._id, teamId)
   );
-
-  jiraQueue.add(QUEUE_JOB_NAME.JIRA_SET_FIELD_ISSUE, {
-    pokerSession,
-    story,
-    jiraIntegrations,
-  });
 
   res.locals.result = {
     pokerSession,
@@ -294,7 +271,6 @@ const setTeamScore = createHandler(async (
   req: TAppRequest<{ teamId: string }, pokerSessionsSchemas.TTeamScoresSetBodyReq>,
   res: TAppResponse<pokerSessionsSchemas.TTeamScoresSetResResp>
 ) => {
-  const { jiraIntegrations } = req.user;
   const story = res.locals.get('story') as TStoryDocument;
   const { scores } = req.body;
   const { teamId } = req.params;
@@ -303,12 +279,6 @@ const setTeamScore = createHandler(async (
     res.locals.get('pokerSession') as TPokerSessionDocument,
     (_, pokerSessionService) => pokerSessionService.setTeamScore(story._id, teamId, scores)
   );
-
-  jiraQueue.add(QUEUE_JOB_NAME.JIRA_SET_FIELD_ISSUE, {
-    pokerSession,
-    story,
-    jiraIntegrations,
-  });
 
   res.locals.result = {
     pokerSession,

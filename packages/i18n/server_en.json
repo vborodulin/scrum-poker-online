@@ -14,9 +14,6 @@
         "string.empty": "Please enter username.",
         "string.pattern.base": "{{min}}-{{max}} characters long, no spaces. Use: a-z, A-Z, 0-9, _, -."
       },
-      "resetPasswordToken": {
-        "string.empty": "Link is invalid. Please reset password again."
-      },
       "email": {
         "string.empty": "Please enter email.",
         "string.email": "The email does’t look correct."
@@ -91,15 +88,6 @@
         "string.empty": "Link is invalid. Please ask the space owner to invite you again."
       }
     },
-    "jiraIntegration": {
-      "baseUrl": {
-        "string.empty": "Your JIRA URL can not be empty.",
-        "string.pattern.base": "URL is invalid. Check if you added https://"
-      },
-      "jql": {
-        "string.max": "Should be max %{max} characters long."
-      }
-    },
     "retroSession": {
       "inviteToken": {
         "string.empty": "Link is invalid. Please ask the space owner to invite you again."
@@ -113,16 +101,10 @@
     "tooManyRequests": "Too many requests. Please again it later.",
     "tooManyRequestsWithRemaining": "Too many requests. Please wait %{distance}.",
     "forbidden": "You've no permission to do this action.",
-    "forbiddenJira": "You've no permission to jira.",
-    "upgradeAccountToJira": "Upgrade account to use Jira",
-    "upgradeAccountToVideoCall": "Upgrade account to use Video call",
-    "upgradeAccountToVideoCallAndJira": "Upgrade account to use Jira and Video call",
     "upgradeAccountToMultiAdmins": "Upgrade account to use Multi admins mode",
     "upgradeAccountToCreateTeam": "Upgrade account to Create team",
     "upgradeAccountToInviteParticipants": "Upgrade account to invite participants",
     "limitInviteParticipants": "Admin should upgrade their space to allow you to join this session",
-    "forbiddenVideoCall": "You've no permission to video call.",
-    "forbiddenVideoCallAndJira": "You've no permission to video call and jira.",
     "serverIsShuttingDown": "Server is shutting down.",
     "session": {
       "notFound": "Session not found"
@@ -203,14 +185,6 @@
       "notAuthorized": "You are not authorized, please login again.",
       "invalidSignIn": "Email or password is invalid.",
       "sessionExpired": "Your session is expired, need login again.",
-      "resetPasswordInvalid": "Password is invalid.",
-      "resetPassword": {
-        "invalidToken": "Reset password link is invalid. . Please resend a reset link.",
-        "tokenUserNotFound": "User not found."
-      },
-      "validateResetPasswordToken": {
-        "invalidToken": "Reset password link is expired or invalid. . Please resend a reset link."
-      },
       "guest": {
         "forbidden": "This email is already registered. Please log in with password to join the session."
       }
@@ -257,17 +231,6 @@
         "notFound": "Retro template column not found.",
         "notFoundAction": "Retro template action column not found."
       }
-    }
-  },
-  "emails": {
-    "welcome": {
-      "subject": "Welcome to Chpokify!"
-    },
-    "spaceInvite": {
-      "subject": "Accept invite to space %{spaceName}"
-    },
-    "passwordReset": {
-      "subject": "Reset password"
     }
   }
 }

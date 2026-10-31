@@ -16,11 +16,6 @@ const getCurrId = createSelector(
   (retroSessions) => retroSessions.retroSessionId
 );
 
-const getIsVideoCallOpen = createSelector(
-  getRetroSessions,
-  (retroSessions) => retroSessions.isVideoCallOpen
-);
-
 const getIsColumnActionsSidebarOpen = createSelector(
   getRetroSessions,
   (retroSessions) => retroSessions.isColumnActionsSidebarOpen
@@ -241,7 +236,6 @@ export const retroSessionsSelectors = {
   getCurrId,
   getCurr,
   getTemplateId,
-  getIsVideoCallOpen,
   getIsColumnActionsSidebarOpen,
   getIsHiddenCards,
   getCanEditCards,

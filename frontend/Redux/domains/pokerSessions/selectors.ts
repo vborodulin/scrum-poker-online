@@ -41,11 +41,6 @@ const getSelectedStoryId = createSelector(
   (pokerSessions) => pokerSessions.selectedStoryId
 );
 
-const getIsVideoCallOpen = createSelector(
-  getPokerSessions,
-  (pokerSessions) => pokerSessions.isVideoCallOpen
-);
-
 /**
  * complex
  */
@@ -313,11 +308,6 @@ const getStoryDurationInSec = createSelector(
   }
 );
 
-const getJira = createSelector(
-  getCurr,
-  (pokerSession) => pokerSession?.jira
-);
-
 const getRatingTime = createSelector(
   getSettingsById,
   (getSettingsByIdSelector) => (pokerSessionId: TEntityID) => {
@@ -563,14 +553,12 @@ const pokerSessionsSelectors = {
   getRatingWithoutSkip,
   hasRatingWithoutSkip,
   hasRating,
-  getIsVideoCallOpen,
   getStoriesIds,
   getList,
   getCount,
   getListSortDeskCreatedAt,
   getById,
   getCurr,
-  getJira,
   getSpaceId,
   getIsVoting,
   getDurationInSec,

@@ -1,9 +1,7 @@
 import { routing } from '@chpokify/routing';
-import { client } from 'lib/wagmiClient';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { WagmiConfig } from 'wagmi';
 
 import { configSelectors } from '@Redux/domains/config/selectors';
 import { reduxWrapper } from '@Redux/lib/configureStore';
@@ -26,9 +24,7 @@ const LogInPage: TAppPage<{}, {}> = () => {
   );
 
   return (
-    <WagmiConfig
-      client={client}
-    >
+    <>
       <ChpokifyHelmet
         page="login"
       >
@@ -47,7 +43,7 @@ const LogInPage: TAppPage<{}, {}> = () => {
       </PageLayout>
 
       <Footer />
-    </WagmiConfig>
+    </>
   );
 };
 

@@ -1,4 +1,6 @@
-FROM node:16-alpine3.11
+# local development image: next dev with sources mounted from the host (see docker-compose.yml)
+# debian, not alpine: sharp and next swc ship prebuilt glibc binaries for both amd64 and arm64
+FROM node:16-bullseye
 
 # Create app directory
 WORKDIR /home
@@ -6,6 +8,7 @@ WORKDIR /home
 # install dependencies
 COPY package.json .
 COPY yarn.lock .
+COPY tsconfig.json .
 
 COPY frontend/package.json ./frontend/package.json
 
@@ -15,7 +18,8 @@ COPY packages/helpers/package.json ./packages/helpers/package.json
 COPY packages/routing/package.json ./packages/routing/package.json
 COPY packages/i18n/package.json ./packages/i18n/package.json
 
-RUN yarn install
+# yarn 1 workspaces linking fails randomly (ENOENT lstat), same retries as gitlab/deps/Dockerfile
+RUN yarn install || yarn install || yarn install
 
 # run app
-CMD [ "yarn", "client:dev" ]
+CMD [ "yarn", "frontend", "run", "dev" ]

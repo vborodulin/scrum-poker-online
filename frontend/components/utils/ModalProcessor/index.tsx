@@ -13,7 +13,6 @@ import { KanbanColumnEditModal } from '@components/domains/kanban/KanbanColumnEd
 import { KanbanColumnRemoveModal } from '@components/domains/kanban/KanbanColumnRemoveModal';
 import { KanbanTaskEditModal } from '@components/domains/kanban/KanbanTaskEditModal';
 import { KanbanTaskRemoveModal } from '@components/domains/kanban/KanbanTaskRemoveModal';
-import { JiraReverseErrorModal } from '@components/domains/poker/JiraReverseErrorModal';
 import { PokerChooseCardsModal } from '@components/domains/poker/PokerChooseCardModal';
 import {
   StoryRevealConfirmModal,
@@ -78,7 +77,6 @@ const MODAL_TYPES_TO_COMPONENT: Record<string, React.FunctionComponent<any>> = {
   [MODAL_TYPES.USER_EDIT]: UserEditModal,
   [MODAL_TYPES.USER_REMOVE]: UserRemoveModal,
   [MODAL_TYPES.STORIES_ADD]: StoriesAddModal,
-  [MODAL_TYPES.JIRA_REVERSE_ERROR]: JiraReverseErrorModal,
   [MODAL_TYPES.POKER_SESSION_CREATE]: PokerSessionCreateModal,
   [MODAL_TYPES.POKER_SESSION_FEEDBACK]: PokerSessionFeedBackModal,
   [MODAL_TYPES.POKER_SESSION_EDIT]: PokerSessionEditModal,

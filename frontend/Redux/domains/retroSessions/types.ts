@@ -47,7 +47,6 @@ export namespace retroSessionsTypes {
     | ReturnType<typeof retroSessionsActions.exportCSVCardsActionRejected>
     | ReturnType<typeof retroSessionsActions.setCurrId>
     | ReturnType<typeof retroSessionsActions.removeCurrId>
-    | ReturnType<typeof retroSessionsActions.isVideoCallOpenSet>
     | ReturnType<typeof retroSessionsActions.columnActionsSidebarToggle>
     | ReturnType<typeof retroSessionsActions.columnActionsSidebarClose>
 

@@ -61,17 +61,6 @@ const getPokerUserSetOnlineInterval = createSelector(
   (poker) => poker.userSetOnlineInterval
 );
 
-// jitsi
-const getJitsi = createSelector(
-  getData,
-  (data) => data.jitsi
-);
-
-const getJitsiHost = createSelector(
-  getJitsi,
-  (jitsi) => jitsi.host
-);
-
 // apple
 const getApple = createSelector(
   getData,
@@ -105,9 +94,6 @@ const configSelectors = {
   getAbsoluteUrl,
   // poker
   getPokerUserSetOnlineInterval,
-  // jitsi
-  getJitsi,
-  getJitsiHost,
   // apple
   getApple,
   getAppleClientId,

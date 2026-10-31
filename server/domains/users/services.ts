@@ -113,12 +113,6 @@ class UserService {
   public async createAppleOAuth(email: string) {
     return this.createWithEmail(email, {});
   }
-
-  public async createCryptoUser(email: string, address: string) {
-    return this.createWithEmail(email, {
-      address,
-    });
-  }
 }
 
 export {

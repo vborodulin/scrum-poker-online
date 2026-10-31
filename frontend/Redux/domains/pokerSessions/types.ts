@@ -15,7 +15,6 @@ export namespace pokerSessionsTypes {
     | ReturnType<typeof pokerSessionsActions.pokerSessionRatingTimerSet>
     | ReturnType<typeof pokerSessionsActions.storySelect>
     | ReturnType<typeof pokerSessionsActions.destroy>
-    | ReturnType<typeof pokerSessionsActions.isVideoCallOpenSet>
 
     | ReturnType<typeof pokerSessionsAsyncActions.get.pending>
     | ReturnType<typeof pokerSessionsAsyncActions.get.fulfilled>

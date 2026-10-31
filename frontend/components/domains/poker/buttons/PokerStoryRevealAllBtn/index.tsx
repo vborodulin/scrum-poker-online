@@ -1,4 +1,3 @@
-import { pokerSessionsSchemas } from '@chpokify/api-schemas';
 import { TEntityID } from '@chpokify/models-types';
 import React from 'react';
 import { useSelector } from 'react-redux';
@@ -7,8 +6,6 @@ import { pokerSessionsAsyncActions } from '@Redux/domains/pokerSessions/asyncAct
 import { pokerSessionsSelectors } from '@Redux/domains/pokerSessions/selectors';
 import { spacesRepoSelectors } from '@Redux/domains/spacesRepo/selectors';
 import { useAppDispatch } from '@Redux/hooks';
-
-import { pokerHelpers } from '@components/domains/poker/helpers';
 
 import { Layout, TLayoutProps } from './Layout';
 
@@ -38,16 +35,10 @@ const PokerStoryRevealAllBtn = (props: TPokerStoryRevealAllProps): React.ReactEl
       return;
     }
 
-    const result = await dispatch(pokerSessionsAsyncActions.revealCards(
+    await dispatch(pokerSessionsAsyncActions.revealCards(
       pokerSessionId,
       storyId
     ));
-    const payload = result?.payload;
-
-    if (payload) {
-      const { pokerSession } = payload as pokerSessionsSchemas.TRevealResResp;
-      pokerHelpers.checkRespFromReveal(pokerSession);
-    }
   };
 
   return (

@@ -1,4 +1,3 @@
-import { pokerSessionsSchemas } from '@chpokify/api-schemas';
 import { TEntityID, TPokerCardDeckScores } from '@chpokify/models-types';
 import { get } from 'lodash';
 import React, { useRef, useState } from 'react';
@@ -92,7 +91,7 @@ const TeamScores = (props: TTeamScoresProps): React.ReactElement | null => {
     if (event) event.preventDefault();
     if (!pokerSessionId) return;
 
-    const result = await dispatch(pokerSessionsAsyncActions.storyTeamScoresSet(
+    await dispatch(pokerSessionsAsyncActions.storyTeamScoresSet(
       pokerSessionId,
       storyId,
       teamId,
@@ -100,13 +99,6 @@ const TeamScores = (props: TTeamScoresProps): React.ReactElement | null => {
         scores: parseSubmitVal(scoresVal),
       }
     ));
-
-    const payload = result?.payload;
-
-    if (payload) {
-      const { pokerSession } = payload as pokerSessionsSchemas.TRevealResResp;
-      pokerHelpers.checkRespFromReveal(pokerSession);
-    }
   };
 
   const handleBlur = async () => {

@@ -35,9 +35,6 @@ export namespace spacesTypes {
     | ReturnType<typeof spacesAsyncActions.inviteGen.pending>
     | ReturnType<typeof spacesAsyncActions.inviteGen.fulfilled>
     | ReturnType<typeof spacesAsyncActions.inviteGen.rejected>
-    | ReturnType<typeof spacesAsyncActions.inviteSendEmail.pending>
-    | ReturnType<typeof spacesAsyncActions.inviteSendEmail.fulfilled>
-    | ReturnType<typeof spacesAsyncActions.inviteSendEmail.rejected>
     | ReturnType<typeof spacesAsyncActions.participantTeamsUpdate.pending>
     | ReturnType<typeof spacesAsyncActions.participantTeamsUpdate.fulfilled>
     | ReturnType<typeof spacesAsyncActions.participantTeamsUpdate.rejected>

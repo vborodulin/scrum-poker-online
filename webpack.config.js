@@ -29,8 +29,6 @@ module.exports = {
     alias: {
       '@auth': path.resolve(__dirname, './server/domains/auth'),
       '@core': path.resolve(__dirname, './server/core'),
-      '@queue': path.resolve(__dirname, './server/queue'),
-      '@mail': path.resolve(__dirname, './server/domains/mail'),
       '@metrics': path.resolve(__dirname, './server/domains/metrics'),
       '@models': path.resolve(__dirname, './server/models'),
       '@pokerSessions': path.resolve(__dirname, './server/domains/pokerSessions'),

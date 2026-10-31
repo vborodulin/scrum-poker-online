@@ -11,7 +11,6 @@ export default {
 
 export const Default = () => (
   <PokerSessionHeader
-    isVideoCall
     pokerSessionId="1"
     title="Product Team Estimation, Sprint 8.11, Part II"
     description="This is a description of the session."
@@ -20,7 +19,6 @@ export const Default = () => (
 
 export const EmptyDescription = () => (
   <PokerSessionHeader
-    isVideoCall
     pokerSessionId="1"
     title="Product Team Estimation, Sprint 8.11, Part II"
   />
@@ -28,7 +26,6 @@ export const EmptyDescription = () => (
 
 export const EmptyDescriptionAndTime = () => (
   <PokerSessionHeader
-    isVideoCall
     pokerSessionId="1"
     title="Product Team Estimation, Sprint 8.11, Part II"
   />

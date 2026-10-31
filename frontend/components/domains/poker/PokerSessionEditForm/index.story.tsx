@@ -17,11 +17,7 @@ export const Default = () => (
       title: null,
       description: null,
       isAutoReveal: null,
-      isVideoCall: null,
       cardSetId: null,
-      projectJira: null,
-      fieldJira: null,
-      baseUrl: null,
     }}
     defaultValue={{
       title: 'Estimation Big Boobs Sprint',
@@ -33,7 +29,6 @@ export const Default = () => (
     isLoading={false}
     onSubmit={() => {
     }}
-    isEdit={false}
   />
 );
 
@@ -45,11 +40,7 @@ export const Loading = () => (
       title: null,
       description: null,
       isAutoReveal: null,
-      isVideoCall: null,
       cardSetId: null,
-      projectJira: null,
-      fieldJira: null,
-      baseUrl: null,
     }}
     defaultValue={{}}
     errors={{}}
@@ -57,7 +48,6 @@ export const Loading = () => (
     isLoading
     onSubmit={() => {
     }}
-    isEdit={false}
   />
 );
 
@@ -69,11 +59,7 @@ export const ErrorField = () => (
       title: null,
       description: null,
       isAutoReveal: null,
-      isVideoCall: null,
       cardSetId: null,
-      projectJira: null,
-      fieldJira: null,
-      baseUrl: null,
     }}
     defaultValue={{
       title: 'Estimation Big Boobs Sprint',
@@ -90,7 +76,6 @@ export const ErrorField = () => (
     isLoading={false}
     onSubmit={() => {
     }}
-    isEdit={false}
   />
 );
 
@@ -102,11 +87,7 @@ export const ErrorGlobal = () => (
       title: null,
       description: null,
       isAutoReveal: null,
-      isVideoCall: null,
       cardSetId: null,
-      projectJira: null,
-      fieldJira: null,
-      baseUrl: null,
     }}
     defaultValue={{
       title: 'Estimation Big Boobs Sprint',
@@ -118,7 +99,6 @@ export const ErrorGlobal = () => (
     isLoading={false}
     onSubmit={() => {
     }}
-    isEdit={false}
   />
 );
 
@@ -130,11 +110,7 @@ export const EmptyTeams = () => (
       title: null,
       description: null,
       isAutoReveal: null,
-      isVideoCall: null,
       cardSetId: null,
-      projectJira: null,
-      fieldJira: null,
-      baseUrl: null,
     }}
     defaultValue={{
       title: 'Estimation Big Boobs Sprint',
@@ -146,7 +122,6 @@ export const EmptyTeams = () => (
     isLoading={false}
     onSubmit={() => {
     }}
-    isEdit={false}
   />
 );
 
@@ -158,11 +133,7 @@ export const Edit = () => (
       title: null,
       description: null,
       isAutoReveal: null,
-      isVideoCall: null,
       cardSetId: null,
-      projectJira: null,
-      fieldJira: null,
-      baseUrl: null,
     }}
     defaultValue={{
       title: 'Estimation Big Boobs Sprint',
@@ -174,6 +145,5 @@ export const Edit = () => (
     isLoading={false}
     onSubmit={() => {
     }}
-    isEdit
   />
 );

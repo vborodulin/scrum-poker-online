@@ -1,8 +1,7 @@
 import { transServer } from '@chpokify/i18n';
 import { OAuth2Client, TokenPayload } from 'google-auth-library';
-import { SiweMessage } from 'siwe';
 
-import { BadRequestError, ERROR_CODES, UnprocessableEntityError } from '@core/lib/errors';
+import { BadRequestError, ERROR_CODES } from '@core/lib/errors';
 import { passport } from '@core/lib/passport';
 import { TAppRequest, TAppResponse } from '@core/types';
 
@@ -50,41 +49,6 @@ class AuthService {
         err,
       };
     }
-  }
-
-  public async validateSigningMessage(message: string, signature: string, nonce: string): Promise<SiweMessage> {
-    const siweMessage = new SiweMessage(message);
-    const fields = await siweMessage.validate(signature);
-
-    if (fields.nonce !== nonce) {
-      throw new UnprocessableEntityError('Invalid nonce');
-    }
-
-    return fields;
-  }
-
-  public async getCrypto(email: string, address: string) {
-    const currUser = await UserModel.findOne({
-      address,
-    });
-
-    if (currUser) {
-      if (currUser.email !== email) {
-        currUser.email = email;
-        await currUser.save();
-      }
-
-      return currUser;
-    }
-
-    const userService = new UserService();
-    const newUser = await userService.createCryptoUser(
-      email,
-      address
-    );
-
-    await newUser.save();
-    return newUser;
   }
 
   public async getGoogleOAuthUser(googleId: string, payload: TokenPayload) {

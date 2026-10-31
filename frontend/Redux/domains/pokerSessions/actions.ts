@@ -71,14 +71,6 @@ const storySelect = (storyId: TEntityID) => ({
   },
 }) as const;
 
-// video call
-const isVideoCallOpenSet = (isVideoCallOpen: boolean) => ({
-  type: pokerSessionsActionsTypes.IS_VIDEO_CALL_OPEN_SET,
-  payload: {
-    isVideoCallOpen,
-  },
-}) as const;
-
 const destroy = () => ({
   type: pokerSessionsActionsTypes.DESTROY,
   payload: {},
@@ -100,7 +92,6 @@ const pokerSessionsActions = {
   pokerSessionIdSet,
   pokerSessionIdReset,
   storySelect,
-  isVideoCallOpenSet,
   destroy,
   inviteTokenClear,
 };

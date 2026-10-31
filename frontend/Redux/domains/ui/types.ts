@@ -12,7 +12,6 @@ export namespace uiTypes {
     SPACE_CONFIRM_LEAVE = 'SpaceConfirmLeave',
     USER_EDIT = 'userEdit',
     USER_REMOVE = 'userRemove',
-    JIRA_REVERSE_ERROR = 'jiraReverseError',
     POKER_SESSION_CREATE = 'pokerSessionCreate',
 
     POKER_CARD_DECKS_CREATE = 'pokerCardDecksCreate',

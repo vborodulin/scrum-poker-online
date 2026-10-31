@@ -5,7 +5,7 @@ import {
 } from '@chpokify/models-types';
 import Joi from '@hapi/joi';
 
-import { coreSchemas, TSuccessVoidResult } from '../coreSchemas';
+import { coreSchemas } from '../coreSchemas';
 
 export namespace participantsSchemas {
   // update participant
@@ -39,8 +39,6 @@ export namespace participantsSchemas {
   export type TLeaveResResp = {
     space: TSpace
   };
-
-  export type TInviteSendEmailResp = TSuccessVoidResult;
 
   // toggle admin
   export type TSetAdminRoleReq = {

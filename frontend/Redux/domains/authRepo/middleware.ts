@@ -41,11 +41,6 @@ const postAuth: TAppMiddleware = (reduxStore) => (next) =>
         await dispatch(authRepoOperations.loadCurrUserMeta());
         await dispatch(authRepoOperations.redirectAfterLogin());
         break;
-      case authActionsTypes.CRYPTO_AUTH_FULFILLED:
-        dispatch(spacesActions.inviteTokenClear());
-        await dispatch(authRepoOperations.loadCurrUserMeta());
-        await dispatch(authRepoOperations.redirectAfterLogin());
-        break;
       default:
         break;
     }

@@ -1,5 +1,6 @@
 .git
-node_modules
+**/node_modules
+**/.next
 Dockerfile
 docker-compose.yml
 .gitlab-ci.yml

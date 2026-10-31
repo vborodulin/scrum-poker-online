@@ -7,7 +7,6 @@ declare global {
     dataLayer: any[];
     ga?: any;
     Paddle?: any;
-    JitsiMeetExternalAPI?: any;
     AppleID: any;
   }
 }

@@ -24,9 +24,6 @@ export const authActionsTypes = {
   APPLE_OAUTH_FULFILLED: 'auth/appleOauth/fulfilled',
   APPLE_OAUTH_REJECTED: 'auth/appleOauth/rejected',
 
-  // crypto auth
-  CRYPTO_AUTH_FULFILLED: 'auth/crypto/fulfilled',
-
   // sign up
   SIGN_UP_PENDING: 'auth/signUp/pending',
   SIGN_UP_FULFILLED: 'auth/signUp/fulfilled',
@@ -39,21 +36,6 @@ export const authActionsTypes = {
 
   // sign out from other tab
   SIGN_OUT_FORM_OTHER_TAB: 'auth/signOut/fromOtherTab',
-
-  // restore password
-  RESTORE_PASSWORD_PENDING: 'auth/password/restore/pending',
-  RESTORE_PASSWORD_FULFILLED: 'auth/password/restore/fulfilled',
-  RESTORE_PASSWORD_REJECTED: 'auth/password/restore/rejected',
-
-  // reset password
-  RESET_PASSWORD_PENDING: 'auth/password/reset/pending',
-  RESET_PASSWORD_FULFILLED: 'auth/password/reset/fulfilled',
-  RESET_PASSWORD_REJECTED: 'auth/password/reset/rejected',
-
-  // reset password validate
-  RESET_PASSWORD_VALIDATE_PENDING: 'auth/password/reset/validate/pending',
-  RESET_PASSWORD_VALIDATE_FULFILLED: 'auth/password/reset/validate/fulfilled',
-  RESET_PASSWORD_VALIDATE_REJECTED: 'auth/password/reset/validate/rejected',
 
   // after login redirect
   AFTER_LOGIN_REDIRECT_DATA_SET: 'auth/afterLoginRedirect/data/set',

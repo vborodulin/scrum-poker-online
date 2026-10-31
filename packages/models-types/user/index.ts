@@ -1,7 +1,6 @@
 import { Stripe } from 'stripe';
 
 import { TEntityID } from '../core';
-import { TJiraIntegration } from '../core/integrations';
 import { TParticipant } from '../space';
 
 export const USERNAME_MIN_LENGTH = 3;
@@ -43,7 +42,6 @@ export type TUser = {
   _id: TEntityID;
   username: string;
   email: string;
-  address?: string;
   settings: TUserSettings;
   role: USER_ROLES.USER | USER_ROLES.ADMIN;
   showSpaceOnboarding?: boolean;
@@ -54,7 +52,6 @@ export type TUser = {
 
   // protected
   password: string;
-  jiraIntegrations: Record<string, TJiraIntegration>;
   googleId?: string;
   customerId?: string;
   isGuest?: boolean;
@@ -63,7 +60,6 @@ export type TUser = {
 export type TUserProtected = Omit<TUser,
   'password'
   | 'settings'
-  | 'jiraIntegrations'
   | 'customerId'>;
 
 export type TUserWithParticipant = TUserProtected & {

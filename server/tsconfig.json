@@ -28,20 +28,11 @@
       "@core/*": [
         "core/*"
       ],
-      "@queue/*": [
-        "queue/*"
-      ],
-      "@queue": [
-        "queue"
-      ],
       "@domains": [
         "domains"
       ],
       "@domains/*": [
         "domains/*"
-      ],
-      "@mail/*": [
-        "domains/mail/*"
       ],
       "@metrics/*": [
         "domains/metrics/*"
@@ -66,9 +57,6 @@
       ],
       "@config/*": [
         "config/*"
-      ],
-      "@jira/*": [
-        "jira/*"
       ],
       "@spaces/*": [
         "domains/spaces/*"

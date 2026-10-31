@@ -2,7 +2,6 @@ import React from 'react';
 
 import { RetroSessionActionsColumnBtn } from '@components/domains/retro/buttons/RetroSessionActionsColumnBtn';
 import { RetroSessionInviteBtn } from '@components/domains/retro/buttons/RetroSessionInviteBtn';
-import { RetroSessionJoinVideoCallBtn } from '@components/domains/retro/buttons/RetroSessionJoinVideoCallBtn';
 import { RetroSessionPeopleBtn } from '@components/domains/retro/buttons/RetroSessionPeopleBtn';
 
 import { Flex, TFlexProps } from '@components/uiKit/Flex';
@@ -31,8 +30,6 @@ const RetroSessionActions = (props: TRetroSessionActionsProps): React.ReactEleme
       <RetroSessionPeopleBtn
         canModerate={canModerate}
       />
-
-      <RetroSessionJoinVideoCallBtn />
 
       <RetroSessionActionsColumnBtn
         canModerate={canModerate}

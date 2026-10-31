@@ -3,7 +3,6 @@ import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import { PokerFeedBackBtn } from '@components/domains/poker/buttons/PokerFeedBackBtn';
-import { PokerJoinCallBtn } from '@components/domains/poker/buttons/PokerJoinCallBtn';
 import { PokerSessionInviteBtn } from '@components/domains/poker/buttons/PokerSessionInviteBtn';
 import { PokerStoriesBtn } from '@components/domains/poker/buttons/PokerStoriesBtn';
 import { PokerSessionStats } from '@components/domains/poker/PokerSession/PokerSessionHeader/PokerSessionStats';
@@ -14,13 +13,11 @@ import { TRANS } from '@components/utils/types';
 
 export type TPokerSessionActionsProps = {
   pokerSessionId: TEntityID;
-  isVideoCall: boolean
 }
 
 const PokerSessionActions = (props: TPokerSessionActionsProps): React.ReactElement | null => {
   const {
     pokerSessionId,
-    isVideoCall,
   } = props;
 
   const { t } = useTranslation(TRANS.MAIN);
@@ -49,10 +46,6 @@ const PokerSessionActions = (props: TPokerSessionActionsProps): React.ReactEleme
         pokerSessionId={pokerSessionId}
         variant="base"
       />
-
-      {
-        isVideoCall && <PokerJoinCallBtn />
-      }
     </Flex>
   );
 };

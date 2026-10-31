@@ -209,15 +209,6 @@ const selectedStoryIdReducer = (state: StoryIdState = storyIdInitialState, actio
   }
 };
 
-const isVideoCallOpenReducer = (state: boolean = false, action: TAppAction): boolean => {
-  switch (action.type) {
-    case pokerSessionsActionsTypes.IS_VIDEO_CALL_OPEN_SET:
-      return action.payload.isVideoCallOpen;
-    default:
-      return state;
-  }
-};
-
 type TInviteState = {
   token: string;
   payload: TInvitePokerSessionTokenPayload;
@@ -262,6 +253,5 @@ export const pokerSessionsReducer = combineReducers({
   entities: entitiesReducer,
   pokerSessionId: pokerSessionIdReducer,
   selectedStoryId: selectedStoryIdReducer,
-  isVideoCallOpen: isVideoCallOpenReducer,
   invite: inviteReducer,
 });

@@ -5,10 +5,6 @@ enum INVITE_USER_TO {
   RETRO
 }
 
-type TResetPasswordTokenPayload = {
-  email: string
-};
-
 type TLogInGuest = {
   email: string;
   teamId: TEntityID
@@ -22,5 +18,4 @@ export {
 
 export type{
   TLogInGuest,
-  TResetPasswordTokenPayload,
 };

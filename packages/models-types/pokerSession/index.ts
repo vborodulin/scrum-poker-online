@@ -37,12 +37,6 @@ export type TPokerSessionStoryResult = {
   duration: number;
 };
 
-type TJiraPokerSession = {
-  baseUrl?: string;
-  project?: Record<string, any>;
-  field?: Record<string, any>;
-}
-
 export type TRatingPokerSession = {
   result?: number;
   isAnonym?: boolean
@@ -68,7 +62,6 @@ export type TPokerSession = {
   results: Record<string, TPokerSessionStoryResult>;
   active: TPokerSessionActiveInfo | null;
   isAutoReveal: boolean;
-  isVideoCall: boolean;
   cardSetId: TEntityID;
   title?: string;
   description?: string;
@@ -76,7 +69,6 @@ export type TPokerSession = {
   updatedAt?: string;
   isDeleted?: string;
   deletedAt?: string;
-  jira?: TJiraPokerSession
   rating?: TRatingPokerSession[]
 }
 

@@ -23,20 +23,16 @@ import { PaperHeader } from '@components/uiKit/PaperHeader';
 
 import { TRANS } from '@components/utils/types';
 
-import { ClientError, HttpError } from '@lib/errors';
-
 const FORM_ID = 'PokerSessionCreateModal';
 
 export type TSessionCreateMainLayoutProps = TModalProps & Omit<TPokerSessionEditFormProps, 'formId'> & {
   onCancel: () => void;
   onSubmit: () => void;
-  jiraApiErr:ClientError | HttpError | undefined
 };
 
 const Layout = (props: TSessionCreateMainLayoutProps): React.ReactElement | null => {
   const {
     formRefs,
-    formRefsJira,
     defaultValue,
     errors,
     errGlobalMsg,
@@ -44,15 +40,6 @@ const Layout = (props: TSessionCreateMainLayoutProps): React.ReactElement | null
     cardSetId,
     onCancel,
     onSubmit,
-    isShowIntegJira,
-    setIsShowIntegJira,
-    domainOptions,
-    jiraProjectsOptions,
-    jiraFieldsOptions,
-    isConnectedJira,
-    onRefreshIntegrations,
-    jiraApiErr,
-    onClickConnectingJira,
     ...other
   } = props;
 
@@ -73,25 +60,14 @@ const Layout = (props: TSessionCreateMainLayoutProps): React.ReactElement | null
       <PaperContent>
         <PokerSessionEditForm
           cardDecksOptions={cardDecksOptions}
-          jiraApiErr={jiraApiErr}
-          isShowIntegJira={isShowIntegJira}
-          setIsShowIntegJira={setIsShowIntegJira}
-          isConnectedJira={isConnectedJira}
-          domainOptions={domainOptions}
-          jiraProjectsOptions={jiraProjectsOptions}
-          jiraFieldsOptions={jiraFieldsOptions}
           formId={FORM_ID}
           cardSetId={cardSetId}
           formRefs={formRefs}
-          formRefsJira={formRefsJira}
           defaultValue={defaultValue}
           errors={errors}
           errGlobalMsg={errGlobalMsg}
           isLoading={isLoading}
-          isEdit={false}
           onSubmit={onSubmit}
-          onClickConnectingJira={onClickConnectingJira}
-          onRefreshIntegrations={onRefreshIntegrations}
         />
 
       </PaperContent>

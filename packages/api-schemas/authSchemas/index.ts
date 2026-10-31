@@ -61,22 +61,44 @@ export namespace AuthSchemas {
     inviteSpaceToken?: string;
   }
 
-  // join session guest
+  // guest name: any letters (not only latin), digits, spaces; unlike username of registered user
+  const GUEST_NAME_REGEXP = /^[\p{L}\p{N}][\p{L}\p{N} _.'-]*$/u;
+
+  export const GuestNameSchema = Joi.string()
+    .trim()
+    .min(USERNAME_MIN_LENGTH)
+    .max(USERNAME_MAX_LENGTH)
+    .pattern(GUEST_NAME_REGEXP)
+    .messages({
+      'any.required': transServer.t('schemas.authGuest.username.string.empty'),
+      'string.empty': transServer.t('schemas.authGuest.username.string.empty'),
+      'string.min': transServer.t('schemas.authGuest.username.string.invalid', {
+        min: USERNAME_MIN_LENGTH,
+        max: USERNAME_MAX_LENGTH,
+      }),
+      'string.max': transServer.t('schemas.authGuest.username.string.invalid', {
+        min: USERNAME_MIN_LENGTH,
+        max: USERNAME_MAX_LENGTH,
+      }),
+      'string.pattern.base': transServer.t('schemas.authGuest.username.string.invalid', {
+        min: USERNAME_MIN_LENGTH,
+        max: USERNAME_MAX_LENGTH,
+      }),
+    });
+
+  // join session guest: no email, guest is recognized by session cookie
   export type TLogInGuestBodyReq = {
-    email: string;
-    teamId: TEntityID
+    username: string;
+    // may be omitted when the invite link has only one team
+    teamId?: TEntityID;
     inviteToken: string;
     inviteTo: INVITE_USER_TO
   };
 
   export const LogInGuestSchema = Joi.object({
     body: {
-      email: EmailSchema.required(),
-      teamId: Joi.string()
-        .messages({
-          'string.empty': transServer.t('schemas.authGuest.teamId.string.empty'),
-        })
-        .required(),
+      username: GuestNameSchema.required(),
+      teamId: Joi.string(),
       inviteToken: Joi.string().required(),
       inviteTo: Joi.number().valid(INVITE_USER_TO.RETRO, INVITE_USER_TO.POKER).required(),
     },

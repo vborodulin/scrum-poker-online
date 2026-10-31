@@ -60,8 +60,10 @@ const UserSchema = new mongoose.Schema<TUserDocument>({
     type: String,
     trim: true,
     lowercase: true,
-    required: true,
-    unique: true,
+    // guests have no email
+    required(this: TUserDocument) {
+      return !this.isGuest;
+    },
   },
   password: {
     type: String,
@@ -131,6 +133,14 @@ UserSchema.methods.protect = function (): TUserProtected {
  */
 UserSchema.index({
   googleId: 1,
+});
+// unique among users with email only: guests have no email
+// (see migration 20261031140000-user-email-partial-unique-index)
+UserSchema.index({
+  email: 1,
+}, {
+  unique: true,
+  partialFilterExpression: { email: { $type: 'string' } },
 });
 
 /**

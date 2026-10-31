@@ -41,7 +41,8 @@ export type TUserSettings = {
 export type TUser = {
   _id: TEntityID;
   username: string;
-  email: string;
+  // guests have no email
+  email?: string;
   settings: TUserSettings;
   role: USER_ROLES.USER | USER_ROLES.ADMIN;
   showSpaceOnboarding?: boolean;

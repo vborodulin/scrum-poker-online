@@ -6,9 +6,7 @@ import {
 } from '@chpokify/models-types';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useSelector } from 'react-redux';
 
-import { asyncRejectedSelectors } from '@Redux/domains/asyncInfo/rejected/selectors';
 import { authActionsTypes } from '@Redux/domains/auth/actionsTypes';
 import { authAsyncActions } from '@Redux/domains/auth/asyncActions';
 import { useAppDispatch } from '@Redux/hooks';
@@ -54,23 +52,24 @@ const LogInGuest = (props: TLogInGuestProps): React.ReactElement | null => {
   const { errGlobalMsg } = useAsyncActionInfo(
     [authActionsTypes.LOG_IN_GUEST_PENDING],
     [
-      'email',
+      'username',
       'teamId',
     ],
     setError
   );
-  const loginApiErr = useSelector(asyncRejectedSelectors.createErrorSelector)([authActionsTypes.LOG_IN_GUEST_PENDING]);
 
-  const watchEmail = watch('email');
+  const watchUsername = watch('username');
 
+  // with one team in the invite link the team select is not shown: server picks the team
   const enhanceData = (data: TFormData, token: string): TLogInGuest => ({
-    ...data,
+    username: data.username,
+    teamId: data.teamId || undefined,
     inviteToken: token,
     inviteTo: inviteUserTo,
   });
 
   const onSubmit = async (data: TFormData) => {
-    if (!watchEmail || !inviteToken) {
+    if (!watchUsername || !inviteToken) {
       return;
     }
 
@@ -85,16 +84,15 @@ const LogInGuest = (props: TLogInGuestProps): React.ReactElement | null => {
   return (
     <Layout
       formRefs={{
-        email: register,
+        username: register,
         teamId: register,
       }}
       errors={errors}
       errGlobalMsg={errGlobalMsg}
-      hasChanges={!!watchEmail}
+      hasChanges={!!watchUsername?.trim()}
       isLoading={isSubmitting}
       onSubmit={handleSubmit(onSubmit)}
       teamsOptions={teamsOptions}
-      loginApiErr={loginApiErr}
       {...other}
     />
   );

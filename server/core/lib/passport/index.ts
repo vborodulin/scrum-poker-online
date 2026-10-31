@@ -35,12 +35,18 @@ const configurePassport = () => {
     )
   );
 
+  // session stores user id: guests have no email
   passport.serializeUser((user: TUser, done) => {
-    done(null, user.email);
+    done(null, user._id.toString());
   });
 
-  passport.deserializeUser((email: string, done) => {
-    UserModel.findOne({ email }).select('+password')
+  passport.deserializeUser((idOrEmail: string, done) => {
+    // sessions created before guests without email store user email
+    const query = idOrEmail.includes('@')
+      ? UserModel.findOne({ email: idOrEmail })
+      : UserModel.findById(idOrEmail);
+
+    query.select('+password')
       .then((user) => {
         if (!user) {
           return done(null, false);

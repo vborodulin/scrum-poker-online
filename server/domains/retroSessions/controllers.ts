@@ -8,6 +8,8 @@ import { RetroSessionExporter } from '@domains/retroSessions/services/RetroSessi
 import { RetroSessionService } from '@domains/retroSessions/services/RetroSessionService';
 import { RetroTemplatesService } from '@domains/retroTemplates/services';
 
+import { inviteTokenUsage } from '@auth/services/inviteTokenUsage';
+
 import {
   BadRequestError, ERROR_CODES, NotFoundError,
 } from '@core/lib/errors';
@@ -184,6 +186,17 @@ const inviteValidate = createHandler(async (
     throw new BadRequestError(validateTokenRes.err.message, [
       {
         message: transServer.t('errors.retroSession.invite.invalidToken'),
+        path: ['body', 'token'],
+      },
+    ]);
+  }
+
+  // used one-time link shows the error only to new guests:
+  // logged in users (including the guest who used it) are just redirected to the session
+  if (!req.user && await inviteTokenUsage.isUsed(token)) {
+    throw new BadRequestError(ERROR_CODES.UNMET_CONDITIONS_ERROR, [
+      {
+        message: transServer.t('errors.auth.guest.inviteUsed'),
         path: ['body', 'token'],
       },
     ]);

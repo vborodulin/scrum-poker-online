@@ -1,9 +1,8 @@
 import { userHelpers } from '@chpokify/helpers';
 import { transServer } from '@chpokify/i18n';
 import { THEME_TYPES, TUser, USER_ROLES } from '@chpokify/models-types';
-import shortid from 'shortid';
 
-import { BadRequestError, ERROR_CODES, ForbiddenError } from '@core/lib/errors';
+import { BadRequestError, ERROR_CODES } from '@core/lib/errors';
 
 import { TUserDocument, UserModel } from '@models/user';
 
@@ -61,32 +60,13 @@ class UserService {
     });
   }
 
-  public static async createLocalGuest(email: string): Promise<TUserDocument> {
-    const userNameDuplicate = await UserModel.findOne({
-      email,
-    });
-
-    if (userNameDuplicate) {
-      if (userNameDuplicate.isGuest) {
-        return userNameDuplicate;
-      }
-
-      throw new ForbiddenError(ERROR_CODES.INVALID_PERMISSIONS, [
-        {
-          message: transServer.t('errors.auth.guest.forbidden'),
-          path: ['body', 'email'],
-        },
-      ]);
-    }
-
-    const username = userHelpers.getUsernameFromEmail(email);
-
-    const password = shortid.generate();
-
+  /**
+   * Guest has no email and password: it is recognized only by session cookie,
+   * so nobody can log in as another guest.
+   */
+  public static createGuest(username: string): TUserDocument {
     return new UserModel({
-      email,
       username,
-      password,
       role: USER_ROLES.USER,
       showSpaceOnboarding: true,
       showPokerOnboarding: true,

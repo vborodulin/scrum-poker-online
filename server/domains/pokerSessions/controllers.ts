@@ -8,7 +8,9 @@ import { PokerSessionExporter } from '@pokerSessions/services/PokerSessionExport
 import { updatePokerSession } from '@pokerSessions/services/updatePokerSession';
 import { io } from '@socket';
 
-import { BadRequestError } from '@core/lib/errors';
+import { inviteTokenUsage } from '@auth/services/inviteTokenUsage';
+
+import { BadRequestError, ERROR_CODES } from '@core/lib/errors';
 import { jwtToken } from '@core/lib/jwtToken';
 import { createHandler } from '@core/middleware/createHandler';
 import { TAppRequest, TAppResponse } from '@core/types';
@@ -173,6 +175,17 @@ const inviteValidate = createHandler(async (
     throw new BadRequestError(validateTokenRes.err.message, [
       {
         message: transServer.t('errors.pokerSession.invite.invalidToken'),
+        path: ['body', 'token'],
+      },
+    ]);
+  }
+
+  // used one-time link shows the error only to new guests:
+  // logged in users (including the guest who used it) are just redirected to the session
+  if (!req.user && await inviteTokenUsage.isUsed(token)) {
+    throw new BadRequestError(ERROR_CODES.UNMET_CONDITIONS_ERROR, [
+      {
+        message: transServer.t('errors.auth.guest.inviteUsed'),
         path: ['body', 'token'],
       },
     ]);

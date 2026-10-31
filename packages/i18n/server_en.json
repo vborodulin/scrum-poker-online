@@ -2,7 +2,13 @@
   "schemas": {
     "authGuest": {
       "teamId": {
-        "string.empty": "There is not a single command in the session, ask the admin to create and repeat again"
+        "string.empty": "There is not a single command in the session, ask the admin to create and repeat again",
+        "any.required": "Please choose your team.",
+        "invalid": "This team is not in the invite link. Please choose another team."
+      },
+      "username": {
+        "string.empty": "Please enter your name.",
+        "string.invalid": "Name should be %{min}-%{max} characters long: letters, digits, spaces, _ . ' -"
       }
     },
     "auth": {
@@ -186,21 +192,8 @@
       "invalidSignIn": "Email or password is invalid.",
       "sessionExpired": "Your session is expired, need login again.",
       "guest": {
-        "forbidden": "This email is already registered. Please log in with password to join the session."
+        "inviteUsed": "This invite link has already been used. Please ask the session admin for a new link."
       }
-    },
-    "jiraIntegration": {
-      "noConnectedDomain": "JIRA domain is not connected to Chpokify. Go to integration settings and follow instructions."
-    },
-    "jiraOauth": {
-      "common": "This account is not connected yet. Please check that the instructions are followed correctly or contact us by %{supportEmail}. JIRA error code: %{error}.",
-      "notFoundUrl": "Can't connect to the provide JIRA url. Please check the correctness."
-    },
-    "jiraApi": {
-      "common": "Couldn’t import from JIRA. Please try again. If it happens again, please contact us by %{supportEmail}. JIRA error code: %{error}.",
-      "auth": "Couldn’t import because of JIRA auth problem. Refresh your JIRA connection in integrations settings. If it won’t help, contact us by %{supportEmail}. JIRA error code: %{error}.",
-      "tokenRejected": "Jira connection expired.",
-      "fieldNotScreen": "Can’t be pasted to this field. Please add it to your project’s screens in Jira first."
     },
     "paymentSubscription": {
       "invalidId": "Subscription id is invalid.",

@@ -1,8 +1,6 @@
 import { routing } from '@chpokify/routing';
-import { Trans, useTranslation } from 'next-i18next';
+import { useTranslation } from 'next-i18next';
 import React, { FormEvent } from 'react';
-
-import { TStateError } from '@Redux/domains/asyncInfo/rejected/reducers';
 
 import { DataEncrypted } from '@components/domains/auth/DataEncrypted';
 import { Terms } from '@components/domains/auth/Terms';
@@ -29,8 +27,9 @@ import { TRANS } from '@components/utils/types';
 import { TFormErrors } from '@lib/types/form';
 
 export type TFormData = {
-  email: string;
-  teamId: string;
+  username: string;
+  // not rendered when the invite link has only one team
+  teamId?: string;
 };
 
 type TFormRefs = Record<keyof TFormData, React.Ref<HTMLInputElement>>;
@@ -43,7 +42,6 @@ export type TLogInLayoutProps = TFlexProps & {
   isLoading: boolean;
   onSubmit: (event: FormEvent) => void;
   teamsOptions: TSelectOption[],
-  loginApiErr: TStateError
 }
 
 const Layout = (props: TLogInLayoutProps): React.ReactElement | null => {
@@ -51,7 +49,6 @@ const Layout = (props: TLogInLayoutProps): React.ReactElement | null => {
     formRefs,
     errors,
     errGlobalMsg,
-    loginApiErr,
     isLoading,
     hasChanges,
     onSubmit,
@@ -59,25 +56,6 @@ const Layout = (props: TLogInLayoutProps): React.ReactElement | null => {
   } = props;
 
   const { t } = useTranslation(TRANS.MAIN);
-
-  const getErrorMailMessage = () => {
-    if (errors.email?.message && loginApiErr?.code === 403) {
-      return (
-        <Trans
-          i18nKey="logInGuest.emailInput.errorMessage"
-          components={{
-            nextLink: (
-              <LinkComponent
-                href={routing.getSignUpUrl()}
-              />
-            ),
-          }}
-        />
-      );
-    }
-
-    return errors.email?.message;
-  };
 
   return (
     <Flex
@@ -113,39 +91,38 @@ const Layout = (props: TLogInLayoutProps): React.ReactElement | null => {
           <fieldset
             disabled={isLoading}
           >
-            <FormControl>
+            <FormControl
+              errorMessage={errors.username?.message}
+            >
               <FormLabel>
-                {t('logInGuest.emailInput.title')}
+                {t('logInGuest.userNameInput.title')}
               </FormLabel>
 
               <Input
-                inputRef={formRefs.email}
-                placeholder={t('logInGuest.emailInput.placeholder')}
-                name="email"
+                inputRef={formRefs.username}
+                placeholder={t('logInGuest.userNameInput.placeholder')}
+                name="username"
                 type="text"
+                autoComplete="name"
                 autoFocus
               />
-              <FormHelperText
-                variant="negative"
+            </FormControl>
+
+            {teamsOptions.length > 1 && (
+              <FormControl
+                errorMessage={errors.teamId?.message}
               >
-                {getErrorMailMessage()}
-              </FormHelperText>
-            </FormControl>
+                <FormLabel>
+                  {t('logInGuest.teamInput.title')}
+                </FormLabel>
 
-            <FormControl
-              errorMessage={errors.teamId?.message}
-            >
-              <FormLabel>
-                {t('logInGuest.teamInput.title')}
-              </FormLabel>
-
-              <Select
-                inputRef={formRefs.teamId}
-                name="teamId"
-                options={teamsOptions}
-              />
-
-            </FormControl>
+                <Select
+                  inputRef={formRefs.teamId}
+                  name="teamId"
+                  options={teamsOptions}
+                />
+              </FormControl>
+            )}
 
             <FormHelperText
               variant="negative"

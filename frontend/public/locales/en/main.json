@@ -433,13 +433,9 @@
   },
   "logInGuest": {
     "title": "Join session as a guest",
-    "emailInput": {
-      "title": "Your email",
-      "placeholder": "Email",
-      "errorMessage": "This email is already registered. Please <nextLink>log in with password</nextLink> to join the session."
-    },
     "userNameInput": {
-      "title": "Your guest name"
+      "title": "Your guest name",
+      "placeholder": "Name"
     },
     "teamInput": {
       "title": "Your team"

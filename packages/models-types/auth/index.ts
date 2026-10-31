@@ -6,8 +6,9 @@ enum INVITE_USER_TO {
 }
 
 type TLogInGuest = {
-  email: string;
-  teamId: TEntityID
+  username: string;
+  // may be omitted when the invite link has only one team
+  teamId?: TEntityID
   inviteToken: string;
   inviteTo: INVITE_USER_TO
 };

@@ -28,6 +28,9 @@ const RetroRelationsSchema = new mongoose.Schema<TRetroRelationsDocument>({
   strict: true,
   strictQuery: true,
   minimize: false,
+  // concurrent saves (adding, moving and removing cards in a column) must not overwrite each other:
+  // save fails with VersionError and is retried in saveWithRetry
+  optimisticConcurrency: true,
 });
 
 /**

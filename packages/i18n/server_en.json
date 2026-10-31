@@ -220,7 +220,8 @@
     "retroCard": {
       "invalidId": "Retro card id is invalid.",
       "notFound": "Retro card not found.",
-      "invalidMaxVotes": "You used all %{maxVotes} of your votes!"
+      "invalidMaxVotes": "You used all %{maxVotes} of your votes!",
+      "combineWithItself": "Retro card can't be combined with itself."
     },
     "retroSessionTemplate": {
       "invalidId": "Retro template id is invalid.",

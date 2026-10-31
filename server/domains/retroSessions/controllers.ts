@@ -2,7 +2,7 @@ import { retroSessionsSchemas, SUCCESS_VOID_RESULT, TSuccessVoidResult } from '@
 import { transServer } from '@chpokify/i18n';
 import { TInviteRetroSessionTokenPayload } from '@chpokify/models-types';
 import { routing } from '@chpokify/routing';
-import { RetroCardService } from '@domains/retroCards/service';
+import { updateRetroCard } from '@domains/retroCards/service';
 import { RetroRelationsService } from '@domains/retroRelations/services';
 import { RetroSessionExporter } from '@domains/retroSessions/services/RetroSessionExporter';
 import { RetroSessionService } from '@domains/retroSessions/services/RetroSessionService';
@@ -226,9 +226,10 @@ const resetVotes = createHandler(async (
     ]);
   }
 
-  const retroCardsNew = RetroCardService.removeVotes(retroCards);
-
-  await RetroCardModel.bulkSave(retroCardsNew);
+  // per card with retry: bulkSave skips cards changed concurrently (version mismatch) without error
+  await Promise.all(retroCards.map((retroCard) => updateRetroCard(retroCard, (doc) => {
+    doc.votes = [];
+  })));
 
   res.locals.result = SUCCESS_VOID_RESULT;
 });

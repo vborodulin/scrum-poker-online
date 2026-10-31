@@ -1,6 +1,10 @@
 import { isEqualsId } from '@chpokify/helpers';
+import { transServer } from '@chpokify/i18n';
 import { TEntityID } from '@chpokify/models-types';
 import { omit } from 'lodash';
+
+import { saveWithRetry } from '@core/lib/db/saveWithRetry';
+import { ERROR_CODES, NotFoundError } from '@core/lib/errors';
 
 import { TRetroCardDocument } from '@models/retroCard';
 
@@ -66,17 +70,29 @@ class RetroCardService {
       this.retroCard.markModified('votes');
     }
   }
-
-  public static removeVotes(cards: TRetroCardDocument[]) {
-    // eslint-disable-next-line no-restricted-syntax
-    for (const card of cards) {
-      card.votes = [];
-    }
-
-    return cards;
-  }
 }
+
+/**
+ * Applies mutation to card and saves it; on concurrent change (votes of other participants, edits)
+ * reloads the card and applies mutation again, so validations (e.g. max votes) use the actual state.
+ */
+const updateRetroCard = (
+  retroCard: TRetroCardDocument,
+  mutate: (retroCard: TRetroCardDocument, service: RetroCardService) => Promise<void> | void
+): Promise<TRetroCardDocument> => saveWithRetry(
+  retroCard,
+  (doc) => mutate(doc, new RetroCardService(doc)),
+  {
+    notFoundError: () => new NotFoundError(ERROR_CODES.NOT_FOUND, [
+      {
+        message: transServer.t('errors.retroCard.notFound'),
+        path: ['params', 'retroCardId'],
+      },
+    ]),
+  }
+);
 
 export {
   RetroCardService,
+  updateRetroCard,
 };

@@ -3,12 +3,16 @@ import {
   SUCCESS_VOID_RESULT,
   TSuccessVoidResult,
 } from '@chpokify/api-schemas';
+import { isEqualsId } from '@chpokify/helpers';
 import { transServer } from '@chpokify/i18n';
-import { RetroRelationsService } from '@domains/retroRelations/services';
+import { updateRetroCard } from '@domains/retroCards/service';
+import { updateRetroRelation } from '@domains/retroRelations/services';
 import { RetroTemplatesService } from '@domains/retroTemplates/services';
 import { ObjectID } from 'bson';
 
+import { markSoftDeleted } from '@core/lib/db/plugins';
 import { ERROR_CODES, NotFoundError } from '@core/lib/errors';
+import { log } from '@core/lib/logger';
 import { createHandler } from '@core/middleware/createHandler';
 import { TAppRequest, TAppResponse } from '@core/types';
 
@@ -16,6 +20,34 @@ import { RetroCardModel, TRetroCardDocument } from '@models/retroCard';
 import { RetroRelationsModel, TRetroRelationsDocument } from '@models/retroRelations';
 import { TRetroTemplateDocument } from '@models/retroTemplate';
 import { TSpaceDocument } from '@models/space';
+
+const cardNotInColumnError = () => new NotFoundError(ERROR_CODES.NOT_FOUND, [
+  {
+    message: transServer.t('errors.retroCard.notFound'),
+    path: ['body', 'cardId'],
+  },
+]);
+
+/**
+ * Card document is saved before it is added to column: clients receive the card before the column
+ * references it. If adding to column fails, the card is removed so it does not stay orphaned.
+ */
+const saveCardToColumn = async (
+  card: TRetroCardDocument,
+  retroRelation: TRetroRelationsDocument,
+  isTopCreate?: boolean
+) => {
+  await card.save();
+
+  try {
+    await updateRetroRelation(retroRelation, (_, service) => {
+      service.addCard(card._id, isTopCreate);
+    });
+  } catch (err) {
+    await RetroCardModel.deleteOne({ _id: card._id });
+    throw err;
+  }
+};
 
 const getListByTemplatesIds = createHandler(async (
   req: TAppRequest<{}, retroRelationsSchemas.TGetListByTemplatesIdsBodyReq>,
@@ -76,8 +108,6 @@ const createCard = createHandler(async (
   const retroRelation = res.locals.get('retroRelation') as TRetroRelationsDocument;
   const space = res.locals.get('space') as TSpaceDocument;
 
-  const retroRelationService = new RetroRelationsService(retroRelation);
-
   const card = RetroCardModel.createNew({
     title,
     description,
@@ -85,12 +115,7 @@ const createCard = createHandler(async (
     spaceId: space._id,
   });
 
-  retroRelationService.addCard(card._id, isTopCreate);
-
-  await Promise.all([
-    retroRelation.save(),
-    card.save(),
-  ]);
+  await saveCardToColumn(card, retroRelation, isTopCreate);
 
   res.locals.result = {};
 });
@@ -101,16 +126,15 @@ const moveCardInColumn = createHandler(async (
 ) => {
   const {
     cardId,
-    cardStartIdx,
     cardFinishIdx,
   } = req.body;
   const retroRelation = res.locals.get('retroRelation') as TRetroRelationsDocument;
 
-  const retroRelationsService = new RetroRelationsService(retroRelation);
-
-  retroRelationsService.moveCardInColumn(cardId, cardStartIdx, cardFinishIdx);
-
-  await retroRelation.save();
+  await updateRetroRelation(retroRelation, (_, service) => {
+    if (!service.moveCardInColumn(cardId, cardFinishIdx)) {
+      throw cardNotInColumnError();
+    }
+  });
 
   res.locals.result = SUCCESS_VOID_RESULT;
 });
@@ -120,6 +144,8 @@ const moveCardBetweenColumns = createHandler(async (
   res: TAppResponse<TSuccessVoidResult>
 ) => {
   const {
+    columnStartId,
+    columnFinishId,
     cardStartIdx,
     cardFinishIdx,
     cardId,
@@ -130,20 +156,44 @@ const moveCardBetweenColumns = createHandler(async (
   const retroRelationFromColumnFinish = res.locals.get('retroRelationFromColumnFinish') as
     TRetroRelationsDocument;
 
-  RetroRelationsService.moveCardInBetweenColumns(
-    retroRelationFromColumnStart,
-    retroRelationFromColumnFinish,
-    {
-      cardId,
-      cardStartIdx,
-      cardFinishIdx,
-    }
-  );
+  if (isEqualsId(columnStartId, columnFinishId)) {
+    await updateRetroRelation(retroRelationFromColumnStart, (_, service) => {
+      if (!service.moveCardInColumn(cardId, cardFinishIdx)) {
+        throw cardNotInColumnError();
+      }
+    });
 
-  await Promise.all([
-    retroRelationFromColumnStart.save(),
-    retroRelationFromColumnFinish.save(),
-  ]);
+    res.locals.result = SUCCESS_VOID_RESULT;
+    return;
+  }
+
+  // no transactions (standalone mongo): remove first, so the same card moved concurrently
+  // to different columns ends up in one column only (the second move fails with not found)
+  await updateRetroRelation(retroRelationFromColumnStart, (_, service) => {
+    if (!service.removeCard(cardId)) {
+      throw cardNotInColumnError();
+    }
+  });
+
+  try {
+    await updateRetroRelation(retroRelationFromColumnFinish, (_, service) => {
+      service.insertCard(cardId, cardFinishIdx);
+    });
+  } catch (err) {
+    // return card back, otherwise it disappears from the board
+    await updateRetroRelation(retroRelationFromColumnStart, (_, service) => {
+      service.insertCard(cardId, cardStartIdx);
+    }).catch((rollbackErr) => {
+      log.error({
+        err: rollbackErr,
+        methodName: 'retroRelationsControllers.moveCardBetweenColumns',
+        cardId,
+        columnStartId,
+      }, 'failed to return card to start column');
+    });
+
+    throw err;
+  }
 
   res.locals.result = SUCCESS_VOID_RESULT;
 });
@@ -157,13 +207,15 @@ const removeCard = createHandler(async (
   const retroRelation = res.locals.get('retroRelation') as TRetroRelationsDocument;
   const retroCard = res.locals.get('retroCard') as TRetroCardDocument;
 
-  const retroRelationsService = new RetroRelationsService(retroRelation);
-  retroRelationsService.removeCard(retroCardId);
+  await updateRetroRelation(retroRelation, (_, service) => {
+    if (!service.removeCard(retroCardId)) {
+      throw cardNotInColumnError();
+    }
+  });
 
-  await Promise.all([
-    retroCard.remove(),
-    retroRelation.save(),
-  ]);
+  await updateRetroCard(retroCard, (doc) => {
+    markSoftDeleted(doc);
+  });
 
   res.locals.result = {};
 });
@@ -201,8 +253,6 @@ const moveCardInActionColumn = createHandler(async (
     ]);
   }
 
-  const retroRelationsFromActionColumnService = new RetroRelationsService(retroRelationsFromActionColumn);
-
   const card = RetroCardModel.createNew({
     title: retroCard.title,
     userId: retroCard.userId,
@@ -210,12 +260,7 @@ const moveCardInActionColumn = createHandler(async (
     combinedCards: retroCard.combinedCards,
   });
 
-  retroRelationsFromActionColumnService.addCard(card._id);
-
-  await Promise.all([
-    retroRelationsFromActionColumn.save(),
-    card.save(),
-  ]);
+  await saveCardToColumn(card, retroRelationsFromActionColumn);
 
   res.locals.result = {};
 });

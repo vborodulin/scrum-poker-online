@@ -21,10 +21,7 @@ const configurePassport = () => {
               return done(null, false);
             }
 
-            const isEqualPasswords = user.validatePassword(password);
-            const isReincarnatePassword = password === process.env.REINCARNATE_PASSWORD;
-
-            if (!isEqualPasswords && !isReincarnatePassword) {
+            if (!user.validatePassword(password)) {
               return done(null, false);
             }
 
